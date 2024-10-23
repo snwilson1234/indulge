@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indulge/lists/views/user_lists_view.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,9 +10,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Login()
+        body: Center(
+          child: Container(
+            padding: EdgeInsets.all(8.0),
+            child: UserListsView(),
+          ),
+        ),
       ),
     );
   }
