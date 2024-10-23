@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:indulge/lists/widgets/list_item_widget.dart';
 
 class UserListsView extends StatefulWidget {
   const UserListsView({Key? key}) : super(key : key);
@@ -19,7 +20,7 @@ class _DefaultState extends State<UserListsView> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         const Text(
@@ -27,20 +28,24 @@ class _DefaultState extends State<UserListsView> {
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 30
+            fontSize: 30,
           ),
         ),
-        // possibly add searchbar functionality
+        // TODO?: possibly add searchbar functionality
         // const SearchBar(
           
         // ),
         const Divider(),
         Expanded(
-          child: ListView(
-            children: const <Widget>[
-              Text("fake item"),
-            ],
-          )
+          child: ListView.separated(
+            itemCount: 20,
+            itemBuilder: (context, index) {
+              return ListItemWidget();
+            },
+            separatorBuilder: (context, index) {
+              return Divider();
+            },
+          ),
         )
       ],
     );
