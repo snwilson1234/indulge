@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indulge/lists/widgets/list_item_widget.dart';
 
@@ -26,16 +27,16 @@ class _DefaultState extends State<UserListsView> {
         const Text(
           "My Lists",
           style: TextStyle(
-            color: Colors.black,
+            color: Color.fromARGB(255, 0, 0, 0),
             fontWeight: FontWeight.bold,
             fontSize: 30,
           ),
         ),
+        Divider(),
         // TODO?: possibly add searchbar functionality
         // const SearchBar(
           
         // ),
-        const Divider(),
         Expanded(
           child: ListView.separated(
             itemCount: 20,
