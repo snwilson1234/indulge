@@ -1,7 +1,11 @@
+// Flutter packages
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
+
+// Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/reviews/views/user_reviews_view.dart';
+import 'package:indulge/reviews/views/review_detail_view.dart';
+
 
 void main() {
   runApp(const MainApp());
@@ -36,7 +40,7 @@ class MainApp extends StatelessWidget {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(8.0),
-            child: UserReviewsView(),//UserReviewsView(),//UserListsView(),
+            child: ReviewDetailView(),//UserReviewsView(),//UserReviewsView(),//UserListsView(),
           ),
         ),
       ),
