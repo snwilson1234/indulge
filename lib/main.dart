@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 import 'package:indulge/lists/views/user_lists_view.dart';
+import 'package:indulge/reviews/views/user_reviews_view.dart';
 
 void main() {
   runApp(const MainApp());
@@ -35,7 +36,7 @@ class MainApp extends StatelessWidget {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(8.0),
-            child: UserListsView(),
+            child: UserReviewsView(),//UserReviewsView(),//UserListsView(),
           ),
         ),
       ),
