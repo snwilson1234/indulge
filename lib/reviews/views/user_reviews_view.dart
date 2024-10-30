@@ -1,14 +1,10 @@
-
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
-import 'package:indulge/reviews/widgets/review_item_widget.dart';
 import 'package:indulge/reviews/widgets/review_list_widget.dart';
 import 'package:provider/provider.dart';
+
 
 class UserReviewsView extends StatefulWidget {
   const UserReviewsView({super.key});
@@ -17,12 +13,16 @@ class UserReviewsView extends StatefulWidget {
   _UserReviewsViewState createState() => _UserReviewsViewState();
 }
 
+
 class _UserReviewsViewState extends State<UserReviewsView> {
+
+  final _textController = TextEditingController();
   
   @override
   void initState() {
     super.initState();
-    Provider.of<ReviewsViewModel>(context, listen: false).fetchReviewsJson();
+    // start with full list
+    Provider.of<ReviewsViewModel>(context, listen: false).fetchReviewsJson("");
   }
   
   @override
@@ -42,8 +42,22 @@ class _UserReviewsViewState extends State<UserReviewsView> {
         ),
         Divider(),
         CupertinoSearchTextField(
-          controller: TextEditingController(text: 'helloworld'),
+          controller: _textController,
+          onSubmitted: (value) {
+            // simple searching when typing term and hitting enter
+            if (value.isNotEmpty) {
+              vm.fetchReviewsJson(value);
+              _textController.clear();
+            }
+            else {
+              vm.fetchReviewsJson("");
+            }
+          },
+          onTap: () {
+            vm.fetchReviewsJson("");
+          },
         ),
+        Divider(),
         Expanded(
           child: ReviewListWidget(
             reviews: vm.reviews
