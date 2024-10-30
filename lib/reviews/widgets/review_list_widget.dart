@@ -16,8 +16,15 @@ class ReviewListWidget extends StatelessWidget {
 
         final review = reviews[index];
 
-        return ReviewItemWidget(
-          review: review
+        return GestureDetector(
+          onTap: () {
+            print("tapped review for");
+            print(review.restaurantName);
+            // Navigator.pushNamed(context, detailsRoute)
+          },
+          child: ReviewItemWidget(
+            review: review
+          ),
         );
       },
       separatorBuilder: (context, index) {
