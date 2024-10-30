@@ -3,12 +3,19 @@ import 'package:flutter/cupertino.dart';
 
 // Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
+import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/views/user_reviews_view.dart';
+import 'package:provider/provider.dart';
 import 'package:indulge/reviews/views/review_detail_view.dart';
 
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ReviewsViewModel(),
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -40,7 +47,7 @@ class MainApp extends StatelessWidget {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(8.0),
-            child: ReviewDetailView(),//UserReviewsView(),//UserReviewsView(),//UserListsView(),
+            child: UserReviewsView()//UserReviewsView(),//UserReviewsView(),//UserListsView(),
           ),
         ),
       ),
