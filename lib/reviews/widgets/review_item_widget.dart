@@ -2,9 +2,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indulge/common/star_widget.dart';
+import 'package:indulge/reviews/models/review.dart';
+import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 
 class ReviewItemWidget extends StatelessWidget {
+  
+  final ReviewViewModel review;
+  
   const ReviewItemWidget({
+    required this.review,
     Key? key,
   }) : super(key: key);
   
@@ -15,7 +21,7 @@ class ReviewItemWidget extends StatelessWidget {
         vertical: 0,
         horizontal: 10.0
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -23,7 +29,7 @@ class ReviewItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "Restaurant Name",
+                review.restaurantName,
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold

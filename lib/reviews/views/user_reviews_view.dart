@@ -1,25 +1,33 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:indulge/reviews/widgets/review_item_widget.dart';
+import 'package:flutter/services.dart';
+import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
+import 'package:indulge/reviews/widgets/review_list_widget.dart';
+import 'package:provider/provider.dart';
+
 
 class UserReviewsView extends StatefulWidget {
-  const UserReviewsView({Key? key}) : super(key : key);
+  const UserReviewsView({super.key});
 
   @override
-  State<UserReviewsView> createState() => _DefaultState();
+  _UserReviewsViewState createState() => _UserReviewsViewState();
 }
 
-class _DefaultState extends State<UserReviewsView> {
+
+class _UserReviewsViewState extends State<UserReviewsView> {
+
+  final _textController = TextEditingController();
   
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    // start with full list
+    Provider.of<ReviewsViewModel>(context, listen: false).fetchReviewsJson("");
   }
   
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<ReviewsViewModel>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -33,19 +41,26 @@ class _DefaultState extends State<UserReviewsView> {
           ),
         ),
         Divider(),
-        // TODO: make this functional
         CupertinoSearchTextField(
-          controller: TextEditingController(text: 'helloworld'),
+          controller: _textController,
+          onSubmitted: (value) {
+            // simple searching when typing term and hitting enter
+            if (value.isNotEmpty) {
+              vm.fetchReviewsJson(value);
+              _textController.clear();
+            }
+            else {
+              vm.fetchReviewsJson("");
+            }
+          },
+          onTap: () {
+            vm.fetchReviewsJson("");
+          },
         ),
+        Divider(),
         Expanded(
-          child: ListView.separated(
-            itemCount: 20,
-            itemBuilder: (context, index) {
-              return ReviewItemWidget();
-            },
-            separatorBuilder: (context, index) {
-              return Divider();
-            },
+          child: ReviewListWidget(
+            reviews: vm.reviews
           ),
         )
       ],
