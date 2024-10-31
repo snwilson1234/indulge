@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 
+import 'package:flutter_rating/flutter_rating.dart';
+
 
 class ReviewDetailView extends StatelessWidget {
   const ReviewDetailView({Key? key}) : super(key : key);
@@ -18,7 +20,7 @@ class ReviewDetailView extends StatelessWidget {
             fontSize: 30,
           ),
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         const Text(
           "Restaurant Name:",
           style: TextStyle(
@@ -27,19 +29,17 @@ class ReviewDetailView extends StatelessWidget {
             fontWeight: FontWeight.bold
           ),
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         const IconTheme(
           data: IconThemeData(
             color: CupertinoColors.black,
             size: 40.0
           ), 
-          child: StarWidget(
-            value: 3
-          )
+          child: StarWidget()
         ),
-        SizedBox(height: 50.0),
+        const SizedBox(height: 50.0),
         const ReviewEditorWidget(),
-        SizedBox(height: 50.0),
+        const SizedBox(height: 50.0),
         Container(
           alignment: Alignment.center,
           child: Column(

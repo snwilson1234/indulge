@@ -47,7 +47,7 @@ class MainApp extends StatelessWidget {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(8.0),
-            child: UserReviewsView()//UserReviewsView()//UserReviewsView(),//UserReviewsView(),//UserListsView(),
+            child: ReviewDetailView()//UserReviewsView()//UserReviewsView(),//UserReviewsView(),//UserListsView(),
           ),
         ),
       ),
