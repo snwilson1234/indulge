@@ -113,7 +113,7 @@ class _MainPageState extends State<MainPage> {
           case 3:
             return CupertinoTabView(
               routes: <String, WidgetBuilder>{
-                homeRoute: (context) => const Text("profile route"),
+                profileRoute: (context) => const Text("profile route"),
               },
               builder: (context) => const Text("profile route"),
             );
