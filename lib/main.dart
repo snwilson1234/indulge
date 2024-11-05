@@ -26,6 +26,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
+      initialRoute: homeRoute,
+      onGenerateRoute: local_router.Router.generateRoute,
       home: CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           backgroundColor: CupertinoColors.white,
@@ -82,30 +84,12 @@ class _MainPageState extends State<MainPage> {
         ],
       ), 
       tabBuilder: (BuildContext context, int index) {
-        return CupertinoTabView(
-          builder: (BuildContext context) {
-            return CupertinoPageScaffold(
-              backgroundColor: CupertinoColors.transparent,
-              child: Navigator(
-                onGenerateRoute: (RouteSettings settings) {
-                  switch (index) {
-                    case 0:
-                      return local_router.Router.generateRoute(const RouteSettings(name: homeRoute));
-                    case 1:
-                      return local_router.Router.generateRoute(const RouteSettings(name: listRoute));
-                    case 2:
-                      return local_router.Router.generateRoute(const RouteSettings(name: reviewRoute));
-                    case 3:
-                      return local_router.Router.generateRoute(const RouteSettings(name: profileRoute));
-                    default:
-                      // default to home if invalid tab index
-                      return local_router.Router.generateRoute(const RouteSettings(name: homeRoute));
-                  }
-                },
-              )
-            );
-          },
-        );
+        return const <Widget>[
+          CupertinoPageScaffold(child:Text("placeholder for home")),
+          CupertinoPageScaffold(child:UserListsView()),
+          CupertinoPageScaffold(child:UserReviewsView()),
+          CupertinoPageScaffold(child:Text("placeholder for profile"))
+        ][index];
       },
     );
   }
