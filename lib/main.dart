@@ -1,6 +1,11 @@
+// Flutter packages
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
+import 'package:indulge/routing/routes.dart';
+
+// Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
+import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(const MainApp());
@@ -13,9 +18,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoApp(
       home: CupertinoPageScaffold(
-        // const Navigation bar for now to fix display
         navigationBar: const CupertinoNavigationBar(
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: CupertinoColors.white,
           leading: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -32,124 +36,81 @@ class MainApp extends StatelessWidget {
           //just text for now
           trailing: Text("+ 20 mi -"),
         ),
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.all(8.0),
-            child: UserListsView(),
-          ),
-        ),
+        child: MainPage()
       ),
     );
   }
 }
 
-// class Login extends StatelessWidget {
-//   const Login({super.key});
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             const Expanded(
-//               flex: 1,
-//               child: Text("Login")
-//             ),
-//             const Expanded(
-//               flex: 2,
-//               child: LoginForm(),
-//             ),
-//             Expanded(
-//               flex: 1,
-//               child: Column(
-//                 children: [
-//                   const Text("Don't have an account with us? Sign up below."),
-//                   OutlinedButton(
-//                     onPressed: () {
-//                       print("pressed Sign Up");
-//                     }, 
-//                     child: const Text("Sign Up")
-//                   ),
-//                 ],
-//               )
-//             ),
-//           ],
-//       ),
-//       )
-//     );
-//   }
-// }
-
-// class LoginForm extends StatefulWidget {
-//   const LoginForm({super.key});
-
-//   @override
-//   LoginFormState createState() {
-//     return LoginFormState();
-//   }
-// }
-
-// class LoginFormState extends State<LoginForm> {
-//   // global key that uniquely identifies the Form widget
-//   // and allows validation
-//   final _formKey = GlobalKey<FormState>();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Form(
-//       key: _formKey,
-//       child: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: [
-//             // USERNAME FIELD
-//             ConstrainedBox(
-//               constraints: BoxConstraints.loose(
-//                 const Size(300, 50)
-//               ),
-//               child: TextFormField(
-//                 decoration: const InputDecoration(
-//                 icon: Icon(Icons.person),
-//                 hintText: 'Enter your username here.',
-//                 labelText: 'Username *',
-                
-//               ),
-//                 validator: (String? value) {
-//                   return (value != null) ? 'Required field' : null;
-//                 }
-//               ),
-//             ),
-//             // PASSWORD FIELD
-//             ConstrainedBox(
-//               constraints: BoxConstraints.loose(
-//                 const Size(300, 50)
-//               ),
-//               child: TextFormField(
-//                   obscureText: true,
-//                   decoration: const InputDecoration(
-//                     icon: Icon(Icons.person),
-//                     hintText: 'Enter your password here.',
-//                     labelText: 'Password *',
-//                   ),
-//                   validator: (String? value) {
-//                     return (value != null) ? 'Required field' : null;
-//                   }
-//               ),
-//             ),
-//             OutlinedButton(
-//               style: OutlinedButton.styleFrom(
-//                 textStyle: const TextStyle(fontSize: 20)
-//               ),
-//               onPressed: () {
-//                 print("pressed login");
-//               }, 
-//               child: Text("Login")
-//             ),
-//           ],    
-//         ),
-//       ),
-//     );
-//   }
-// }
+class _MainPageState extends State<MainPage> {
+  int currentIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoTabScaffold(
+      backgroundColor: CupertinoColors.white,
+      tabBar: CupertinoTabBar(
+        backgroundColor: CupertinoColors.white,
+        activeColor: CupertinoColors.black,
+        inactiveColor: CupertinoColors.inactiveGray,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.home),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.bars),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.pencil),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.profile_circled),
+          ),
+        ],
+      ), 
+      tabBuilder: (BuildContext context, int index) {
+        switch (index) {
+          case 0:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                homeRoute: (context) => const Text("home route"),
+              },
+              builder: (context) => const Text("home route"),
+            );
+          case 1:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                listRoute: (context) => const UserListsView(),
+              },
+              builder: (context) => const UserListsView(),
+            );
+          case 2:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                reviewRoute: (context) => const Text("reviews route"),
+              },
+              builder: (context) => const Text("reviews route"),
+            );
+          case 3:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                profileRoute: (context) => const Text("profile route"),
+              },
+              builder: (context) => const Text("profile route"),
+            );
+          default:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                '/unknown': (context) => const Text("unknown route"),
+              },
+              builder: (context) => const Text("unkown route"),
+            );
+        }
+      },
+    );
+  }
+}
