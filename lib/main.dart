@@ -1,6 +1,5 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
-import 'package:indulge/routing/router.dart' as local_router;
 import 'package:indulge/routing/routes.dart';
 
 // Our views
@@ -26,8 +25,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      initialRoute: homeRoute,
-      onGenerateRoute: local_router.Router.generateRoute,
       home: CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           backgroundColor: CupertinoColors.white,
