@@ -76,12 +76,43 @@ class _MainPageState extends State<MainPage> {
         ],
       ), 
       tabBuilder: (BuildContext context, int index) {
-        return const <Widget>[
-          CupertinoPageScaffold(child:Text("placeholder for home")),
-          CupertinoPageScaffold(child:UserListsView()),
-          CupertinoPageScaffold(child:Text("placeholder for home")),
-          CupertinoPageScaffold(child:Text("placeholder for profile"))
-        ][index];
+        switch (index) {
+          case 0:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                homeRoute: (context) => const Text("home route"),
+              },
+              builder: (context) => const Text("home route"),
+            );
+          case 1:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                listRoute: (context) => const UserListsView(),
+              },
+              builder: (context) => const UserListsView(),
+            );
+          case 2:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                reviewRoute: (context) => const Text("reviews route"),
+              },
+              builder: (context) => const Text("reviews route"),
+            );
+          case 3:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                profileRoute: (context) => const Text("profile route"),
+              },
+              builder: (context) => const Text("profile route"),
+            );
+          default:
+            return CupertinoTabView(
+              routes: <String, WidgetBuilder>{
+                '/unknown': (context) => const Text("unknown route"),
+              },
+              builder: (context) => const Text("unkown route"),
+            );
+        }
       },
     );
   }
