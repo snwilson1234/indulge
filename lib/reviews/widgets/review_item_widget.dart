@@ -17,6 +17,7 @@ class ReviewItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: CupertinoColors.white,
       padding: const EdgeInsets.symmetric(
         vertical: 0,
         horizontal: 10.0
@@ -30,12 +31,12 @@ class ReviewItemWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 review.restaurantName,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold
                 ),
               ),
-              IconTheme(
+              const IconTheme(
                 data: IconThemeData(
                   color: CupertinoColors.black,
                   size: 16.0
@@ -46,7 +47,7 @@ class ReviewItemWidget extends StatelessWidget {
               )
             ],
           ),
-          IconTheme(
+          const IconTheme(
             data: IconThemeData(
               color: CupertinoColors.black
             ), 

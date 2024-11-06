@@ -27,43 +27,48 @@ class _UserReviewsViewState extends State<UserReviewsView> {
   
   @override
   Widget build(BuildContext context) {
+    // print(ModalRoute.of(context)?.settings.name);
     final vm = Provider.of<ReviewsViewModel>(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        const Text(
-          "My Reviews",
-          style: TextStyle(
-            color: Color.fromARGB(255, 0, 0, 0),
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
+    return Container(
+      color: CupertinoColors.white,
+      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text(
+            "My Reviews",
+            style: TextStyle(
+              color: Color.fromARGB(255, 0, 0, 0),
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+            ),
           ),
-        ),
-        Divider(),
-        CupertinoSearchTextField(
-          controller: _textController,
-          onSubmitted: (value) {
-            // simple searching when typing term and hitting enter
-            if (value.isNotEmpty) {
-              vm.fetchReviewsJson(value);
-              _textController.clear();
-            }
-            else {
+          Divider(),
+          CupertinoSearchTextField(
+            controller: _textController,
+            onSubmitted: (value) {
+              // simple searching when typing term and hitting enter
+              if (value.isNotEmpty) {
+                vm.fetchReviewsJson(value);
+                _textController.clear();
+              }
+              else {
+                vm.fetchReviewsJson("");
+              }
+            },
+            onTap: () {
               vm.fetchReviewsJson("");
-            }
-          },
-          onTap: () {
-            vm.fetchReviewsJson("");
-          },
-        ),
-        Divider(),
-        Expanded(
-          child: ReviewListWidget(
-            reviews: vm.reviews
+            },
           ),
-        )
-      ],
+          Divider(),
+          Expanded(
+            child: ReviewListWidget(
+              reviews: vm.reviews
+            ),
+          )
+        ],
+      ),
     );
   }
   

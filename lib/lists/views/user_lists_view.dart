@@ -14,41 +14,44 @@ class _DefaultState extends State<UserListsView> {
   
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
   
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        const Text(
-          "My Lists",
-          style: TextStyle(
-            color: Color.fromARGB(255, 0, 0, 0),
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
+    return Container(
+      color: CupertinoColors.white,
+      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text(
+            "My Lists",
+            style: TextStyle(
+              color: Color.fromARGB(255, 0, 0, 0),
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+            ),
           ),
-        ),
-        Divider(),
-        // TODO?: possibly add searchbar functionality
-        // const SearchBar(
-          
-        // ),
-        Expanded(
-          child: ListView.separated(
-            itemCount: 20,
-            itemBuilder: (context, index) {
-              return ListItemWidget();
-            },
-            separatorBuilder: (context, index) {
-              return Divider();
-            },
-          ),
-        )
-      ],
+          Divider(),
+          // TODO?: possibly add searchbar functionality
+          // const SearchBar(
+            
+          // ),
+          Expanded(
+            child: ListView.separated(
+              itemCount: 20,
+              itemBuilder: (context, index) {
+                return ListItemWidget();
+              },
+              separatorBuilder: (context, index) {
+                return Divider();
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
   
