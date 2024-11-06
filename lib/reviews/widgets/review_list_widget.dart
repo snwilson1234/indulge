@@ -4,7 +4,6 @@ import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/views/review_detail_view.dart';
 import 'package:indulge/reviews/widgets/review_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
-import 'package:indulge/routing/router.dart' as local_router;
 
 class ReviewListWidget extends StatelessWidget {
   final List<ReviewViewModel> reviews;

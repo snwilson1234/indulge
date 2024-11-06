@@ -14,7 +14,7 @@ class _ReviewEditorWidgetState extends State<ReviewEditorWidget> {
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController(text: "helloworld");
+    _textController = TextEditingController(text: "");
   }
   @override
   void dispose() {
@@ -33,12 +33,6 @@ class _ReviewEditorWidgetState extends State<ReviewEditorWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            "Describe your experience:",
-            style: TextStyle(
-              color: CupertinoColors.white,
-            ),
-          ),
           CupertinoTextField(
             controller: _textController,
             minLines: 10,
