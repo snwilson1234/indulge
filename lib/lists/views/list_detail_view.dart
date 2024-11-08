@@ -13,11 +13,11 @@ class ListDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text("List $name"),
+        middle: Text("$name Restaurants"),
         backgroundColor: CupertinoColors.white,
       ),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
         color: CupertinoColors.white,
         child: ListView.separated(
           itemCount: listItems.length,
@@ -25,7 +25,17 @@ class ListDetailView extends StatelessWidget {
 
             final list = listItems[index];
 
-            return Text(list.name);
+            return Row(
+              children: <Widget>[
+                Text(
+                  "${listItems[index].name}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20
+                  ),
+                )
+              ],
+            );
           },
           separatorBuilder: (context, index) {
             return const Divider();

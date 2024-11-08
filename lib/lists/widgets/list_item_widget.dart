@@ -16,7 +16,7 @@ class ListItemWidget extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(
-          flex: 2,
+          flex: 3,
           child: Text(
             list.name,
             style: const TextStyle(
@@ -26,13 +26,12 @@ class ListItemWidget extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: <Widget>[
-              Text('$size'),
+              Text('$size '),
               Text(size == 1 ? 'entry' : 'entries')
             ]
-          ),
+          )
         )
       ],
     );

@@ -48,15 +48,6 @@ class _DefaultState extends State<UserListsView> {
             child: UserListWidget(
               lists: vm.lists
             ),
-            // ListView.separated(
-            //   itemCount: 20,
-            //   itemBuilder: (context, index) {
-            //     return const ListItemWidget();
-            //   },
-            //   separatorBuilder: (context, index) {
-            //     return const Divider();
-            //   },
-            // ),
           )
         ],
       ),
