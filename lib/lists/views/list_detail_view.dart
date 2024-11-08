@@ -7,7 +7,7 @@ class ListDetailView extends StatelessWidget {
   final String name;
   final List<DummyRestaurant> listItems;
 
-  ListDetailView({super.key, required this.name, required this.listItems});
+  const ListDetailView({super.key, required this.name, required this.listItems});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,8 @@ class ListDetailView extends StatelessWidget {
             return Row(
               children: <Widget>[
                 Text(
-                  "${listItems[index].name}",
-                  style: TextStyle(
+                  list.name,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20
                   ),

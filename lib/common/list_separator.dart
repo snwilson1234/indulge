@@ -9,7 +9,7 @@ class ListSeparator extends StatelessWidget {
     return Container(
       height: 0.9,  // Thickness of the separator
       color: CupertinoColors.separator,  // iOS separator color
-      margin: EdgeInsets.symmetric(vertical: 8.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
     );
   }
   
