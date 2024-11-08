@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:indulge/lists/widgets/list_item_widget.dart';
 
 class UserListsView extends StatefulWidget {
-  const UserListsView({Key? key}) : super(key : key);
+  const UserListsView({super.key});
 
   @override
   State<UserListsView> createState() => _DefaultState();
@@ -34,7 +34,7 @@ class _DefaultState extends State<UserListsView> {
               fontSize: 30,
             ),
           ),
-          Divider(),
+          const Divider(),
           // TODO?: possibly add searchbar functionality
           // const SearchBar(
             
@@ -43,10 +43,10 @@ class _DefaultState extends State<UserListsView> {
             child: ListView.separated(
               itemCount: 20,
               itemBuilder: (context, index) {
-                return ListItemWidget();
+                return const ListItemWidget();
               },
               separatorBuilder: (context, index) {
-                return Divider();
+                return const Divider();
               },
             ),
           )

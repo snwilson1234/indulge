@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_list_widget.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +43,7 @@ class _UserReviewsViewState extends State<UserReviewsView> {
               fontSize: 30,
             ),
           ),
-          Divider(),
+          const Divider(),
           CupertinoSearchTextField(
             controller: _textController,
             onSubmitted: (value) {
@@ -61,7 +60,7 @@ class _UserReviewsViewState extends State<UserReviewsView> {
               vm.fetchReviewsJson("");
             },
           ),
-          Divider(),
+          const Divider(),
           Expanded(
             child: ReviewListWidget(
               reviews: vm.reviews

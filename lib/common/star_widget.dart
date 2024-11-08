@@ -3,8 +3,7 @@ import 'package:flutter_rating/flutter_rating.dart';
 
 class StarWidget extends StatefulWidget {
   final int value;
-  const StarWidget({super.key, this.value = 0})
-      : assert(value != null);
+  const StarWidget({super.key, this.value = 0});
   
   @override
   State<StatefulWidget> createState() => _StarWidgetState();

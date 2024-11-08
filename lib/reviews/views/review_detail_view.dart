@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 
-import 'package:flutter_rating/flutter_rating.dart';
-
 
 class ReviewDetailView extends StatelessWidget {
   final String restaurantName;
 
-  const ReviewDetailView({Key? key, required this.restaurantName}) : super(key : key);
+  const ReviewDetailView({super.key, required this.restaurantName});
   
   @override
   Widget build(BuildContext context) {    
@@ -18,7 +16,7 @@ class ReviewDetailView extends StatelessWidget {
         backgroundColor: CupertinoColors.white,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
         color: CupertinoColors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +62,7 @@ class ReviewDetailView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.0),
+                  const SizedBox(height: 10.0),
                   CupertinoButton(
                     color: CupertinoColors.inactiveGray,
                     onPressed: () {
