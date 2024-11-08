@@ -4,3 +4,4 @@ const String listRoute = '/lists';
 const String reviewRoute = '/reviews';
 const String reviewDetailRoute = '/reviewDetail';
 const String profileRoute = '/profile';
+const String listDetailRoute = '/lists/listDetail';

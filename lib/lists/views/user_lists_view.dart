@@ -1,7 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/lists/widgets/list_item_widget.dart';
+import 'package:indulge/lists/widgets/user_list_widget.dart';
+import 'package:provider/provider.dart';
 
 class UserListsView extends StatefulWidget {
   const UserListsView({super.key});
@@ -19,6 +22,8 @@ class _DefaultState extends State<UserListsView> {
   
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<ListsViewModel>(context);
+    vm.fetchListsJson("");
     return Container(
       color: CupertinoColors.white,
       padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
@@ -40,15 +45,18 @@ class _DefaultState extends State<UserListsView> {
             
           // ),
           Expanded(
-            child: ListView.separated(
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return const ListItemWidget();
-              },
-              separatorBuilder: (context, index) {
-                return const Divider();
-              },
+            child: UserListWidget(
+              lists: vm.lists
             ),
+            // ListView.separated(
+            //   itemCount: 20,
+            //   itemBuilder: (context, index) {
+            //     return const ListItemWidget();
+            //   },
+            //   separatorBuilder: (context, index) {
+            //     return const Divider();
+            //   },
+            // ),
           )
         ],
       ),
