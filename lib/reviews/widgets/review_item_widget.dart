@@ -1,8 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:indulge/common/star_widget.dart';
-import 'package:indulge/reviews/models/review.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 
 class ReviewItemWidget extends StatelessWidget {
@@ -11,8 +9,8 @@ class ReviewItemWidget extends StatelessWidget {
   
   const ReviewItemWidget({
     required this.review,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   
   @override
   Widget build(BuildContext context) {

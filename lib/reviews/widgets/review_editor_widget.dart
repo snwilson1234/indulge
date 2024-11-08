@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 
 class ReviewEditorWidget extends StatefulWidget {
-  const ReviewEditorWidget({Key? key}) : super(key : key);
+  const ReviewEditorWidget({super.key});
 
   @override
   State<ReviewEditorWidget> createState() => _ReviewEditorWidgetState();
