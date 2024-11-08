@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/lists/models/dummy_restaurant.dart';
 
 
@@ -38,7 +38,7 @@ class ListDetailView extends StatelessWidget {
             );
           },
           separatorBuilder: (context, index) {
-            return const Divider();
+            return const ListSeparator();
           },
         ) 
       )

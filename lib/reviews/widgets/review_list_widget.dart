@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/widgets/review_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
@@ -30,7 +30,7 @@ class ReviewListWidget extends StatelessWidget {
         );
       },
       separatorBuilder: (context, index) {
-        return const Divider();
+        return const ListSeparator();
       },
     );
   }

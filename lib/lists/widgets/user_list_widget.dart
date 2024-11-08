@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/widgets/list_item_widget.dart';
-import 'package:indulge/reviews/viewmodels/review_view_model.dart';
-import 'package:indulge/reviews/widgets/review_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
+
+import '../../common/list_separator.dart';
 
 class UserListWidget extends StatelessWidget {
   final List<ListViewModel> lists;
@@ -36,7 +35,7 @@ class UserListWidget extends StatelessWidget {
         );
       },
       separatorBuilder: (context, index) {
-        return const Divider();
+        return const ListSeparator();
       },
     );
   }

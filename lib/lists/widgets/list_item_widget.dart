@@ -1,6 +1,5 @@
 
-import 'package:flutter/material.dart';
-import 'package:indulge/lists/models/dummy_restaurant.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
 
 class ListItemWidget extends StatelessWidget {
