@@ -2,7 +2,8 @@
 import 'package:flutter/cupertino.dart';
 
 class ReviewEditorWidget extends StatefulWidget {
-  const ReviewEditorWidget({Key? key}) : super(key : key);
+  final String initialComment;
+  const ReviewEditorWidget({Key? key, required this.initialComment}) : super(key : key);
 
   @override
   State<ReviewEditorWidget> createState() => _ReviewEditorWidgetState();
@@ -14,7 +15,7 @@ class _ReviewEditorWidgetState extends State<ReviewEditorWidget> {
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController(text: "");
+    _textController = TextEditingController(text: widget.initialComment);
   }
   @override
   void dispose() {

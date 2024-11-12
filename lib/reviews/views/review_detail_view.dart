@@ -52,7 +52,9 @@ class ReviewDetailView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10.0),
-            const ReviewEditorWidget(),
+            ReviewEditorWidget(
+              initialComment: comment
+            ),
             const SizedBox(height: 50.0),
             Container(
               alignment: Alignment.center,
