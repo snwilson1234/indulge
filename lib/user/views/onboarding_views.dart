@@ -422,12 +422,30 @@ class EndOfOnboardingView extends StatelessWidget {
         child: Center(
           child: Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                const SizedBox(
+                  height: 72,
+                ),
+                const Text(
+                  "Woohoo, you're all set!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
                 const Image(
+                  
                   image: AssetImage(
-                    'assets/young-woman-eating-ramen.png'
+                    'assets/young-woman-eating-ramen.png',
                   )
+                ),
+                const SizedBox(
+                  height: 64,
                 ),
                 CupertinoButton(
                   color: actionColor,

@@ -42,13 +42,13 @@ class _LoginViewState extends State<LoginView> {
                 key: formKey,
                 child: CupertinoFormSection.insetGrouped(
                   children: [
-                    CupertinoTextFormFieldRow(
-                      placeholder: "Username",
-                      key: const Key("user"),
-                      validator: (String? value) {
-                        return userViewModel.validateUsername(value);
-                      },
-                    ),
+                      CupertinoTextFormFieldRow(
+                        placeholder: "Username",
+                        key: const Key("user"),
+                        validator: (String? value) {
+                          return userViewModel.validateUsername(value);
+                        },
+                      ),
                     CupertinoTextFormFieldRow(
                       placeholder: "Password",
                       key: const Key("pass"),
