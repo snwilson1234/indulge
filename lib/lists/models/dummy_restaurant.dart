@@ -1,11 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'dummy_restaurant.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class DummyRestaurant {
+  DummyRestaurant({required this.name});
+  
+  @JsonKey(required: true)
   final String name;
 
-  DummyRestaurant({required this.name});
+  factory DummyRestaurant.fromJson(Map<String, dynamic> json) => _$DummyRestaurantFromJson(json);
 
-  factory DummyRestaurant.fromJson(Map<String, dynamic> json) {
-    return DummyRestaurant(
-      name: json["name"],
-    );
-  }
+  Map<String, dynamic> toJson() => _$DummyRestaurantToJson(this);
 }
