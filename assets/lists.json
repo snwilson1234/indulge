@@ -26,6 +26,10 @@
                 {
                     "name": "Bubba Gump Shrimp",
                     "reviewed": false
+                },
+                {
+                    "name": "Stackd",
+                    "reviewed": false
                 }
             ]
         },

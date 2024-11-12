@@ -62,7 +62,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
     // var beenThereList = null;
     if (vm.lists.isEmpty) {
       print("Empty list!");
-      return Text("empty list.");
+      return Text("something went wrong.");
     }
     else {
       final beenThereList = vm.lists[0].listItems
@@ -161,7 +161,8 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                   CupertinoButton(
                     color: CupertinoColors.inactiveGray,
                     onPressed: () {
-                      print("pressed cancel!");
+                      // go back to reviews page
+                      Navigator.of(context).pop();
                     },
                     child: const Text(
                       "Cancel",
