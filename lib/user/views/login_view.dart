@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/user/views/onboarding_views.dart';
@@ -36,11 +38,18 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 88,
               ),
               Form(
                 key: formKey,
                 child: CupertinoFormSection.insetGrouped(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white12
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    color: Theme.of(context).canvasColor,
+                  ),
                   children: [
                       CupertinoTextFormFieldRow(
                         placeholder: "Username",
@@ -75,7 +84,7 @@ class _LoginViewState extends State<LoginView> {
                   onPressed: () {
                     final form = formKey.currentState!;
                     if (form.validate()) {
-                      Navigator.push(context, CupertinoPageRoute(builder: (context) => const DietaryRestrictionView(),));
+                      Navigator.push(context, CupertinoPageRoute(builder: (context) => RestaurantScreen(),));
                       // TODO: Let user into app
                     }
                   }

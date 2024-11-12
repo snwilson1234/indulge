@@ -1,8 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:indulge/restaurant/views/restaurant_view.dart';
 import 'package:indulge/lists/views/user_lists_view.dart';
+import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';
 import 'package:indulge/user/widgets/toggle_button.dart';
@@ -83,27 +84,39 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
                 Expanded(
                   child: Form(
                     key: formKey,
-                    child: CupertinoScrollbar(
-                      thumbVisibility: true,
-                      child: ListView(
-                        children: dietaryRestrictionCheckboxes.keys.map((String key) {
-                          return CupertinoCheckboxListTile(
-                            title: Text(
-                              key, 
-                              style: const TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            contentPadding: EdgeInsets.all(24),
-                            activeColor: actionColor,
-                            value: dietaryRestrictionCheckboxes[key],
-                            onChanged: (value) {
-                              setState( () {
-                                dietaryRestrictionCheckboxes[key] = value!;
-                              });
-                            },);
-                          }
-                        ).toList(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: Colors.white12
+                        ),
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 12, right: 8),
+                        child: CupertinoScrollbar(
+                          thumbVisibility: true,
+                          child: ListView(
+                            children: dietaryRestrictionCheckboxes.keys.map((String key) {
+                              return CupertinoCheckboxListTile(
+                                title: Text(
+                                  key, 
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                contentPadding: EdgeInsets.all(24),
+                                activeColor: actionColor,
+                                value: dietaryRestrictionCheckboxes[key],
+                                onChanged: (value) {
+                                  setState( () {
+                                    dietaryRestrictionCheckboxes[key] = value!;
+                                  });
+                                },);
+                              }
+                            ).toList(),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -267,31 +280,43 @@ class _FoodCategoryPreferencesViewState extends State<FoodCategoryPreferencesVie
               Expanded(
                 child: Form(
                   key: formKey,
-                  child: CupertinoScrollbar(
-                    thumbVisibility: true,
-                    child: ListView(
-                      children: foodExperienceCheckboxes.keys.map((String key) {
-                        return CupertinoCheckboxListTile(
-                          title: Text(
-                            key, 
-                            style: const TextStyle(
-                              fontSize: 16,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: Colors.white12
+                        ),
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 12, right: 8),
+                        child: CupertinoScrollbar(
+                          thumbVisibility: true,
+                            child: ListView(
+                              children: foodExperienceCheckboxes.keys.map((String key) {
+                                return CupertinoCheckboxListTile(
+                                  title: Text(
+                                    key, 
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  contentPadding: EdgeInsets.all(24),
+                                  activeColor: actionColor,
+                                  value: foodExperienceCheckboxes[key],
+                                  onChanged: (value) {
+                                    setState( () {
+                                      foodExperienceCheckboxes[key] = value!;
+                                    });
+                                  },);
+                                }
+                              ).toList(),
                             ),
-                          ),
-                          contentPadding: EdgeInsets.all(24),
-                          activeColor: actionColor,
-                          value: foodExperienceCheckboxes[key],
-                          onChanged: (value) {
-                            setState( () {
-                              foodExperienceCheckboxes[key] = value!;
-                            });
-                          },);
-                        }
-                      ).toList(),
-                    ),
+                        ),
+                      ),
                   ),
                 ),
-                ),
+              ),
 
               SizedBox(
                 height: 100,
@@ -457,7 +482,7 @@ class EndOfOnboardingView extends StatelessWidget {
                     ),
                   ), 
                   onPressed: () {
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) => const UserListsView(),));
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) => RestaurantScreen(),));
                   }
                 ),
               ],
