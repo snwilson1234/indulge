@@ -5,6 +5,7 @@ import 'package:indulge/routing/routes.dart';
 // Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:provider/provider.dart';
+import 'package:indulge/user/views/login_view.dart';
 
 
 void main() {
@@ -16,28 +17,30 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      home: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
-          backgroundColor: CupertinoColors.white,
-          leading: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "indulge",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-            ],
-          ),
-          //just text for now
-          trailing: Text("+ 20 mi -"),
-        ),
-        child: MainPage()
-      ),
+    return const CupertinoApp(
+      theme: CupertinoThemeData(brightness: Brightness.dark),
+      home: LoginView(),
+      // home: CupertinoPageScaffold(
+      //   navigationBar: CupertinoNavigationBar(
+      //     backgroundColor: CupertinoColors.white,
+      //     leading: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: <Widget>[
+      //         Text(
+      //           "indulge",
+      //           style: TextStyle(
+      //             fontSize: 24,
+      //             fontWeight: FontWeight.bold
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //     //just text for now
+      //     trailing: Text("+ 20 mi -"),
+      //   ),
+      //   child: LoginView(),
+      // ),
     );
   }
 }
