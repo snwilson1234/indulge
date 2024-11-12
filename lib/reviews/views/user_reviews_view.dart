@@ -45,7 +45,7 @@ class _UserReviewsViewState extends State<UserReviewsView> {
                   fontSize: 30,
                 ),
               ),
-              ListSeparator(),
+              const ListSeparator(),
               CupertinoSearchTextField(
                 controller: _textController,
                 onSubmitted: (value) {
@@ -62,14 +62,7 @@ class _UserReviewsViewState extends State<UserReviewsView> {
                   vm.fetchReviewsJson("");
                 },
               ),
-              // ListSeparator(),
-              // CupertinoButton.filled(
-              //   child: Text("Create New Review"), 
-              //   onPressed: () {
-              //     print("pressed");
-              //   }
-              // ),
-              ListSeparator(),
+              const ListSeparator(),
               Expanded(
                 child: ReviewListWidget(
                   reviews: vm.reviews
@@ -79,10 +72,10 @@ class _UserReviewsViewState extends State<UserReviewsView> {
           ),
           Container(
             alignment: Alignment.bottomRight,
-            padding: EdgeInsets.only(right: 8.0, bottom: 8.0),
+            padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
             child: CupertinoButton.filled(
-              borderRadius: BorderRadius.all(Radius.circular(50.0)),
-              child: Icon(CupertinoIcons.plus),
+              borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+              child: const Icon(CupertinoIcons.plus),
               onPressed: () {
                 Navigator.of(context).pushNamed(
                   newReviewRoute,

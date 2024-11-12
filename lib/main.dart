@@ -1,6 +1,7 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/lists/models/dummy_restaurant.dart';
+import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/lists/views/list_detail_view.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
@@ -21,6 +22,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
         ChangeNotifierProvider(create: (context) => ListsViewModel()),
+        // ChangeNotifierProvider(create: (context) => ListViewModel())
       ],
       child: const MainApp(),
     ),

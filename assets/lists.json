@@ -4,10 +4,28 @@
             "name": "Been There",
             "listItems": [
                 {
-                    "name": "Taco Haven"
+                    "name": "Taco Haven",
+                    "reviewed": true
                 },
                 {
-                    "name": "Pasta Palace"
+                    "name": "Pasta Palace",
+                    "reviewed": true
+                },
+                {
+                    "name": "Sushi Spot",
+                    "reviewed": true
+                },
+                {
+                    "name": "Grill Masters",
+                    "reviewed": true
+                },
+                {
+                    "name": "Vegan Delight",
+                    "reviewed": true
+                },
+                {
+                    "name": "Bubba Gump Shrimp",
+                    "reviewed": false
                 }
             ]
         },
@@ -15,7 +33,8 @@
             "name": "Asian",
             "listItems": [
                 {
-                    "name": "Sushi Spot"
+                    "name": "Sushi Spot",
+                    "reviewed": false
                 }
             ]
         }

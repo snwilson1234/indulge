@@ -7,7 +7,7 @@ import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 class ReviewDetailView extends StatelessWidget {
   final ReviewViewModel reviewViewModel;
 
-  const ReviewDetailView({Key? key, required this.reviewViewModel}) : super(key : key);
+  const ReviewDetailView({super.key, required this.reviewViewModel});
   
   @override
   Widget build(BuildContext context) {
