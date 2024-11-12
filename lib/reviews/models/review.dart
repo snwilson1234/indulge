@@ -1,15 +1,21 @@
-class Review {
-  final String restaurantName;
-  final double rating;
-  final String comment;
+import 'package:json_annotation/json_annotation.dart';
 
+part 'review.g.dart';
+
+@JsonSerializable(explicitToJson: true)
+class Review {
   Review({required this.restaurantName, required this.rating, required this.comment});
 
-  factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(
-      restaurantName: json["restaurantName"],
-      rating: double.parse(json["rating"]),
-      comment: json["comment"],
-    );
-  }
+  @JsonKey(required: true)
+  final String restaurantName;
+
+  @JsonKey(defaultValue: 0.0)
+  final double rating;
+
+  @JsonKey(defaultValue: "")
+  final String comment;
+
+  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReviewToJson(this);
 }

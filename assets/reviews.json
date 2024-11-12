@@ -2,52 +2,52 @@
     "reviews": [
         {
             "restaurantName": "Taco Haven",
-            "rating": "4",
+            "rating": 4.0, 
             "comment": "Loved the fresh ingredients in the tacos. The spicy salsa was a standout! Must remember to order extra next time."
         },
         {
             "restaurantName": "Pasta Palace",
-            "rating": "5",
+            "rating": 5.0,
             "comment": "The fettuccine Alfredo was creamy and perfect. Definitely a place to revisit for comfort food!"
         },
         {
             "restaurantName": "Sushi Spot",
-            "rating": "3",
+            "rating": 3.0,
             "comment": "Good sushi, but the service was slow. Might not come back during peak hours."
         },
         {
             "restaurantName": "Grill Masters",
-            "rating": "4",
+            "rating": 4.0,
             "comment": "BBQ ribs were amazing! Great vibe for a relaxed dinner with friends."
         },
         {
             "restaurantName": "Vegan Delight",
-            "rating": "5",
+            "rating": 5.0,
             "comment": "Best plant-based meal ever! The lentil burger blew me away. A new favorite."
         },
         {
             "restaurantName": "Pizza Planet",
-            "rating": "2",
+            "rating": 2.0,
             "comment": "Pizza was undercooked and bland. Not a place I want to revisit."
         },
         {
             "restaurantName": "Cafe Cozy",
-            "rating": "4",
+            "rating": 4.0,
             "comment": "Great coffee and pastries! A perfect little spot for Sunday mornings."
         },
         {
             "restaurantName": "Steakhouse Supreme",
-            "rating": "5",
+            "rating": 5.0,
             "comment": "Filet mignon was perfectly cooked. This place is a keeper for special occasions."
         },
         {
             "restaurantName": "Burger Barn",
-            "rating": "3",
+            "rating": 3.0,
             "comment": "Decent burgers, but the fries were a letdown. Might try a different side next time."
         },
         {
             "restaurantName": "Dessert Oasis",
-            "rating": "5",
+            "rating": 5.0,
             "comment": "Chocolate lava cake was heavenly! I need to come back for more sweets."
         }
 
