@@ -22,7 +22,7 @@ class ReviewListWidget extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed(
               reviewDetailRoute, 
-              arguments: review.restaurantName
+              arguments: review
             );
           },
           child: ReviewItemWidget(

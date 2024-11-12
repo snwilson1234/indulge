@@ -2,27 +2,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 
 class StarWidget extends StatefulWidget {
-  final int value;
-  const StarWidget({super.key, this.value = 0})
-      : assert(value != null);
+  final double initialRating;
+  const StarWidget({super.key, required this.initialRating});
   
   @override
   State<StatefulWidget> createState() => _StarWidgetState();
 }
 
 class _StarWidgetState extends State<StarWidget> {
-  double rating = 2.0;
+  late double _rating;
+
+  @override
+  void initState() {
+    super.initState();
+    _rating = widget.initialRating;
+  }
+
   @override
   Widget build(BuildContext context) {
     return StarRating(
       color: CupertinoColors.black,
-            rating: rating,
+            rating: _rating,
             allowHalfRating: false,
             onRatingChanged: (rating) {
-              setState(() => this.rating = rating);
-              print("rating changed to $rating");
-            }
-            // (rating) => setState(() => this.rating = rating),
+              setState(() {
+                _rating = rating;
+              });
+              print("Rating changed to $_rating");
+            },
           );
   }
   

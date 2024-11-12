@@ -1,9 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:indulge/common/star_widget.dart';
 import 'package:indulge/common/static_star_widget.dart';
-import 'package:indulge/reviews/models/review.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 
 class ReviewItemWidget extends StatelessWidget {

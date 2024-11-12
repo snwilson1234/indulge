@@ -1,17 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
+import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 
 import 'package:flutter_rating/flutter_rating.dart';
 
 
 class ReviewDetailView extends StatelessWidget {
-  final String restaurantName;
+  final ReviewViewModel reviewViewModel;
 
-  const ReviewDetailView({Key? key, required this.restaurantName}) : super(key : key);
+  const ReviewDetailView({Key? key, required this.reviewViewModel}) : super(key : key);
   
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
+    final restaurantName = reviewViewModel.restaurantName; 
+    final rating = reviewViewModel.rating; 
+    final comment = reviewViewModel.comment;    
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text("Reviewing $restaurantName"),
@@ -31,12 +35,14 @@ class ReviewDetailView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20.0),
-            const IconTheme(
-              data: IconThemeData(
+            IconTheme(
+              data: const IconThemeData(
                 color: CupertinoColors.black,
                 size: 40.0
               ), 
-              child: StarWidget()
+              child: StarWidget(
+                initialRating: rating
+              )
             ),
             const SizedBox(height: 30.0),
             const Text(
