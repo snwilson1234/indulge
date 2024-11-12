@@ -6,11 +6,46 @@ import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 
 
-class CreateReviewView extends StatelessWidget {
-  // final ReviewViewModel reviewViewModel;
+const List<String> _restaurantNames = <String>[
+  'Test1',
+  'Test2',
+  'Test3',
+  'Test4',
+  'Test5',
+  'Test6',
+];
 
-  const CreateReviewView({Key? key, }) : super(key : key);
-  
+
+class CreateReviewView extends StatefulWidget {
+  const CreateReviewView({super.key});
+
+  @override
+  State<CreateReviewView> createState() => _CreateReviewViewState();
+}
+
+
+class _CreateReviewViewState extends State<CreateReviewView> {
+  int _selectedRestaurant = 0;
+
+  // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoPicker.
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // final restaurantName = reviewViewModel.restaurantName; 
@@ -18,7 +53,7 @@ class CreateReviewView extends StatelessWidget {
     // final comment = reviewViewModel.comment;    
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
-        middle: Text("Reviewing test"),
+        middle: Text("New Review"),
         backgroundColor: CupertinoColors.white,
       ),
       child: Container(
@@ -28,6 +63,40 @@ class CreateReviewView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Text("Selected:"),
+            CupertinoButton(
+              padding: EdgeInsets.zero,
+              // Display a CupertinoPicker with list of fruits.
+              onPressed: () => _showDialog(
+                CupertinoPicker(
+                  magnification: 1.22,
+                  squeeze: 1.2,
+                  useMagnifier: true,
+                  itemExtent: 32.0,
+                  // This sets the initial item.
+                  scrollController: FixedExtentScrollController(
+                    initialItem: _selectedRestaurant,
+                  ),
+                  // This is called when selected item is changed.
+                  onSelectedItemChanged: (int selectedItem) {
+                    setState(() {
+                      _selectedRestaurant = selectedItem;
+                    });
+                  },
+                  children:
+                      List<Widget>.generate(_restaurantNames.length, (int index) {
+                    return Center(child: Text(_restaurantNames[index]));
+                  }),
+                ),
+              ),
+              // This displays the selected fruit name.
+              child: Text(
+                _restaurantNames[_selectedRestaurant],
+                style: const TextStyle(
+                  fontSize: 22.0,
+                ),
+              ),
+            ),
             const Text(
               "Choose your rating:",
               style: TextStyle(
@@ -52,7 +121,7 @@ class CreateReviewView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10.0),
-            ReviewEditorWidget(
+            const ReviewEditorWidget(
               initialComment: ""
             ),
             const SizedBox(height: 50.0),
@@ -93,5 +162,5 @@ class CreateReviewView extends StatelessWidget {
       )
     );
   }
-  
+
 }
