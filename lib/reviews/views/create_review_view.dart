@@ -6,54 +6,54 @@ import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 
 
-class ReviewDetailView extends StatelessWidget {
-  final ReviewViewModel reviewViewModel;
+class CreateReviewView extends StatelessWidget {
+  // final ReviewViewModel reviewViewModel;
 
-  const ReviewDetailView({Key? key, required this.reviewViewModel}) : super(key : key);
+  const CreateReviewView({Key? key, }) : super(key : key);
   
   @override
   Widget build(BuildContext context) {
-    final restaurantName = reviewViewModel.restaurantName; 
-    final rating = reviewViewModel.rating; 
-    final comment = reviewViewModel.comment;    
+    // final restaurantName = reviewViewModel.restaurantName; 
+    // final rating = reviewViewModel.rating; 
+    // final comment = reviewViewModel.comment;    
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text("Reviewing $restaurantName"),
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text("Reviewing test"),
         backgroundColor: CupertinoColors.white,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
         color: CupertinoColors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              "Update your rating:",
+              "Choose your rating:",
               style: TextStyle(
                 fontSize: 30,
               ),
             ),
             const SizedBox(height: 20.0),
-            IconTheme(
-              data: const IconThemeData(
+            const IconTheme(
+              data: IconThemeData(
                 color: CupertinoColors.black,
                 size: 40.0
               ), 
               child: StarWidget(
-                initialRating: rating
+                initialRating: 0.0
               )
             ),
             const SizedBox(height: 30.0),
             const Text(
-              "Redescribe your experience:",
+              "Describe your experience:",
               style: TextStyle(
                 fontSize: 30,
               ),
             ),
             const SizedBox(height: 10.0),
             ReviewEditorWidget(
-              initialComment: comment
+              initialComment: ""
             ),
             const SizedBox(height: 50.0),
             Container(

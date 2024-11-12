@@ -1,6 +1,7 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
+import 'package:indulge/reviews/views/create_review_view.dart';
 import 'package:indulge/routing/routes.dart';
 
 // Our views
@@ -104,7 +105,8 @@ class _MainPageState extends State<MainPage> {
                 reviewDetailRoute: (context) {
                   final reviewViewModel = ModalRoute.of(context)!.settings.arguments as ReviewViewModel;
                   return ReviewDetailView(reviewViewModel: reviewViewModel);
-                }
+                },
+                newReviewRoute: (context) => const CreateReviewView(),
               },
               builder: (context) => const UserReviewsView(),
             );

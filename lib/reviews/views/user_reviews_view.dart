@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_list_widget.dart';
+import 'package:indulge/routing/routes.dart';
 import 'package:provider/provider.dart';
 
 
@@ -27,48 +28,71 @@ class _UserReviewsViewState extends State<UserReviewsView> {
   
   @override
   Widget build(BuildContext context) {
-    // print(ModalRoute.of(context)?.settings.name);
     final vm = Provider.of<ReviewsViewModel>(context);
     return Container(
       color: CupertinoColors.white,
       padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: <Widget>[
-          const Text(
-            "My Reviews",
-            style: TextStyle(
-              color: Color.fromARGB(255, 0, 0, 0),
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                "My Reviews",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+              Divider(),
+              CupertinoSearchTextField(
+                controller: _textController,
+                onSubmitted: (value) {
+                  // simple searching when typing term and hitting enter
+                  if (value.isNotEmpty) {
+                    vm.fetchReviewsJson(value);
+                    _textController.clear();
+                  }
+                  else {
+                    vm.fetchReviewsJson("");
+                  }
+                },
+                onTap: () {
+                  vm.fetchReviewsJson("");
+                },
+              ),
+              // Divider(),
+              // CupertinoButton.filled(
+              //   child: Text("Create New Review"), 
+              //   onPressed: () {
+              //     print("pressed");
+              //   }
+              // ),
+              Divider(),
+              Expanded(
+                child: ReviewListWidget(
+                  reviews: vm.reviews
+                ),
+              )
+            ],
           ),
-          Divider(),
-          CupertinoSearchTextField(
-            controller: _textController,
-            onSubmitted: (value) {
-              // simple searching when typing term and hitting enter
-              if (value.isNotEmpty) {
-                vm.fetchReviewsJson(value);
-                _textController.clear();
+          Container(
+            alignment: Alignment.bottomRight,
+            padding: EdgeInsets.only(right: 8.0, bottom: 8.0),
+            child: CupertinoButton.filled(
+              borderRadius: BorderRadius.all(Radius.circular(50.0)),
+              child: Icon(CupertinoIcons.plus),
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  newReviewRoute,
+                );
               }
-              else {
-                vm.fetchReviewsJson("");
-              }
-            },
-            onTap: () {
-              vm.fetchReviewsJson("");
-            },
-          ),
-          Divider(),
-          Expanded(
-            child: ReviewListWidget(
-              reviews: vm.reviews
-            ),
+            ),  
           )
         ],
-      ),
+      )
     );
   }
   
