@@ -1,5 +1,8 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
+import 'package:indulge/lists/models/dummy_restaurant.dart';
+import 'package:indulge/lists/viewmodels/lists_view_model.dart';
+import 'package:indulge/lists/views/list_detail_view.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/views/create_review_view.dart';
 import 'package:indulge/routing/routes.dart';
@@ -14,8 +17,11 @@ import 'package:indulge/reviews/views/review_detail_view.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ReviewsViewModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
+        ChangeNotifierProvider(create: (context) => ListsViewModel()),
+      ],
       child: const MainApp(),
     ),
   );
@@ -26,9 +32,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return const CupertinoApp(
       home: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
+        navigationBar: CupertinoNavigationBar(
           backgroundColor: CupertinoColors.white,
           leading: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,6 +59,8 @@ class MainApp extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -95,6 +103,12 @@ class _MainPageState extends State<MainPage> {
             return CupertinoTabView(
               routes: <String, WidgetBuilder>{
                 listRoute: (context) => const UserListsView(),
+                listDetailRoute: (context) {
+                  final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+                  final String name = arguments['name'];
+                  final List<DummyRestaurant> list = arguments['listItems'];
+                  return ListDetailView(name: name, listItems: list);
+                }
               },
               builder: (context) => const UserListsView(),
             );

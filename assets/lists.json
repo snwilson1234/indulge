@@ -1,0 +1,23 @@
+{
+    "lists": [
+        {
+            "name": "Been There",
+            "listItems": [
+                {
+                    "name": "Taco Haven"
+                },
+                {
+                    "name": "Pasta Palace"
+                }
+            ]
+        },
+        {
+            "name": "Asian",
+            "listItems": [
+                {
+                    "name": "Sushi Spot"
+                }
+            ]
+        }
+    ]
+}

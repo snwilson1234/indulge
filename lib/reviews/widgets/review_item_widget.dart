@@ -10,8 +10,8 @@ class ReviewItemWidget extends StatelessWidget {
   
   const ReviewItemWidget({
     required this.review,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   
   @override
   Widget build(BuildContext context) {

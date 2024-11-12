@@ -26,3 +26,4 @@ flutter:
 
   assets:
     - assets/reviews.json
+    - assets/lists.json

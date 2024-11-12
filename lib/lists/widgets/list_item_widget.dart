@@ -1,33 +1,36 @@
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:indulge/lists/viewmodels/list_view_model.dart';
 
 class ListItemWidget extends StatelessWidget {
+  final ListViewModel list;
+  final int size;
+  
   const ListItemWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key, required this.list, required this.size
+  });
   
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: <Widget>[
         Expanded(
-          flex: 2,
+          flex: 3,
           child: Text(
-            "List Name",
-            style: TextStyle(
+            list.name,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold
             ),),
         ),
         Expanded(
           flex: 1,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: <Widget>[
-              Text("num"),
-              Text("entries")
+              Text('$size '),
+              Text(size == 1 ? 'entry' : 'entries')
             ]
-          ),
+          )
         )
       ],
     );
