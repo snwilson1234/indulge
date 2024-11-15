@@ -25,10 +25,7 @@ class DatabaseService {
     _database = await openDatabase(
       dbPath,
       version: 1,
-      onConfigure: (db) async {
-        // enable foreign keys
-        await db.execute('PRAGMA foreign_keys = ON');
-      },
+      onConfigure: _onConfigure,
       onCreate: (db, version) async {
         // create our tables
         var batch = db.batch();
@@ -47,6 +44,11 @@ class DatabaseService {
       }
     );
     return _database!;
+  }
+
+  static Future _onConfigure(Database db) async {
+    print("configuring..");
+    await db.execute('PRAGMA foreign_keys = ON;');
   }
 
   static void _createReviewTable(Batch batch) {

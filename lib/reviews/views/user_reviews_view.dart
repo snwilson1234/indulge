@@ -52,7 +52,6 @@ class _UserReviewsViewState extends State<UserReviewsView> {
                   // simple searching when typing term and hitting enter
                   if (value.isNotEmpty) {
                     vm.fetchReviews();
-                    final vmReviews = vm.reviews;
                     _textController.clear();
                   }
                   else {

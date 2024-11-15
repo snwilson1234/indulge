@@ -17,12 +17,12 @@ class _DefaultState extends State<UserListsView> {
   @override
   void initState() {
     super.initState();
+    Provider.of<ListsViewModel>(context, listen: false).fetchLists();
   }
   
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<ListsViewModel>(context);
-    vm.fetchListsJson("");
     return Container(
       color: CupertinoColors.white,
       padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),

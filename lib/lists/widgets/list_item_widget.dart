@@ -17,7 +17,7 @@ class ListItemWidget extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Text(
-            list.name,
+            list.name!,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold

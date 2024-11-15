@@ -1,7 +1,5 @@
 import 'package:indulge/database/db_service.dart';
 import 'package:indulge/reviews/models/review.dart';
-import 'package:indulge/reviews/viewmodels/review_view_model.dart';
-import 'package:sqflite/sqflite.dart';
 
 
 class ReviewService {

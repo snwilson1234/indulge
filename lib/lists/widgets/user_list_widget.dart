@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/widgets/list_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
@@ -17,6 +18,7 @@ class UserListWidget extends StatelessWidget {
       itemBuilder: (context, index) {
 
         final list = lists[index];
+        print("list: $list");
 
         return GestureDetector(
           onTap: () {
@@ -30,7 +32,7 @@ class UserListWidget extends StatelessWidget {
           },
           child: ListItemWidget(
             list: list,
-            size: list.listItems.length,
+            size: list.listItems!.length
           ),
         );
       },

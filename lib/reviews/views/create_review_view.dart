@@ -1,23 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
-import 'package:indulge/lists/models/dummy_restaurant.dart';
-import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
-import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 
-import 'package:flutter_rating/flutter_rating.dart';
 import 'package:provider/provider.dart';
-
-
-const List<String> _restaurantNames = <String>[
-  'Test1',
-  'Test2',
-  'Test3',
-  'Test4',
-  'Test5',
-  'Test6',
-];
 
 
 class CreateReviewView extends StatefulWidget {
@@ -53,7 +39,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ListsViewModel>(context, listen: false).fetchListsJson("Been There");
+    Provider.of<ListsViewModel>(context, listen: false).fetchLists();
   }
 
   @override
@@ -66,7 +52,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
     }
     else {
       final beenThereList = vm.lists[0].listItems
-        .where((item) => item.reviewed == false)
+        ?.where((item) => item.reviewed == false)
         .toList();
       return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
@@ -101,13 +87,13 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                   },
                   children:
                       List<Widget>.generate(beenThereList.length, (int index) {
-                    return Center(child: Text(beenThereList[index].name));
+                    return Center(child: Text(beenThereList[index].name!));
                   }),
                 ),
               ),
               // This displays the selected restaurant name.
               child: Text(
-                beenThereList[_selectedRestaurant].name,
+                beenThereList![_selectedRestaurant].name!,
                 style: const TextStyle(
                   fontSize: 22.0,
                 ),

@@ -7,11 +7,15 @@ class ListViewModel {
 
   ListViewModel({required this.list});
 
-  String get name {
+  int? get id {
+    return list.id;
+  }
+
+  String? get name {
     return list.name;
   }
 
-  List<DummyRestaurant> get listItems {
+  List<DummyRestaurant>? get listItems {
     return list.listItems;
   }
 }

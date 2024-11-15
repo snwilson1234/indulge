@@ -1,20 +1,41 @@
-import 'dart:ffi';
 
-import 'package:json_annotation/json_annotation.dart';
-
-part 'dummy_restaurant.g.dart';
-
-@JsonSerializable(explicitToJson: true)
 class DummyRestaurant {
-  DummyRestaurant({required this.name, required this.reviewed});
-  
-  @JsonKey(required: true)
-  final String name;
+  int? id;
+  String? name;
+  bool? reviewed;
 
-  @JsonKey(required: true)
-  final bool reviewed;
+  Map<String, Object?> toMap() {
+    var map = <String, Object?>{
+      'id': id,
+      'name': name,
+      'reviewed': reviewed,
+    };
+    if (id != null) {
+      map['id'] = id;
+    }
+    return map;
+  }
 
-  factory DummyRestaurant.fromJson(Map<String, dynamic> json) => _$DummyRestaurantFromJson(json);
+  DummyRestaurant();
 
-  Map<String, dynamic> toJson() => _$DummyRestaurantToJson(this);
+  DummyRestaurant.fromMap(Map<String, dynamic> map) {
+    id = map['id'];
+    name = map['name'];
+    reviewed = map['reviewed'];
+  }
 }
+
+// @JsonSerializable(explicitToJson: true)
+// class DummyRestaurant {
+//   DummyRestaurant({required this.name, required this.reviewed});
+  
+//   @JsonKey(required: true)
+//   final String name;
+
+//   @JsonKey(required: true)
+//   final bool reviewed;
+
+//   factory DummyRestaurant.fromJson(Map<String, dynamic> json) => _$DummyRestaurantFromJson(json);
+
+//   Map<String, dynamic> toJson() => _$DummyRestaurantToJson(this);
+// }

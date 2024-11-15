@@ -28,7 +28,7 @@ class ListDetailView extends StatelessWidget {
             return Row(
               children: <Widget>[
                 Text(
-                  list.name,
+                  list.name!,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20
