@@ -2,13 +2,15 @@
 class Review {
   int? id;
   int? restaurantId;
-  double? rating;
+  double rating = 0.0; //just a temp to appease compiler
+  String? comment;
 
   Map<String, Object?> toMap() {
     var map = <String, Object?>{
       'id': id,
       'restaurantId': restaurantId,
-      'rating': rating
+      'rating': rating,
+      'comment': comment
     };
     if (id != null) {
       map['id'] = id;
@@ -22,5 +24,6 @@ class Review {
     id = map['id'];
     restaurantId = map['restaurantId'];
     rating = map['rating'];
+    comment = map['comment'];
   }
 }

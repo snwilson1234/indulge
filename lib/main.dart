@@ -20,41 +20,6 @@ import 'package:indulge/reviews/views/review_detail_view.dart';
 import 'package:sqflite/sqflite.dart';
 
 
-// Table to hold reviews, has foreign key relationship with Restaurant
-void _createReviewTable(Batch batch) {
-  batch.execute('DROP TABLE IF EXISTS Review');
-  batch.execute('''
-  CREATE TABLE Review(
-    id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    restaurantId INTEGER,
-    rating REAL,
-    FOREIGN KEY (restaurantId) REFERENCES DummyRestaurant(id) ON DELETE CASCADE
-    );'''
-  );
-}
-
-void _createRestaurantListTable(Batch batch) {
-  batch.execute('DROP TABLE IF EXISTS RestaurantList');
-  batch.execute('''
-  CREATE TABLE RestaurantList(
-    id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    name TEXT
-    );'''
-  );
-}
-
-void _createDummyRestaurantTable(Batch batch) {
-  batch.execute(("DROP TABLE IF EXISTS DummyRestaurant"));
-  batch.execute('''
-  CREATE TABLE DummyRestaurant(
-    id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    restaurantName TEXT,
-    listId INTEGER,
-    FOREIGN KEY (listId) REFERENCES RestaurantList(id) on DELETE CASCADE
-    );'''
-  );
-}
-
 void main() async {
 
   // this is required for some reason

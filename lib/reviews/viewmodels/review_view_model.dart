@@ -14,7 +14,7 @@ class ReviewViewModel {
     return review.rating;
   }
 
-  // String get comment  {
-  //   return review.comment;
-  // }
+  String? get comment  {
+    return review.comment;
+  }
 }

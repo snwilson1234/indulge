@@ -11,9 +11,9 @@ class ReviewDetailView extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final restaurantName = "test";//reviewViewModel.restaurantName; 
-    final rating = 1.0;//reviewViewModel.rating; 
-    final comment = "test";//reviewViewModel.comment;    
+    final restaurantName = reviewViewModel.restaurantId; 
+    final rating = reviewViewModel.rating; 
+    final comment = reviewViewModel.comment;    
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text("Reviewing $restaurantName"),
@@ -39,7 +39,7 @@ class ReviewDetailView extends StatelessWidget {
                 size: 40.0
               ), 
               child: StarWidget(
-                initialRating: rating
+                initialRating: rating!
               )
             ),
             const SizedBox(height: 30.0),
@@ -51,7 +51,7 @@ class ReviewDetailView extends StatelessWidget {
             ),
             const SizedBox(height: 10.0),
             ReviewEditorWidget(
-              initialComment: comment
+              initialComment: comment!
             ),
             const SizedBox(height: 50.0),
             Container(

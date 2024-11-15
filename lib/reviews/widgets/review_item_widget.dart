@@ -41,7 +41,7 @@ class ReviewItemWidget extends StatelessWidget {
                   size: 16.0
                 ), 
                 child: StaticStarWidget(
-                  rating: 1.0//review.rating
+                  rating: review.rating!
                 )
               )
             ],
