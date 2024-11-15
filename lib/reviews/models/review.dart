@@ -2,6 +2,7 @@
 class Review {
   int? id;
   int? restaurantId;
+  String? restaurantName;
   double rating = 0.0; //just a temp to appease compiler
   String? comment;
 
@@ -9,6 +10,7 @@ class Review {
     var map = <String, Object?>{
       'id': id,
       'restaurantId': restaurantId,
+      'restaurantName': restaurantName,
       'rating': rating,
       'comment': comment
     };
@@ -23,6 +25,7 @@ class Review {
   Review.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     restaurantId = map['restaurantId'];
+    restaurantName = map['restaurantName'];
     rating = map['rating'];
     comment = map['comment'];
   }

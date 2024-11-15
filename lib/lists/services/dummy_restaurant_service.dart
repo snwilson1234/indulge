@@ -18,12 +18,12 @@ class DummyRestaurantService {
     });
   }
 
-  Future<List<DummyRestaurant>> getDummyRestaurantsByRestaurantId(int restaurantId) async {
+  Future<List<DummyRestaurant>> getDummyRestaurantById(int id) async {
     final db = await DatabaseService.database;
     final List<Map<String, dynamic>> maps = await db.query(
       'DummyRestaurant',
       where: 'restaurantId = ?',
-      whereArgs: [restaurantId],
+      whereArgs: [id],
     );
 
     return List.generate(maps.length, (i) {

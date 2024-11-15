@@ -10,6 +10,10 @@ class ReviewViewModel {
     return review.restaurantId;
   }
 
+  String? get restaurantName {
+    return review.restaurantName;
+  }
+
   double? get rating {
     return review.rating;
   }

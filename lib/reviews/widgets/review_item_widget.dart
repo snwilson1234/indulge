@@ -29,7 +29,7 @@ class ReviewItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "${review.restaurantId})",
+                "${review.restaurantName}",
                 style: const TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold

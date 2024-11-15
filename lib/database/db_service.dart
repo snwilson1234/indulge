@@ -57,6 +57,7 @@ class DatabaseService {
     CREATE TABLE Review(
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       restaurantId INTEGER,
+      restaurantName TEXT,
       rating REAL,
       comment TEXT,
       FOREIGN KEY (restaurantId) REFERENCES DummyRestaurant(id) ON DELETE CASCADE
@@ -88,11 +89,11 @@ class DatabaseService {
 
   static void _makeReviewInserts(Batch batch) {
     batch.execute('''
-    INSERT INTO Review values(1,1,5,"My favorite place to eat!");
+    INSERT INTO Review values(1,1,"Taco Tavern",5,"My favorite place to eat!");
     ''');
-    batch.execute('''
-    INSERT INTO Review values(2,2,4,"Waited a little too long, but food was great!");
-    ''');
+    // batch.execute('''
+    // INSERT INTO Review values(2,2,"Pasta Palace", 4,"Waited a little too long, but food was great!");
+    // ''');
 
   }
 

@@ -18,7 +18,7 @@ class ReviewService {
     });
   }
 
-  Future<List<Review>> getReviewsByRestaurantId(int restaurantId) async {
+  Future<List<Review>> getReviewByRestaurantId(int restaurantId) async {
     final db = await DatabaseService.database;
     final List<Map<String, dynamic>> maps = await db.query(
       'Review',

@@ -11,7 +11,6 @@ class RestaurantListService {
 
   Future<List<RestaurantList>> getAllRestaurantLists() async {
     final db = await DatabaseService.database;
-    // final List<Map<String, dynamic>> maps = await db.query('RestaurantList');
 
     final List<Map<String, dynamic>> maps = await db.rawQuery('''
       SELECT 
@@ -35,13 +34,13 @@ class RestaurantListService {
       return RestaurantList.fromMap(maps[i]);
     });
   }
-//use this instead?
-  Future<List<RestaurantList>> getRestaurantListsByRestaurantId(int restaurantListId) async {
+
+  Future<List<RestaurantList>> getRestaurantListById(int id) async {
     final db = await DatabaseService.database;
     final List<Map<String, dynamic>> maps = await db.query(
       'RestaurantList',
-      where: 'restaurantListId = ?',
-      whereArgs: [restaurantListId],
+      where: 'id = ?',
+      whereArgs: [id],
     );
 
     return List.generate(maps.length, (i) {
