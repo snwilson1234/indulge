@@ -3,7 +3,8 @@ import 'package:flutter_rating/flutter_rating.dart';
 
 class StarWidget extends StatefulWidget {
   final double initialRating;
-  const StarWidget({super.key, required this.initialRating});
+  final Function(double) onRatingChanged;
+  const StarWidget({super.key, required this.initialRating, required this.onRatingChanged});
   
   @override
   State<StatefulWidget> createState() => _StarWidgetState();
@@ -29,6 +30,7 @@ class _StarWidgetState extends State<StarWidget> {
                 _rating = rating;
               });
               print("Rating changed to $_rating");
+              widget.onRatingChanged(_rating);
             },
           );
   }

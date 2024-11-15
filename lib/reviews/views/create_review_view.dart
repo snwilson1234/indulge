@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
+import 'package:indulge/lists/models/dummy_restaurant.dart';
+import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
+import 'package:indulge/reviews/models/review.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
@@ -18,6 +21,9 @@ class CreateReviewView extends StatefulWidget {
 
 class _CreateReviewViewState extends State<CreateReviewView> {
   int _selectedRestaurant = 0;
+  double _rating = 0.0;
+
+  TextEditingController _reviewController = TextEditingController();
 
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoPicker.
   void _showDialog(Widget child) {
@@ -87,14 +93,14 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                     });
                   },
                   children:
-                      List<Widget>.generate(beenThereList.length, (int index) {
-                    return Center(child: Text(beenThereList[index].name!));
+                      List<Widget>.generate(beenThereList!.length, (int index) {
+                    return Center(child: Text(beenThereList[index].restaurantName!));
                   }),
                 ),
               ),
               // This displays the selected restaurant name.
               child: Text(
-                beenThereList![_selectedRestaurant].name!,
+                beenThereList![_selectedRestaurant].restaurantName!,
                 style: const TextStyle(
                   fontSize: 22.0,
                 ),
@@ -107,13 +113,19 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               ),
             ),
             const SizedBox(height: 20.0),
-            const IconTheme(
-              data: IconThemeData(
+            IconTheme(
+              data: const IconThemeData(
                 color: CupertinoColors.black,
                 size: 40.0
               ), 
               child: StarWidget(
-                initialRating: 0.0
+                initialRating: _rating,
+                onRatingChanged: (rating) {
+                  print("Changing rating in create reivew view $rating");
+                  setState(() {
+                    _rating = rating;
+                  });
+                }
               )
             ),
             const SizedBox(height: 30.0),
@@ -124,8 +136,9 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               ),
             ),
             const SizedBox(height: 10.0),
-            const ReviewEditorWidget(
-              initialComment: ""
+            ReviewEditorWidget(
+              initialComment: "",
+              controller: _reviewController
             ),
             const SizedBox(height: 50.0),
             Container(
@@ -135,7 +148,18 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                   CupertinoButton(
                     color: CupertinoColors.black,
                     onPressed: () {
-                      print("pressed submit!");
+                      final review = Review.withParams(
+                        restaurantId: beenThereList[_selectedRestaurant].id,
+                        restaurantName: beenThereList[_selectedRestaurant].restaurantName,
+                        rating: _rating,
+                        comment: _reviewController.text,
+                      );
+                      final reviewsViewModel = Provider.of<ReviewsViewModel>(context, listen: false);
+                      reviewsViewModel.submitReview(review);
+                      DummyRestaurant restaurant = beenThereList[_selectedRestaurant];
+                      restaurant.reviewed = 1;
+                      Provider.of<DummyRestaurantViewModel>(context, listen: false).updateRestaurant(restaurant);
+                      print("submitted review!");
                     },
                     child: const Text(
                       "Submit",

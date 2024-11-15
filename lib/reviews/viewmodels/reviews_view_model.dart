@@ -14,7 +14,7 @@ class ReviewsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void submitReview(ReviewViewModel review) {
-    
+  void submitReview(Review review) {
+    reviewService.insertReview(review);
   }
 }

@@ -22,6 +22,14 @@ class Review {
 
   Review();
 
+  Review.withParams({
+    this.id,
+    required this.restaurantId,
+    this.restaurantName,
+    required this.rating,
+    this.comment,
+  });
+
   Review.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     restaurantId = map['restaurantId'];

@@ -3,23 +3,21 @@ import 'package:flutter/cupertino.dart';
 
 class ReviewEditorWidget extends StatefulWidget {
   final String initialComment;
-  const ReviewEditorWidget({Key? key, required this.initialComment}) : super(key : key);
+  final TextEditingController controller;
+  const ReviewEditorWidget({Key? key, required this.initialComment, required this.controller}) : super(key : key);
 
   @override
   State<ReviewEditorWidget> createState() => _ReviewEditorWidgetState();
 }
 
 class _ReviewEditorWidgetState extends State<ReviewEditorWidget> {
-  late TextEditingController _textController;
 
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController(text: widget.initialComment);
   }
   @override
   void dispose() {
-    _textController.dispose();
     super.dispose();
   }
   @override
@@ -35,7 +33,7 @@ class _ReviewEditorWidgetState extends State<ReviewEditorWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           CupertinoTextField(
-            controller: _textController,
+            controller: widget.controller,
             minLines: 10,
             maxLines: 10,
             maxLength: 255,

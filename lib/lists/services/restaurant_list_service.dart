@@ -19,7 +19,7 @@ class RestaurantListService {
         json_group_array(
             json_object(
                 'id', dr.id,
-                'name', dr.restaurantName,
+                'restaurantName', dr.restaurantName,
                 'listId', dr.listId,
                 'reviewed', dr.reviewed
             )

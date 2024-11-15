@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
+import 'package:indulge/common/static_star_widget.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 
@@ -7,7 +8,9 @@ import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 class ReviewDetailView extends StatelessWidget {
   final ReviewViewModel reviewViewModel;
 
-  const ReviewDetailView({super.key, required this.reviewViewModel});
+  final TextEditingController _reviewController = TextEditingController();
+
+  ReviewDetailView({super.key, required this.reviewViewModel});
   
   @override
   Widget build(BuildContext context) {
@@ -38,9 +41,14 @@ class ReviewDetailView extends StatelessWidget {
                 color: CupertinoColors.black,
                 size: 40.0
               ), 
-              child: StarWidget(
-                initialRating: rating!
-              )
+              child: 
+              StaticStarWidget(rating: rating!)
+              // StarWidget(
+              //   initialRating: rating!,
+              //   onRatingChanged: (rating) {
+              //     print("test");
+              //   },
+              // )
             ),
             const SizedBox(height: 30.0),
             const Text(
@@ -51,7 +59,8 @@ class ReviewDetailView extends StatelessWidget {
             ),
             const SizedBox(height: 10.0),
             ReviewEditorWidget(
-              initialComment: comment!
+              initialComment: comment!,
+              controller: _reviewController,
             ),
             const SizedBox(height: 50.0),
             Container(
