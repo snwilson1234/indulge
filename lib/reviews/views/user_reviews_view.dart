@@ -22,7 +22,7 @@ class _UserReviewsViewState extends State<UserReviewsView> {
   void initState() {
     super.initState();
     // start with full list
-    Provider.of<ReviewsViewModel>(context, listen: false).fetchReviewsJson("");
+    Provider.of<ReviewsViewModel>(context, listen: false).fetchReviews();
   }
   
   @override
@@ -51,15 +51,16 @@ class _UserReviewsViewState extends State<UserReviewsView> {
                 onSubmitted: (value) {
                   // simple searching when typing term and hitting enter
                   if (value.isNotEmpty) {
-                    vm.fetchReviewsJson(value);
+                    vm.fetchReviews();
+                    final vmReviews = vm.reviews;
                     _textController.clear();
                   }
                   else {
-                    vm.fetchReviewsJson("");
+                    vm.fetchReviews();
                   }
                 },
                 onTap: () {
-                  vm.fetchReviewsJson("");
+                  vm.fetchReviews();
                 },
               ),
               const ListSeparator(),

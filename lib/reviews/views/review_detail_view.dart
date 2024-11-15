@@ -11,9 +11,9 @@ class ReviewDetailView extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final restaurantName = reviewViewModel.restaurantName; 
-    final rating = reviewViewModel.rating; 
-    final comment = reviewViewModel.comment;    
+    final restaurantName = "test";//reviewViewModel.restaurantName; 
+    final rating = 1.0;//reviewViewModel.rating; 
+    final comment = "test";//reviewViewModel.comment;    
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text("Reviewing $restaurantName"),

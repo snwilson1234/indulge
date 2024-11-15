@@ -29,7 +29,7 @@ class ReviewItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                review.restaurantName,
+                "${review.restaurantId})",
                 style: const TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold
@@ -41,7 +41,7 @@ class ReviewItemWidget extends StatelessWidget {
                   size: 16.0
                 ), 
                 child: StaticStarWidget(
-                  rating: review.rating
+                  rating: 1.0//review.rating
                 )
               )
             ],

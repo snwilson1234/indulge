@@ -1,5 +1,6 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
+import 'package:indulge/database/db_service.dart';
 import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
@@ -7,22 +8,66 @@ import 'package:indulge/lists/views/list_detail_view.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/views/create_review_view.dart';
 import 'package:indulge/routing/routes.dart';
+import 'package:flutter/widgets.dart';
 
 // Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/views/user_reviews_view.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:indulge/reviews/views/review_detail_view.dart';
+import 'package:sqflite/sqflite.dart';
 
 
-void main() {
+// Table to hold reviews, has foreign key relationship with Restaurant
+void _createReviewTable(Batch batch) {
+  batch.execute('DROP TABLE IF EXISTS Review');
+  batch.execute('''
+  CREATE TABLE Review(
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    restaurantId INTEGER,
+    rating REAL,
+    FOREIGN KEY (restaurantId) REFERENCES DummyRestaurant(id) ON DELETE CASCADE
+    );'''
+  );
+}
+
+void _createRestaurantListTable(Batch batch) {
+  batch.execute('DROP TABLE IF EXISTS RestaurantList');
+  batch.execute('''
+  CREATE TABLE RestaurantList(
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    name TEXT
+    );'''
+  );
+}
+
+void _createDummyRestaurantTable(Batch batch) {
+  batch.execute(("DROP TABLE IF EXISTS DummyRestaurant"));
+  batch.execute('''
+  CREATE TABLE DummyRestaurant(
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    restaurantName TEXT,
+    listId INTEGER,
+    FOREIGN KEY (listId) REFERENCES RestaurantList(id) on DELETE CASCADE
+    );'''
+  );
+}
+
+void main() async {
+
+  // this is required for some reason
+  WidgetsFlutterBinding.ensureInitialized();
+  Database db = await DatabaseService.database;
+  final dbPath = join(await getDatabasesPath(), 'indulge.db');
+  print("DB PATH, changes with simulator restarts: $dbPath");
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
         ChangeNotifierProvider(create: (context) => ListsViewModel()),
-        // ChangeNotifierProvider(create: (context) => ListViewModel())
       ],
       child: const MainApp(),
     ),
