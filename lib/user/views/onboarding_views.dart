@@ -164,7 +164,14 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
 
 
 class _NewUserInfoViewState extends State<NewUserInfoView> {
-  static const actionColor = Color.fromRGBO(252, 162, 114, 1);
+  final formKey = GlobalKey<FormState>();
+  final userViewModel = UserViewModel();
+  Map<String, String> userInfo = {
+    "password": "",
+    "username": "",
+    "email": "",
+    "confirm_pass": "",
+  };
 
 
   @override
@@ -198,8 +205,86 @@ class _NewUserInfoViewState extends State<NewUserInfoView> {
                 ),
 
                 // TODO: Meat of screen (sign up info)
-                const Expanded(
-                  child: Placeholder(),
+                Expanded(
+                  child: SizedBox(
+                    width: 325,
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CupertinoFormSection.insetGrouped(
+                            header: const Text("Account Info"),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white12
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                              color: Theme.of(context).canvasColor,
+                            ),
+                            children: [
+                              CupertinoTextFormFieldRow(
+                                placeholder: "Email Address",
+                                key: const Key("email"),
+                                onChanged: (value) {
+                                  setState(() {
+                                    userInfo["email"] = value;
+                                  });
+                                },
+                                validator: (value) {
+                                  return userViewModel.validateEmail(value);
+                                },
+                              ),
+                              CupertinoTextFormFieldRow(
+                                placeholder: "Username",
+                                key: const Key("user"),
+                                onChanged: (value) {
+                                  setState(() {
+                                    userInfo["username"] = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          CupertinoFormSection.insetGrouped(
+                            header: const Text("Password Set-Up"),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white12
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                              color: Theme.of(context).canvasColor,
+                            ),
+                            children: [
+                              CupertinoTextFormFieldRow(
+                                placeholder: "Password",
+                                key: const Key("pass"),
+                                obscureText: true,
+                                onChanged: (value) {
+                                  setState(() {
+                                    userInfo["password"] = value;
+                                  });
+                                },
+                              ),
+                              CupertinoTextFormFieldRow(
+                                placeholder: "Confirm Password",
+                                key: const Key("confirm_pass"),
+                                obscureText: true,
+                                onChanged: (value) {
+                                  setState(() {
+                                    userInfo["confirm_pass"] = value;
+                                  });
+                                },
+                                validator: (value) {
+                                  return userViewModel.validatePasswordConfirmation(userInfo["confirm_pass"], userInfo["password"]);
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
 
               SizedBox(
@@ -222,11 +307,16 @@ class _NewUserInfoViewState extends State<NewUserInfoView> {
                     IconButton.filled(
                       icon: const Icon(Icons.chevron_right_sharp, color: Colors.black,),
                       iconSize: 50,
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(actionColor),
+                      style: ButtonStyle(
+                        backgroundColor: (userInfo["password"]!.isEmpty || userInfo["confirm_pass"]!.isEmpty) ? 
+                          const WidgetStatePropertyAll(Colors.white70) : const WidgetStatePropertyAll(actionColor),
                       ),
-                      onPressed: () {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => const FoodCategoryPreferencesView(),));
+                      onPressed: (userInfo["password"]!.isEmpty || userInfo["confirm_pass"]!.isEmpty) ? null :
+                      () {
+                        final form = formKey.currentState!;
+                        if (form.validate()) {
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => const FoodCategoryPreferencesView(),));
+                        }
                       }
                     ),
                   ]
@@ -471,10 +561,12 @@ class _PriceAndRadiusPreferenceViewState extends State<PriceAndRadiusPreferenceV
                     IconButton.filled(
                       icon: const Icon(Icons.chevron_right_sharp, color: Colors.black,),
                       iconSize: 50,
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(actionColor),
+                      style: ButtonStyle(
+                        backgroundColor: pricePoints.isNotEmpty ? 
+                        const WidgetStatePropertyAll(actionColor) : const WidgetStatePropertyAll(Colors.white70),
                       ),
-                      onPressed: () {
+                      onPressed: pricePoints.isEmpty ? null : 
+                      () {
                         Navigator.push(context, CupertinoPageRoute(builder: (context) => const EndOfOnboardingView(),));
                       }
                     ),

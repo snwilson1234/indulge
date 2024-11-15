@@ -23,7 +23,7 @@ class _LoginViewState extends State<LoginView> {
     return CupertinoPageScaffold(
       child: Center(
         child: SizedBox (
-          width: 300,
+          width: 325,
           child: Column (
             children: [
               const SizedBox(
@@ -38,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               const SizedBox(
-                height: 88,
+                height: 100,
               ),
               Form(
                 key: formKey,
@@ -51,13 +51,13 @@ class _LoginViewState extends State<LoginView> {
                     color: Theme.of(context).canvasColor,
                   ),
                   children: [
-                      CupertinoTextFormFieldRow(
-                        placeholder: "Username",
-                        key: const Key("user"),
-                        validator: (String? value) {
-                          return userViewModel.validateUsername(value);
-                        },
-                      ),
+                    CupertinoTextFormFieldRow(
+                      placeholder: "Username",
+                      key: const Key("user"),
+                      validator: (String? value) {
+                        return userViewModel.validateUsername(value);
+                      },
+                    ),
                     CupertinoTextFormFieldRow(
                       placeholder: "Password",
                       key: const Key("pass"),
