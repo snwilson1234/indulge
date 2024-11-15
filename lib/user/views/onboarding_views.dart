@@ -8,6 +8,7 @@ import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';
 import 'package:indulge/user/widgets/toggle_button.dart';
 import 'package:enough_platform_widgets/cupertino.dart';
+import 'package:button_multiselect/button_multiselect.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 
 const actionColor = Color.fromRGBO(252, 162, 114, 1);
@@ -301,7 +302,7 @@ class _FoodCategoryPreferencesViewState extends State<FoodCategoryPreferencesVie
                                       fontSize: 16,
                                     ),
                                   ),
-                                  contentPadding: EdgeInsets.all(24),
+                                  contentPadding: const EdgeInsets.all(24),
                                   activeColor: actionColor,
                                   value: foodExperienceCheckboxes[key],
                                   onChanged: (value) {
@@ -360,7 +361,8 @@ class _FoodCategoryPreferencesViewState extends State<FoodCategoryPreferencesVie
 
 class _PriceAndRadiusPreferenceViewState extends State<PriceAndRadiusPreferenceView> {
   static const actionColor = Color.fromRGBO(252, 162, 114, 1);
-
+  List<dynamic> pricePoints = [];
+  double radius = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -393,8 +395,60 @@ class _PriceAndRadiusPreferenceViewState extends State<PriceAndRadiusPreferenceV
                 ),
 
                 // TODO: Meat of screen (sign up info)
-                const Expanded(
-                  child: Placeholder(),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          "What price points are you most interested in?",
+                        ),
+                      ),
+                      ButtonMultiSelect(
+                        buttonSize: ButtonSize.medium,
+                        items: [
+                          ButtonMultiSelectItem<int>(label: "\$", value: 1, ),
+                          ButtonMultiSelectItem<int>(label: "\$\$", value: 2, ),
+                          ButtonMultiSelectItem<int>(label: "\$\$\$", value: 3, ),
+                        ], 
+                        onSelectedChanged: (data) {  
+                          setState(() {
+                            pricePoints = data;
+                          });
+                        }, 
+                        primaryColor: actionColor, 
+                        textColor: Colors.white,
+                      ),
+                      const SizedBox(
+                        height: 100,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          "How far would you travel for suggested food?",
+                        ),
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: CupertinoSlider(
+                          value: radius, 
+                          onChanged: (newRadius) {
+                            setState(() {
+                              radius = newRadius;
+                            });
+                          },
+                          min: 1,
+                          max: 15,
+                          activeColor: actionColor,
+                          divisions: 14,
+                        ),
+                      ),
+                      Text(
+                        "${radius.round()} mile(s)",
+                      )
+                    ],
+                  ),
                 ),
 
               SizedBox(
