@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
+import 'package:indulge/reviews/viewmodels/review_view_model.dart';
+import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 
 import 'package:provider/provider.dart';
@@ -45,14 +47,13 @@ class _CreateReviewViewState extends State<CreateReviewView> {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<ListsViewModel>(context);
-    // var beenThereList = null;
     if (vm.lists.isEmpty) {
       print("Empty list!");
       return Text("something went wrong.");
     }
     else {
       final beenThereList = vm.lists[0].listItems
-        ?.where((item) => item.reviewed == false)
+        ?.where((item) => item.reviewed == 0)
         .toList();
       return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
@@ -165,118 +166,6 @@ class _CreateReviewViewState extends State<CreateReviewView> {
       )
     );
     }
-    // final restaurantName = reviewViewModel.restaurantName; 
-    // final rating = reviewViewModel.rating; 
-    // final comment = reviewViewModel.comment;    
-    // return CupertinoPageScaffold(
-    //   navigationBar: const CupertinoNavigationBar(
-    //     middle: Text("New Review"),
-    //     backgroundColor: CupertinoColors.white,
-    //   ),
-    //   child: Container(
-    //     padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
-    //     color: CupertinoColors.white,
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: <Widget>[
-    //         Text("Selected:"),
-    //         CupertinoButton(
-    //           padding: EdgeInsets.zero,
-    //           onPressed: () => _showDialog(
-    //             CupertinoPicker(
-    //               magnification: 1.22,
-    //               squeeze: 1.2,
-    //               useMagnifier: true,
-    //               itemExtent: 32.0,
-    //               // This sets the initial item.
-    //               scrollController: FixedExtentScrollController(
-    //                 initialItem: 0,
-    //               ),
-    //               // This is called when selected item is changed.
-    //               onSelectedItemChanged: (int selectedItem) {
-    //                 setState(() {
-    //                   _selectedRestaurant = selectedItem;
-    //                 });
-    //               },
-    //               children:
-    //                   List<Widget>.generate(vm.lists[0].listItems.length, (int index) {
-    //                 return Center(child: Text(vm.lists[0].listItems[index].name));
-    //               }),
-    //             ),
-    //           ),
-    //           // This displays the selected restaurant name.
-    //           child: Text(
-    //             vm.lists[0].listItems[_selectedRestaurant].name,
-    //             style: const TextStyle(
-    //               fontSize: 22.0,
-    //             ),
-    //           ),
-    //         ),
-    //         const Text(
-    //           "Choose your rating:",
-    //           style: TextStyle(
-    //             fontSize: 30,
-    //           ),
-    //         ),
-    //         const SizedBox(height: 20.0),
-    //         const IconTheme(
-    //           data: IconThemeData(
-    //             color: CupertinoColors.black,
-    //             size: 40.0
-    //           ), 
-    //           child: StarWidget(
-    //             initialRating: 0.0
-    //           )
-    //         ),
-    //         const SizedBox(height: 30.0),
-    //         const Text(
-    //           "Describe your experience:",
-    //           style: TextStyle(
-    //             fontSize: 30,
-    //           ),
-    //         ),
-    //         const SizedBox(height: 10.0),
-    //         const ReviewEditorWidget(
-    //           initialComment: ""
-    //         ),
-    //         const SizedBox(height: 50.0),
-    //         Container(
-    //           alignment: Alignment.center,
-    //           child: Column(
-    //             children: <Widget>[
-    //               CupertinoButton(
-    //                 color: CupertinoColors.black,
-    //                 onPressed: () {
-    //                   print("pressed submit!");
-    //                 },
-    //                 child: const Text(
-    //                   "Submit",
-    //                   style: TextStyle(
-    //                     fontWeight: FontWeight.bold,
-    //                   ),
-    //                 ),
-    //               ),
-    //               SizedBox(height: 10.0),
-    //               CupertinoButton(
-    //                 color: CupertinoColors.inactiveGray,
-    //                 onPressed: () {
-    //                   print("pressed cancel!");
-    //                 },
-    //                 child: const Text(
-    //                   "Cancel",
-    //                   style: TextStyle(
-    //                     fontWeight: FontWeight.bold,
-    //                   ),
-    //                 ),
-    //               )
-    //             ],
-    //           ),
-    //         )
-    //       ],
-    //     ),
-    //   )
-    // );
   }
 
 }

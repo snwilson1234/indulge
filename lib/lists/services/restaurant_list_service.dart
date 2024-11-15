@@ -20,7 +20,8 @@ class RestaurantListService {
             json_object(
                 'id', dr.id,
                 'name', dr.restaurantName,
-                'listId', dr.listId
+                'listId', dr.listId,
+                'reviewed', dr.reviewed
             )
         ) AS listItems
     FROM RestaurantList rl

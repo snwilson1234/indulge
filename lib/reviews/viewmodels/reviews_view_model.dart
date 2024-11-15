@@ -13,4 +13,8 @@ class ReviewsViewModel extends ChangeNotifier {
     reviews = tempReviews.map((review) => ReviewViewModel(review: review)).toList();
     notifyListeners();
   }
+
+  void submitReview(ReviewViewModel review) {
+    
+  }
 }

@@ -82,6 +82,7 @@ class DatabaseService {
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       restaurantName TEXT,
       listId INTEGER,
+      reviewed INTEGER,
       FOREIGN KEY (listId) REFERENCES RestaurantList(id) on DELETE CASCADE
       );'''
     );
@@ -99,13 +100,13 @@ class DatabaseService {
 
   static void _makeRestaurantInserts(Batch batch) {
     batch.execute('''
-    INSERT INTO DummyRestaurant values(1,"Taco Tavern",1);
+    INSERT INTO DummyRestaurant values(1,"Taco Tavern",1,1);
     ''');
     batch.execute('''
-    INSERT INTO DummyRestaurant values(2,"Pasta Palace",1);
+    INSERT INTO DummyRestaurant values(2,"Pasta Palace",1,0);
     ''');
     batch.execute('''
-    INSERT INTO DummyRestaurant values(3,"Sushi Spot",2);
+    INSERT INTO DummyRestaurant values(3,"Sushi Spot",2,0);
     ''');
   }
 

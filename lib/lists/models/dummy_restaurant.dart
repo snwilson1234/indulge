@@ -2,12 +2,14 @@
 class DummyRestaurant {
   int? id;
   String? name;
-  bool? reviewed;
+  int? listId;
+  int? reviewed;// 0 = false, 1 = true. sqlite doesnt support bool
 
   Map<String, Object?> toMap() {
     var map = <String, Object?>{
       'id': id,
       'name': name,
+      'listId': listId,
       'reviewed': reviewed,
     };
     if (id != null) {
@@ -21,21 +23,7 @@ class DummyRestaurant {
   DummyRestaurant.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     name = map['name'];
+    listId = map['listId'];
     reviewed = map['reviewed'];
   }
 }
-
-// @JsonSerializable(explicitToJson: true)
-// class DummyRestaurant {
-//   DummyRestaurant({required this.name, required this.reviewed});
-  
-//   @JsonKey(required: true)
-//   final String name;
-
-//   @JsonKey(required: true)
-//   final bool reviewed;
-
-//   factory DummyRestaurant.fromJson(Map<String, dynamic> json) => _$DummyRestaurantFromJson(json);
-
-//   Map<String, dynamic> toJson() => _$DummyRestaurantToJson(this);
-// }
