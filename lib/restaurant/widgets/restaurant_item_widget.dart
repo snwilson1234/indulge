@@ -12,7 +12,7 @@ class RestaurantScreen extends StatelessWidget {
           // Background Image
           Positioned.fill(
             child: Image.network(
-              'https://example.com/restaurant-image.jpg', // replace with your image URL
+              'https://www.cityworksrestaurant.com/wp-content/uploads/2021/11/CW.Pittsburgh.040-1024x683.jpg', // replace with your image URL
               fit: BoxFit.cover,
             ),
           ),

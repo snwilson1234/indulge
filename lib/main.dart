@@ -1,5 +1,6 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
+import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
 
 // Our views
@@ -77,9 +78,9 @@ class _MainPageState extends State<MainPage> {
           case 0:
             return CupertinoTabView(
               routes: <String, WidgetBuilder>{
-                homeRoute: (context) => const Text("home route"),
+                homeRoute: (context) => RestaurantScreen(),
               },
-              builder: (context) => const Text("home route"),
+              builder: (context) => RestaurantScreen(),
             );
           case 1:
             return CupertinoTabView(
