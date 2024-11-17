@@ -1,5 +1,12 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
+
+// Our views
+import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/database/db_service.dart';
 import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
@@ -7,17 +14,11 @@ import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/lists/views/list_detail_view.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/views/create_review_view.dart';
+import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
-import 'package:flutter/widgets.dart';
-
-// Our views
-import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/views/user_reviews_view.dart';
-import 'package:path/path.dart';
-import 'package:provider/provider.dart';
 import 'package:indulge/reviews/views/review_detail_view.dart';
-import 'package:sqflite/sqflite.dart';
 
 
 void main() async {
@@ -48,9 +49,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
+    return CupertinoApp(
       home: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
+        navigationBar: const CupertinoNavigationBar(
           backgroundColor: CupertinoColors.white,
           leading: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,9 +112,9 @@ class _MainPageState extends State<MainPage> {
           case 0:
             return CupertinoTabView(
               routes: <String, WidgetBuilder>{
-                homeRoute: (context) => const Text("home route"),
+                homeRoute: (context) => RestaurantScreen(),
               },
-              builder: (context) => const Text("home route"),
+              builder: (context) => RestaurantScreen(),
             );
           case 1:
             return CupertinoTabView(
