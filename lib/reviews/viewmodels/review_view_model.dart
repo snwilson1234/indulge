@@ -6,15 +6,19 @@ class ReviewViewModel {
 
   ReviewViewModel({required this.review});
 
-  String get restaurantName {
+  int? get restaurantId {
+    return review.restaurantId;
+  }
+
+  String? get restaurantName {
     return review.restaurantName;
   }
 
-  double get rating {
+  double? get rating {
     return review.rating;
   }
 
-  String get comment  {
+  String? get comment  {
     return review.comment;
   }
 }

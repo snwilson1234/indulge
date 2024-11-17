@@ -1,19 +1,43 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
+import 'package:indulge/database/db_service.dart';
+import 'package:indulge/lists/models/dummy_restaurant.dart';
+import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
+import 'package:indulge/lists/viewmodels/lists_view_model.dart';
+import 'package:indulge/lists/views/list_detail_view.dart';
+import 'package:indulge/reviews/viewmodels/review_view_model.dart';
+import 'package:indulge/reviews/views/create_review_view.dart';
 import 'package:indulge/routing/routes.dart';
+import 'package:flutter/widgets.dart';
 
 // Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/views/user_reviews_view.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:indulge/reviews/views/review_detail_view.dart';
+import 'package:sqflite/sqflite.dart';
 
 
-void main() {
+void main() async {
+
+  // this is required for some reason
+  WidgetsFlutterBinding.ensureInitialized();
+  Database db = await DatabaseService.database;
+  final dbPath = join(await getDatabasesPath(), 'indulge.db');
+  print("DB PATH, changes with simulator restarts: $dbPath");
+
+  var result = await db.rawQuery('PRAGMA foreign_keys;');
+  print("Foreign keys enabled ?: ${result.first['foreign_keys']}");
+
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ReviewsViewModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
+        ChangeNotifierProvider(create: (context) => ListsViewModel()),
+        ChangeNotifierProvider(create: (context) => DummyRestaurantViewModel()),
+      ],
       child: const MainApp(),
     ),
   );
@@ -24,9 +48,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return const CupertinoApp(
       home: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
+        navigationBar: CupertinoNavigationBar(
           backgroundColor: CupertinoColors.white,
           leading: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,6 +75,8 @@ class MainApp extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -93,6 +119,12 @@ class _MainPageState extends State<MainPage> {
             return CupertinoTabView(
               routes: <String, WidgetBuilder>{
                 listRoute: (context) => const UserListsView(),
+                listDetailRoute: (context) {
+                  final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+                  final String name = arguments['name'];
+                  final List<DummyRestaurant> list = arguments['listItems'];
+                  return ListDetailView(name: name, listItems: list);
+                }
               },
               builder: (context) => const UserListsView(),
             );
@@ -101,9 +133,10 @@ class _MainPageState extends State<MainPage> {
               routes: <String, WidgetBuilder>{
                 reviewRoute: (context) => const UserReviewsView(),
                 reviewDetailRoute: (context) {
-                  final String restaurantName = ModalRoute.of(context)!.settings.arguments as String;
-                  return ReviewDetailView(restaurantName: restaurantName);
-                }
+                  final reviewViewModel = ModalRoute.of(context)!.settings.arguments as ReviewViewModel;
+                  return ReviewDetailView(reviewViewModel: reviewViewModel);
+                },
+                newReviewRoute: (context) => const CreateReviewView(),
               },
               builder: (context) => const UserReviewsView(),
             );

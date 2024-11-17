@@ -1,15 +1,40 @@
+
 class Review {
-  final String restaurantName;
-  final double rating;
-  final String comment;
+  int? id;
+  int? restaurantId;
+  String? restaurantName;
+  double rating = 0.0; //just a temp to appease compiler
+  String? comment;
 
-  Review({required this.restaurantName, required this.rating, required this.comment});
+  Map<String, Object?> toMap() {
+    var map = <String, Object?>{
+      'id': id,
+      'restaurantId': restaurantId,
+      'restaurantName': restaurantName,
+      'rating': rating,
+      'comment': comment
+    };
+    if (id != null) {
+      map['id'] = id;
+    }
+    return map;
+  }
 
-  factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(
-      restaurantName: json["restaurantName"],
-      rating: double.parse(json["rating"]),
-      comment: json["comment"],
-    );
+  Review();
+
+  Review.withParams({
+    this.id,
+    required this.restaurantId,
+    this.restaurantName,
+    required this.rating,
+    this.comment,
+  });
+
+  Review.fromMap(Map<String, dynamic> map) {
+    id = map['id'];
+    restaurantId = map['restaurantId'];
+    restaurantName = map['restaurantName'];
+    rating = map['rating'];
+    comment = map['comment'];
   }
 }

@@ -1,52 +1,67 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
+import 'package:indulge/common/static_star_widget.dart';
+import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
-
-import 'package:flutter_rating/flutter_rating.dart';
 
 
 class ReviewDetailView extends StatelessWidget {
-  final String restaurantName;
+  final ReviewViewModel reviewViewModel;
 
-  const ReviewDetailView({Key? key, required this.restaurantName}) : super(key : key);
+  final TextEditingController _reviewController = TextEditingController();
+
+  ReviewDetailView({super.key, required this.reviewViewModel});
   
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
+    final restaurantName = reviewViewModel.restaurantName; 
+    final rating = reviewViewModel.rating; 
+    final comment = reviewViewModel.comment;    
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text("Reviewing $restaurantName"),
         backgroundColor: CupertinoColors.white,
       ),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
         color: CupertinoColors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              "Choose your rating:",
+              "Update your rating:",
               style: TextStyle(
                 fontSize: 30,
               ),
             ),
             const SizedBox(height: 20.0),
-            const IconTheme(
-              data: IconThemeData(
+            IconTheme(
+              data: const IconThemeData(
                 color: CupertinoColors.black,
                 size: 40.0
               ), 
-              child: StarWidget()
+              child: 
+              StaticStarWidget(rating: rating!)
+              // StarWidget(
+              //   initialRating: rating!,
+              //   onRatingChanged: (rating) {
+              //     print("test");
+              //   },
+              // )
             ),
             const SizedBox(height: 30.0),
             const Text(
-              "Describe your experience:",
+              "Redescribe your experience:",
               style: TextStyle(
                 fontSize: 30,
               ),
             ),
             const SizedBox(height: 10.0),
-            const ReviewEditorWidget(),
+            ReviewEditorWidget(
+              initialComment: comment!,
+              controller: _reviewController,
+            ),
             const SizedBox(height: 50.0),
             Container(
               alignment: Alignment.center,
@@ -64,7 +79,7 @@ class ReviewDetailView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.0),
+                  const SizedBox(height: 10.0),
                   CupertinoButton(
                     color: CupertinoColors.inactiveGray,
                     onPressed: () {

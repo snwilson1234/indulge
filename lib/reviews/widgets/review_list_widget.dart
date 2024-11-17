@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
-import 'package:indulge/reviews/views/review_detail_view.dart';
 import 'package:indulge/reviews/widgets/review_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
 
@@ -22,7 +21,7 @@ class ReviewListWidget extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed(
               reviewDetailRoute, 
-              arguments: review.restaurantName
+              arguments: review
             );
           },
           child: ReviewItemWidget(
@@ -31,7 +30,7 @@ class ReviewListWidget extends StatelessWidget {
         );
       },
       separatorBuilder: (context, index) {
-        return Divider();
+        return const ListSeparator();
       },
     );
   }
