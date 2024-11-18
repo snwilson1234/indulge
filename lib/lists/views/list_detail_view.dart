@@ -13,7 +13,12 @@ class ListDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text("$name Restaurants"),
+        middle: Text(
+          "$name Restaurants",
+          style: TextStyle(
+            color: CupertinoColors.black,
+          ),
+        ),
         backgroundColor: CupertinoColors.white,
       ),
       child: Container(
@@ -31,7 +36,8 @@ class ListDetailView extends StatelessWidget {
                   list.restaurantName!,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20
+                    fontSize: 20,
+                    color: CupertinoColors.black,
                   ),
                 )
               ],

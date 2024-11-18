@@ -1,6 +1,8 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:indulge/user/views/login_view.dart';
+import 'package:indulge/user/views/user_profile_view.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -49,28 +51,30 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      home: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
-          backgroundColor: CupertinoColors.white,
-          leading: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "indulge",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-            ],
-          ),
-          //just text for now
-          trailing: Text("+ 20 mi -"),
-        ),
-        child: MainPage()
-      ),
+    return const CupertinoApp(
+      theme: CupertinoThemeData(brightness: Brightness.dark),
+      home: LoginView(),
+      // home: CupertinoPageScaffold(
+      //   navigationBar: CupertinoNavigationBar(
+      //     backgroundColor: CupertinoColors.white,
+      //     leading: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: <Widget>[
+      //         Text(
+      //           "indulge",
+      //           style: TextStyle(
+      //             fontSize: 24,
+      //             fontWeight: FontWeight.bold
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //     //just text for now
+      //     trailing: Text("+ 20 mi -"),
+      //   ),
+      //   child: LoginView(),
+      // ),
     );
   }
 }
@@ -86,77 +90,103 @@ class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      backgroundColor: CupertinoColors.white,
-      tabBar: CupertinoTabBar(
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
         backgroundColor: CupertinoColors.white,
-        activeColor: CupertinoColors.black,
-        inactiveColor: CupertinoColors.inactiveGray,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home),
+        leading: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "indulge",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: CupertinoColors.black,
+              ),
+            ),
+          ],
+        ),
+        // TODO: Make +/- interactible buttons
+        trailing: Text(
+          "+ 20 mi -",
+          style: TextStyle(
+            color: CupertinoColors.black,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.bars),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.pencil),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.profile_circled),
-          ),
-        ],
-      ), 
-      tabBuilder: (BuildContext context, int index) {
-        switch (index) {
-          case 0:
-            return CupertinoTabView(
-              routes: <String, WidgetBuilder>{
-                homeRoute: (context) => RestaurantScreen(),
-              },
-              builder: (context) => RestaurantScreen(),
-            );
-          case 1:
-            return CupertinoTabView(
-              routes: <String, WidgetBuilder>{
-                listRoute: (context) => const UserListsView(),
-                listDetailRoute: (context) {
-                  final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-                  final String name = arguments['name'];
-                  final List<DummyRestaurant> list = arguments['listItems'];
-                  return ListDetailView(name: name, listItems: list);
-                }
-              },
-              builder: (context) => const UserListsView(),
-            );
-          case 2:
-            return CupertinoTabView(
-              routes: <String, WidgetBuilder>{
-                reviewRoute: (context) => const UserReviewsView(),
-                reviewDetailRoute: (context) {
-                  final reviewViewModel = ModalRoute.of(context)!.settings.arguments as ReviewViewModel;
-                  return ReviewDetailView(reviewViewModel: reviewViewModel);
+        ),
+      ),
+      child: CupertinoTabScaffold(
+        backgroundColor: CupertinoColors.white,
+        tabBar: CupertinoTabBar(
+          backgroundColor: CupertinoColors.white,
+          activeColor: CupertinoColors.black,
+          inactiveColor: CupertinoColors.inactiveGray,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.home),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.bars),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.pencil),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.profile_circled),
+            ),
+          ],
+        ), 
+        tabBuilder: (BuildContext context, int index) {
+          switch (index) {
+            case 0:
+              return CupertinoTabView(
+                routes: <String, WidgetBuilder>{
+                  homeRoute: (context) => RestaurantScreen(),
                 },
-                newReviewRoute: (context) => const CreateReviewView(),
-              },
-              builder: (context) => const UserReviewsView(),
-            );
-          case 3:
-            return CupertinoTabView(
-              routes: <String, WidgetBuilder>{
-                profileRoute: (context) => const Text("profile route"),
-              },
-              builder: (context) => const Text("profile route"),
-            );
-          default:
-            return CupertinoTabView(
-              routes: <String, WidgetBuilder>{
-                '/unknown': (context) => const Text("unknown route"),
-              },
-              builder: (context) => const Text("unkown route"),
-            );
-        }
-      },
+                builder: (context) => RestaurantScreen(),
+              );
+            case 1:
+              return CupertinoTabView(
+                routes: <String, WidgetBuilder>{
+                  listRoute: (context) => const UserListsView(),
+                  listDetailRoute: (context) {
+                    final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+                    final String name = arguments['name'];
+                    final List<DummyRestaurant> list = arguments['listItems'];
+                    return ListDetailView(name: name, listItems: list);
+                  }
+                },
+                builder: (context) => const UserListsView(),
+              );
+            case 2:
+              return CupertinoTabView(
+                routes: <String, WidgetBuilder>{
+                  reviewRoute: (context) => const UserReviewsView(),
+                  reviewDetailRoute: (context) {
+                    final reviewViewModel = ModalRoute.of(context)!.settings.arguments as ReviewViewModel;
+                    return ReviewDetailView(reviewViewModel: reviewViewModel);
+                  },
+                  newReviewRoute: (context) => const CreateReviewView(),
+                },
+                builder: (context) => const UserReviewsView(),
+              );
+            case 3:
+              return CupertinoTabView(
+                routes: <String, WidgetBuilder>{
+                  profileRoute: (context) => UserProfileView(),
+                },
+                builder: (context) => const Text("profile route"),
+              );
+            default:
+              return CupertinoTabView(
+                routes: <String, WidgetBuilder>{
+                  '/unknown': (context) => const Text("unknown route"),
+                },
+                builder: (context) => const Text("unkown route"),
+              );
+          }
+        },
+      )
     );
   }
 }

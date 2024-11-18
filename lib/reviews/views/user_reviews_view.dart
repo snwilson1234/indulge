@@ -76,7 +76,9 @@ class _UserReviewsViewState extends State<UserReviewsView> {
             child: CupertinoButton(
               color: CupertinoColors.black,
               borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-              child: const Icon(CupertinoIcons.plus),
+              child: const IconTheme(data: const IconThemeData(
+                color: CupertinoColors.white
+              ), child: Icon(CupertinoIcons.plus)),
               onPressed: () {
                 Navigator.of(context).pushNamed(
                   newReviewRoute,

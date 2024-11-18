@@ -33,6 +33,15 @@ class _ReviewEditorWidgetState extends State<ReviewEditorWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           CupertinoTextField(
+            style: TextStyle(
+              color: CupertinoColors.black
+            ),
+            decoration: const BoxDecoration(
+              color: CupertinoColors.white,
+            ),
+            placeholderStyle: TextStyle(
+              color: CupertinoColors.systemGrey
+            ),
             controller: widget.controller,
             minLines: 10,
             maxLines: 10,

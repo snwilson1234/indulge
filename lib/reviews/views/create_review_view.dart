@@ -52,9 +52,8 @@ class _CreateReviewViewState extends State<CreateReviewView> {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<ListsViewModel>(context);
-    print("VM LIST ITEMS!:::::${vm.lists[0].listItems}");
-    final beenThereList = vm.lists[0].listItems;
-    final alreadyReviwedList = beenThereList
+    final beenThereList = vm.lists[0];
+    final alreadyReviwedList = beenThereList.listItems
         ?.where((item) => item.reviewed == 0)
         .toList() ?? [];
 
@@ -72,7 +71,12 @@ class _CreateReviewViewState extends State<CreateReviewView> {
 
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
-        middle: Text("New Review"),
+        middle: Text(
+          "New Review",
+          style: TextStyle(
+            color: CupertinoColors.black,
+          ),
+        ),
         backgroundColor: CupertinoColors.white,
       ),
       child: Container(
@@ -82,7 +86,12 @@ class _CreateReviewViewState extends State<CreateReviewView> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text("Selected:"),
+            const Text(
+              "Selected:",
+              style: TextStyle(
+                color: CupertinoColors.black,
+              ),
+            ),
             CupertinoButton(
               padding: EdgeInsets.zero,
               onPressed: () => _showDialog(
@@ -119,6 +128,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               "Choose your rating:",
               style: TextStyle(
                 fontSize: 30,
+                color: CupertinoColors.black,
               ),
             ),
             const SizedBox(height: 20.0),
@@ -142,6 +152,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               "Describe your experience:",
               style: TextStyle(
                 fontSize: 30,
+                color: CupertinoColors.black,
               ),
             ),
             const SizedBox(height: 10.0),
@@ -176,6 +187,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       "Submit",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: CupertinoColors.white,
                       ),
                     ),
                   ),
@@ -190,6 +202,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       "Cancel",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: CupertinoColors.white
                       ),
                     ),
                   )

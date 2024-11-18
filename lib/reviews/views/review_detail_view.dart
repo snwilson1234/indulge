@@ -22,7 +22,12 @@ class ReviewDetailView extends StatelessWidget {
     print("COMMENT: $comment");   
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text("Review for $restaurantName"),
+        middle: Text("Review for $restaurantName",
+        style: TextStyle(
+            color: CupertinoColors.black,
+          ),
+        ),
+        
         backgroundColor: CupertinoColors.white,
       ),
       child: Container(
@@ -36,6 +41,7 @@ class ReviewDetailView extends StatelessWidget {
               "Your rating:",
               style: TextStyle(
                 fontSize: 30,
+                color: CupertinoColors.black,
               ),
             ),
             const SizedBox(height: 20.0),
@@ -52,13 +58,15 @@ class ReviewDetailView extends StatelessWidget {
               "Your Comment:",
               style: TextStyle(
                 fontSize: 30,
+                color: CupertinoColors.black,
               ),
             ),
             const SizedBox(height: 10.0),
             Text(
               comment,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
+                color: CupertinoColors.black,
                 fontWeight: FontWeight.normal
               ),
             ),
