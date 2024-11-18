@@ -3,7 +3,7 @@ import 'package:email_validator/email_validator.dart';
 
 class UserViewModel {
 
-  String? validateUsername(String? value) {
+  static String? validateUsername(String? value) {
     if (value != "") {
       return null;
     }
@@ -12,7 +12,7 @@ class UserViewModel {
     }
   }
 
-  String? validatePassword(String? value) {
+  static String? validatePassword(String? value) {
     if (value != "") {
       return null;
     }
@@ -21,7 +21,7 @@ class UserViewModel {
     }
   }
 
-  String? validateEmail(String? value) {
+  static String? validateEmail(String? value) {
     if (EmailValidator.validate(value!)) {
       return null;
     }
@@ -30,7 +30,7 @@ class UserViewModel {
     }
   }
 
-  String? validatePasswordConfirmation(String? pass1, String? pass2) {
+  static String? validatePasswordConfirmation(String? pass1, String? pass2) {
     if ( pass1 == pass2 ) {
       return null;
     }
@@ -38,5 +38,15 @@ class UserViewModel {
       return "Password must match";
     }
   }
+
+  static Map<String, bool> buttonList(strings) {
+    List<String> list = [];
+    List<bool> selected = [];
+    for (String word in strings) {
+      list.add(word);
+      selected.add(false);
+    }
+    return Map.fromIterables(list, selected);
+}
 
 }

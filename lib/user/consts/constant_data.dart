@@ -1,5 +1,7 @@
 
 
+import 'dart:ui';
+
 const List<String> dietaryRestrictions = [
   "Lactose Intolerant",
   "Diary Allergy",
@@ -33,4 +35,5 @@ const List<String> foodExperiences = [
   "Family-Friendly",
 ];
 
+const actionColor = Color.fromRGBO(252, 162, 114, 1);
 

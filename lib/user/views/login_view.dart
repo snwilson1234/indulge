@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/lists/views/user_lists_view.dart';
-import 'package:indulge/user/views/onboarding_views.dart';
+import 'package:indulge/user/views/new_user_info_view.dart';
+import 'package:indulge/user/views/TODO.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -55,7 +56,7 @@ class _LoginViewState extends State<LoginView> {
                       placeholder: "Username",
                       key: const Key("user"),
                       validator: (String? value) {
-                        return userViewModel.validateUsername(value);
+                        return UserViewModel.validateUsername(value);
                       },
                     ),
                     CupertinoTextFormFieldRow(
@@ -63,7 +64,7 @@ class _LoginViewState extends State<LoginView> {
                       key: const Key("pass"),
                       obscureText: true,
                       validator: (String? value) {
-                        return userViewModel.validatePassword(value);
+                        return UserViewModel.validatePassword(value);
                       },
                     ),
                   ],
@@ -92,7 +93,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               
               CupertinoButton(
-                child: Text(
+                child: const Text(
                   "Sign Up",
                   style: TextStyle(
                     color: actionColor,
