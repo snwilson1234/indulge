@@ -34,5 +34,9 @@ class DummyRestaurantViewModel extends ChangeNotifier {
     service.updateDummyRestaurant(restaurant);
   }
 
+  void setRestuarantReviewedById(int id, int reviewed) {
+    service.setRestuarantReviewedById(id, reviewed);
+  }
+
 
 }

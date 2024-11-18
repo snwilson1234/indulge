@@ -41,6 +41,21 @@ class DummyRestaurantService {
     );
   }
 
+  void setRestuarantReviewedById(int id, int reviewed) async {
+    final db = await DatabaseService.database;
+    if (reviewed == 0) {
+      await db.rawUpdate('''
+        UPDATE DummyRestaurant SET reviewed=0 where id=${id};
+      ''');
+    } 
+    else {
+      await db.rawUpdate('''
+        UPDATE DummyRestaurant SET reviewed=1 where id=${id};
+      ''');
+    }
+  }
+
+
   Future<int> deleteDummyRestaurant(int id) async {
     final db = await DatabaseService.database;
     return await db.delete(

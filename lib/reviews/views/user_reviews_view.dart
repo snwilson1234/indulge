@@ -73,7 +73,8 @@ class _UserReviewsViewState extends State<UserReviewsView> {
           Container(
             alignment: Alignment.bottomRight,
             padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-            child: CupertinoButton.filled(
+            child: CupertinoButton(
+              color: CupertinoColors.black,
               borderRadius: const BorderRadius.all(Radius.circular(50.0)),
               child: const Icon(CupertinoIcons.plus),
               onPressed: () {

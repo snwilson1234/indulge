@@ -17,4 +17,8 @@ class ReviewsViewModel extends ChangeNotifier {
   void submitReview(Review review) {
     reviewService.insertReview(review);
   }
+
+  void deleteReview(int id) {
+    reviewService.deleteReview(id);
+  }
 }
