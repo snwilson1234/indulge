@@ -175,7 +175,7 @@ class _MainPageState extends State<MainPage> {
                 routes: <String, WidgetBuilder>{
                   profileRoute: (context) => UserProfileView(),
                 },
-                builder: (context) => const Text("profile route"),
+                builder: (context) => UserProfileView(),
               );
             default:
               return CupertinoTabView(
