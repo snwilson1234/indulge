@@ -32,7 +32,8 @@ class ReviewItemWidget extends StatelessWidget {
                 "${review.restaurantName}",
                 style: const TextStyle(
                   fontSize: 26,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold,
+                  color: CupertinoColors.black,
                 ),
               ),
               IconTheme(
