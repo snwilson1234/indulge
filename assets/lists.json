@@ -1,0 +1,46 @@
+{
+    "lists": [
+        {
+            "name": "Been There",
+            "listItems": [
+                {
+                    "name": "Taco Haven",
+                    "reviewed": true
+                },
+                {
+                    "name": "Pasta Palace",
+                    "reviewed": true
+                },
+                {
+                    "name": "Sushi Spot",
+                    "reviewed": true
+                },
+                {
+                    "name": "Grill Masters",
+                    "reviewed": true
+                },
+                {
+                    "name": "Vegan Delight",
+                    "reviewed": true
+                },
+                {
+                    "name": "Bubba Gump Shrimp",
+                    "reviewed": false
+                },
+                {
+                    "name": "Stackd",
+                    "reviewed": false
+                }
+            ]
+        },
+        {
+            "name": "Asian",
+            "listItems": [
+                {
+                    "name": "Sushi Spot",
+                    "reviewed": false
+                }
+            ]
+        }
+    ]
+}

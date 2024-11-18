@@ -1,0 +1,29 @@
+{
+    "reviews": [
+        {
+            "restaurantName": "Taco Haven",
+            "rating": 4.0, 
+            "comment": "Loved the fresh ingredients in the tacos. The spicy salsa was a standout! Must remember to order extra next time."
+        },
+        {
+            "restaurantName": "Pasta Palace",
+            "rating": 5.0,
+            "comment": "The fettuccine Alfredo was creamy and perfect. Definitely a place to revisit for comfort food!"
+        },
+        {
+            "restaurantName": "Sushi Spot",
+            "rating": 3.0,
+            "comment": "Good sushi, but the service was slow. Might not come back during peak hours."
+        },
+        {
+            "restaurantName": "Grill Masters",
+            "rating": 4.0,
+            "comment": "BBQ ribs were amazing! Great vibe for a relaxed dinner with friends."
+        },
+        {
+            "restaurantName": "Vegan Delight",
+            "rating": 5.0,
+            "comment": "Best plant-based meal ever! The lentil burger blew me away. A new favorite."
+        }
+    ]
+}
