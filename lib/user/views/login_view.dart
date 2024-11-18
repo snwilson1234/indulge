@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:indulge/main.dart';
 import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/lists/views/user_lists_view.dart';
@@ -85,7 +86,7 @@ class _LoginViewState extends State<LoginView> {
                   onPressed: () {
                     final form = formKey.currentState!;
                     if (form.validate()) {
-                      Navigator.push(context, CupertinoPageRoute(builder: (context) => RestaurantScreen(),));
+                      Navigator.push(context, CupertinoPageRoute(builder: (context) => const MainPage(),));
                       // TODO: Let user into app
                     }
                   }

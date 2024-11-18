@@ -1,6 +1,8 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:indulge/user/views/login_view.dart';
+import 'package:indulge/user/views/user_profile_view.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -146,7 +148,7 @@ class _MainPageState extends State<MainPage> {
           case 3:
             return CupertinoTabView(
               routes: <String, WidgetBuilder>{
-                profileRoute: (context) => const Text("profile route"),
+                profileRoute: (context) => UserProfileView(),
               },
               builder: (context) => const Text("profile route"),
             );
