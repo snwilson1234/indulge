@@ -18,6 +18,9 @@ dependencies:
   flutter_card_swiper: ^7.0.2
   swipe_cards: ^2.0.0+1
   pure_dart_ui: ^0.1.10
+  enough_platform_widgets: ^1.0.0
+  button_multiselect: ^0.0.3
+  email_validator: '^2.1.17'
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +35,6 @@ flutter:
   assets:
     - assets/reviews.json
     - assets/lists.json
+    - 'assets/young-woman-eating-ramen.png'
+
+

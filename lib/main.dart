@@ -1,6 +1,8 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:indulge/user/views/login_view.dart';
+import 'package:indulge/user/views/user_profile_view.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -49,28 +51,30 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      home: CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
-          backgroundColor: CupertinoColors.white,
-          leading: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "indulge",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-            ],
-          ),
-          //just text for now
-          trailing: Text("+ 20 mi -"),
-        ),
-        child: MainPage()
-      ),
+    return const CupertinoApp(
+      theme: CupertinoThemeData(brightness: Brightness.dark),
+      home: LoginView(),
+      // home: CupertinoPageScaffold(
+      //   navigationBar: CupertinoNavigationBar(
+      //     backgroundColor: CupertinoColors.white,
+      //     leading: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: <Widget>[
+      //         Text(
+      //           "indulge",
+      //           style: TextStyle(
+      //             fontSize: 24,
+      //             fontWeight: FontWeight.bold
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //     //just text for now
+      //     trailing: Text("+ 20 mi -"),
+      //   ),
+      //   child: LoginView(),
+      // ),
     );
   }
 }
@@ -144,7 +148,7 @@ class _MainPageState extends State<MainPage> {
           case 3:
             return CupertinoTabView(
               routes: <String, WidgetBuilder>{
-                profileRoute: (context) => const Text("profile route"),
+                profileRoute: (context) => UserProfileView(),
               },
               builder: (context) => const Text("profile route"),
             );
