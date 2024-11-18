@@ -12,24 +12,6 @@ class DummyRestaurantViewModel extends ChangeNotifier {
 
   DummyRestaurantService service = DummyRestaurantService();
 
-  // // DummyRestaurantViewModel({required this.restaurant});
-
-  // int? get id {
-  //   return restaurant.id;
-  // }
-
-  // String? get restaurantName {
-  //   return restaurant.restaurantName;
-  // }
-
-  // int? get listId {
-  //   return restaurant.listId;
-  // }
-
-  // int? get reviewed {
-  //   return restaurant.reviewed;
-  // }
-
   void updateRestaurant(DummyRestaurant restaurant) {
     service.updateDummyRestaurant(restaurant);
   }
