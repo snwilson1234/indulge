@@ -36,5 +36,6 @@ flutter:
     - assets/reviews.json
     - assets/lists.json
     - 'assets/young-woman-eating-ramen.png'
+    - 'assets/profile-avatar-placeholder.png'
 
 
