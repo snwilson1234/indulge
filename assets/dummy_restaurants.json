@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "name": "Taco Tavern",
+        "distance": "1.5 mi",
+        "type": "Mexican",
+        "imageUrl": "https://static.stacker.com/s3fs-public/41THDS_96.png",
+        "rating": 4.8
+    },
+    {
+        "id": 2,
+        "name": "Pasta Palace",
+        "distance": "2.3 mi",
+        "type": "Italian",
+        "imageUrl": "https://goodfoodpittsburgh.com/wp-content/uploads/2020/01/83578012_597313894148871_4528116092105059721_n-820x1024.jpg",
+        "rating": 4.5
+    },
+    {
+        "id": 3,
+        "name": "Sushi Spot",
+        "distance": "3.2 mi",
+        "type": "Japanese",
+        "imageUrl": "https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png",
+        "rating": 4.2
+    },
+    {
+        "id": 4,
+        "name": "Burger Bistro",
+        "distance": "0.9 mi",
+        "type": "American",
+        "imageUrl": "https://www.pittsburghmagazine.com/content/uploads/2024/03/f/y/burgatory-1039.jpg",
+        "rating": 4.7
+    },
+    {
+        "id": 5,
+        "name": "Vegan Delight",
+        "distance": "1.2 mi",
+        "type": "Vegan",
+        "imageUrl": "https://www.pittsburghmagazine.com/content/uploads/2021/08/n/c/lpetrilla-onionmaiden-0149-2.jpg",
+        "rating": 4.6
+    }
+]
