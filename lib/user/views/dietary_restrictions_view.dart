@@ -64,28 +64,31 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
                         color: Theme.of(context).canvasColor,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 12, right: 8),
-                        child: CupertinoScrollbar(
-                          thumbVisibility: true,
-                          child: ListView(
-                            children: dietaryRestrictionCheckboxes.keys.map((String key) {
-                              return CupertinoCheckboxListTile(
-                                title: Text(
-                                  key, 
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                        padding: const EdgeInsets.only(left: 12),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(24),
+                          child: CupertinoScrollbar(
+                            thumbVisibility: true,
+                            child: ListView(
+                              children: dietaryRestrictionCheckboxes.keys.map((String key) {
+                                return CupertinoCheckboxListTile(
+                                  title: Text(
+                                    key, 
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                    ),
                                   ),
-                                ),
-                                contentPadding: const EdgeInsets.all(24),
-                                activeColor: UserConstants.actionColor,
-                                value: dietaryRestrictionCheckboxes[key],
-                                onChanged: (value) {
-                                  setState( () {
-                                    dietaryRestrictionCheckboxes[key] = value!;
-                                  });
-                                },);
-                              }
-                            ).toList(),
+                                  contentPadding: const EdgeInsets.all(24),
+                                  activeColor: UserConstants.actionColor,
+                                  value: dietaryRestrictionCheckboxes[key],
+                                  onChanged: (value) {
+                                    setState( () {
+                                      dietaryRestrictionCheckboxes[key] = value!;
+                                    });
+                                  },);
+                                }
+                              ).toList(),
+                            ),
                           ),
                         ),
                       ),

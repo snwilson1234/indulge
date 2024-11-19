@@ -51,30 +51,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.dark),
-      home: LoginView(),
-      // home: CupertinoPageScaffold(
-      //   navigationBar: CupertinoNavigationBar(
-      //     backgroundColor: CupertinoColors.white,
-      //     leading: Column(
-      //       crossAxisAlignment: CrossAxisAlignment.center,
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: <Widget>[
-      //         Text(
-      //           "indulge",
-      //           style: TextStyle(
-      //             fontSize: 24,
-      //             fontWeight: FontWeight.bold
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //     //just text for now
-      //     trailing: Text("+ 20 mi -"),
-      //   ),
-      //   child: LoginView(),
-      // ),
+    return CupertinoApp(
+      routes: {
+        "/login": (context) => const LoginView(),
+      },
+      theme: const CupertinoThemeData(brightness: Brightness.dark),
+      home: const LoginView(),
     );
   }
 }
