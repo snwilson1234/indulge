@@ -6,6 +6,10 @@ class ReviewViewModel {
 
   ReviewViewModel({required this.review});
 
+  int? get id {
+    return review.id;
+  }
+
   int? get restaurantId {
     return review.restaurantId;
   }

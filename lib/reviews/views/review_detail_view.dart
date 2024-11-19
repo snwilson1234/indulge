@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:indulge/common/star_widget.dart';
 import 'package:indulge/common/static_star_widget.dart';
+import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
-import 'package:indulge/reviews/widgets/review_editor_widget.dart';
+import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
+import 'package:provider/provider.dart';
 
 
 class ReviewDetailView extends StatelessWidget {
@@ -21,12 +22,12 @@ class ReviewDetailView extends StatelessWidget {
     print("COMMENT: $comment");   
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text(
-          "Reviewing $restaurantName",
-          style: TextStyle(
+        middle: Text("Review for $restaurantName",
+        style: TextStyle(
             color: CupertinoColors.black,
           ),
         ),
+        
         backgroundColor: CupertinoColors.white,
       ),
       child: Container(
@@ -37,7 +38,7 @@ class ReviewDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              "Update your rating:",
+              "Your rating:",
               style: TextStyle(
                 fontSize: 30,
                 color: CupertinoColors.black,
@@ -51,60 +52,87 @@ class ReviewDetailView extends StatelessWidget {
               ), 
               child: 
               StaticStarWidget(rating: rating!)
-              // StarWidget(
-              //   initialRating: rating!,
-              //   onRatingChanged: (rating) {
-              //     print("test");
-              //   },
-              // )
             ),
             const SizedBox(height: 30.0),
             const Text(
-              "Redescribe your experience:",
+              "Your Comment:",
               style: TextStyle(
                 fontSize: 30,
                 color: CupertinoColors.black,
               ),
             ),
             const SizedBox(height: 10.0),
-            ReviewEditorWidget(
-              initialComment: comment!,
-              controller: _reviewController,
+            Text(
+              comment,
+              style: const TextStyle(
+                fontSize: 16,
+                color: CupertinoColors.black,
+                fontWeight: FontWeight.normal
+              ),
             ),
+            // TODO: implement editing submitted reviews
+            // ReviewEditorWidget(
+            //   initialComment: comment!,
+            //   controller: _reviewController,
+            // ),
             const SizedBox(height: 50.0),
             Container(
               alignment: Alignment.center,
-              child: Column(
-                children: <Widget>[
-                  CupertinoButton(
-                    color: CupertinoColors.black,
-                    onPressed: () {
-                      print("pressed submit!");
-                    },
-                    child: const Text(
-                      "Submit",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: CupertinoColors.white,
-                      ),
-                    ),
+              child: CupertinoButton(
+                color: CupertinoColors.systemRed,
+                onPressed: () {
+                  print("pressed delete!");
+                  // TODO: add a popup ("are you sure you want to delete this review?")
+                  final reviewId = reviewViewModel.id;
+                  // delete the review
+                  Provider.of<ReviewsViewModel>(context, listen: false).deleteReview(reviewId!);
+                  
+                  // update the restaurant so it is no longer reviewed
+                  Provider.of<DummyRestaurantViewModel>(context, listen: false).setRestuarantReviewedById(reviewViewModel.restaurantId!, 0);
+                  // fetch the updated list of reviews
+                  
+                  Provider.of<ReviewsViewModel>(context, listen: false).fetchReviews();
+                  // go back to reviews page
+                  
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  "Delete",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 10.0),
-                  CupertinoButton(
-                    color: CupertinoColors.inactiveGray,
-                    onPressed: () {
-                      print("pressed cancel!");
-                    },
-                    child: const Text(
-                      "Cancel",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: CupertinoColors.white,
-                      ),
-                    ),
-                  )
-                ],
+                ),
               ),
+              // TODO: implement ediitng submitted reviews
+              // child: Column(
+              //   children: <Widget>[
+              //     CupertinoButton(
+              //       color: CupertinoColors.black,
+              //       onPressed: () {
+              //         print("pressed submit!");
+              //       },
+              //       child: const Text(
+              //         "Submit",
+              //         style: TextStyle(
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //     ),
+              //     const SizedBox(height: 10.0),
+              //     CupertinoButton(
+              //       color: CupertinoColors.inactiveGray,
+              //       onPressed: () {
+              //         print("pressed cancel!");
+              //       },
+              //       child: const Text(
+              //         "Cancel",
+              //         style: TextStyle(
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //     )
+              //   ],
+              // ),
             )
           ],
         ),

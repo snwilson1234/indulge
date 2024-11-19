@@ -1,23 +1,24 @@
 
-import 'package:flutter/cupertino.dart';
-import 'package:indulge/common/static_star_widget.dart';
-import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 
-class ReviewItemWidget extends StatelessWidget {
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class ProfileItemWidget extends StatelessWidget {
+  final dynamic text;
+
+
   
-  final ReviewViewModel review;
-  
-  const ReviewItemWidget({
-    required this.review,
+  const ProfileItemWidget({
+    required this.text,
     super.key,
   });
   
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: CupertinoColors.white,
       padding: const EdgeInsets.symmetric(
-        vertical: 0,
+        vertical: 4,
         horizontal: 10.0
       ),
       child: Row(
@@ -28,22 +29,12 @@ class ReviewItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "${review.restaurantName}",
+                text,
                 style: const TextStyle(
-                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                   color: CupertinoColors.black,
                 ),
               ),
-              IconTheme(
-                data: const IconThemeData(
-                  color: CupertinoColors.black,
-                  size: 16.0
-                ), 
-                child: StaticStarWidget(
-                  rating: review.rating!
-                )
-              )
             ],
           ),
           const IconTheme(

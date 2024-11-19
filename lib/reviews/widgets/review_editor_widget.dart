@@ -39,7 +39,6 @@ class _ReviewEditorWidgetState extends State<ReviewEditorWidget> {
             decoration: const BoxDecoration(
               color: CupertinoColors.white,
             ),
-            placeholder: "Say something...",
             placeholderStyle: TextStyle(
               color: CupertinoColors.systemGrey
             ),
