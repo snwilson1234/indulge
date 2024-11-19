@@ -38,6 +38,6 @@ flutter:
     - assets/lists.json
     - 'assets/young-woman-eating-ramen.png'
     - 'assets/profile-avatar-placeholder.png'
-    - assets/dummy_restaurants.jpg
+    - assets/dummy_restaurants.json
 
 
