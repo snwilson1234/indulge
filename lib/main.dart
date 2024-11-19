@@ -6,40 +6,52 @@ import 'package:indulge/user/views/user_profile_view.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:flutter/foundation.dart';
 
 // Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/database/db_service.dart';
 import 'package:indulge/lists/models/dummy_restaurant.dart';
-import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/lists/views/list_detail_view.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/views/create_review_view.dart';
-import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/views/user_reviews_view.dart';
 import 'package:indulge/reviews/views/review_detail_view.dart';
-
+import 'package:indulge/restaurant/views/restaurant_view.dart';
+import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 
 void main() async {
-
-  // this is required for some reason
+  // Ensure Flutter widgets are initialized
   WidgetsFlutterBinding.ensureInitialized();
-  Database db = await DatabaseService.database;
+
+  // Initialize `sqflite_common_ffi` for desktop platforms
+  if (!kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.windows ||
+          defaultTargetPlatform == TargetPlatform.linux ||
+          defaultTargetPlatform == TargetPlatform.macOS)) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
+
+  // Test database connection and foreign keys
+  final db = await DatabaseService.database;
   final dbPath = join(await getDatabasesPath(), 'indulge.db');
   print("DB PATH, changes with simulator restarts: $dbPath");
 
   var result = await db.rawQuery('PRAGMA foreign_keys;');
-  print("Foreign keys enabled ?: ${result.first['foreign_keys']}");
+  print("Foreign keys enabled?: ${result.first['foreign_keys']}");
 
+  // Start your app
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
         ChangeNotifierProvider(create: (context) => ListsViewModel()),
-        ChangeNotifierProvider(create: (context) => DummyRestaurantViewModel()),
+        ChangeNotifierProvider(create: (context) => RestaurantViewModel()),
       ],
       child: const MainApp(),
     ),
@@ -141,9 +153,15 @@ class _MainPageState extends State<MainPage> {
             case 0:
               return CupertinoTabView(
                 routes: <String, WidgetBuilder>{
-                  homeRoute: (context) => RestaurantScreen(),
+                  homeRoute: (context) => ChangeNotifierProvider(
+                    create: (_) => RestaurantViewModel()..fetchRestaurantsFromJson(),
+                    child: RestaurantView(),
+                  ),
                 },
-                builder: (context) => RestaurantScreen(),
+                builder: (context) => ChangeNotifierProvider(
+                  create: (_) => RestaurantViewModel()..fetchRestaurantsFromJson(),
+                  child: RestaurantView(),
+                ),
               );
             case 1:
               return CupertinoTabView(

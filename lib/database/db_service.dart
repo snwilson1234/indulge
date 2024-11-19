@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'dart:async';
 
 class DatabaseService {
   static Database? _database;
@@ -35,6 +36,8 @@ class DatabaseService {
         _makeListInserts(batch);
         _makeRestaurantInserts(batch);
         _makeReviewInserts(batch);
+        _createRestaurantTable(batch);
+        _makeRestaurantTableInserts(batch);
         // TODO: add more tables & dummy data
         await batch.commit();
         print("Successfully committed batch");
@@ -118,6 +121,49 @@ class DatabaseService {
     INSERT INTO RestaurantList values(2,"Chinese");
     ''');
   } 
+
+  static void _createRestaurantTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS Restaurants');
+    batch.execute('''
+      CREATE TABLE Restaurants (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        distance TEXT NOT NULL,
+        type TEXT NOT NULL,
+        imageUrl TEXT NOT NULL,
+        rating REAL NOT NULL
+      )
+    ''');
+  }
+
+  static void _makeRestaurantTableInserts(Batch batch) {
+    batch.insert('Restaurants', {
+      'name': 'Taco Tavern',
+      'distance': '1.5 mi',
+      'type': 'Mexican',
+      'imageUrl': 'https://via.placeholder.com/400',
+      'rating': 4.8,
+    });
+
+    batch.insert('Restaurants', {
+      'name': 'Pasta Palace',
+      'distance': '2.3 mi',
+      'type': 'Italian',
+      'imageUrl': 'https://via.placeholder.com/400',
+      'rating': 4.5,
+    });
+
+    batch.insert('Restaurants', {
+      'name': 'Sushi Spot',
+      'distance': '3.2 mi',
+      'type': 'Japanese',
+      'imageUrl': 'https://via.placeholder.com/400',
+      'rating': 4.2,
+    });
+  }
+
+
+
 
   static void _deleteAllReviews(Batch batch) {
 

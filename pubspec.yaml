@@ -14,6 +14,7 @@ dependencies:
   flutter_rating: ^2.0.2
   json_annotation: ^4.9.0
   sqflite: ^2.4.1
+  sqflite_common_ffi: ^2.0.0+1
   path: ^1.9.0
   flutter_card_swiper: ^7.0.2
   swipe_cards: ^2.0.0+1
@@ -36,5 +37,6 @@ flutter:
     - assets/reviews.json
     - assets/lists.json
     - 'assets/young-woman-eating-ramen.png'
+    - assets/dummy_restaurants.json
 
 
