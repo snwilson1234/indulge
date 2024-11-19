@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:indulge/main.dart';
 import 'package:indulge/restaurant/views/restaurant_view.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 
@@ -48,7 +49,7 @@ class EndOfOnboardingView extends StatelessWidget {
                   ),
                 ), 
                 onPressed: () {
-                  Navigator.push(context, CupertinoPageRoute(builder: (context) => RestaurantView(),));
+                  Navigator.push(context, CupertinoPageRoute(builder: (context) => const MainPage(),));
                 }
               ),
             ],
