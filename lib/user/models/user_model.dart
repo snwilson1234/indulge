@@ -2,24 +2,17 @@ import 'dart:convert';
 
 class UserData {
 
-  var _username;
-  var _password;
-  var _preferences;
-  var _dietaryRestrictions;
+  String username;
+  String password;
+  Map<String, bool> preferences;
+  Map<String, bool> dietaryRestrictions;
 
-  UserData.all( String username, String password, preferences, dietaryRestrictions ) {
-    this._username = username;
-    this._password = password;
-    this._preferences = jsonDecode(preferences);
-    this._dietaryRestrictions = dietaryRestrictions;
-  }
+  UserData({
+    required this.username,
+    required this.password,
+    required this.preferences,
+    required this.dietaryRestrictions
+  });
 
-  UserData.userPass( String username, String password ) {
-    this._username = username;
-    this._password = password;
-  }
-
-  getPreferences() {
-
-  }
+  
 }

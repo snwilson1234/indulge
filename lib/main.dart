@@ -1,6 +1,7 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/login_view.dart';
 import 'package:indulge/user/views/user_profile_view.dart';
 import 'package:path/path.dart';
@@ -40,6 +41,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
         ChangeNotifierProvider(create: (context) => ListsViewModel()),
         ChangeNotifierProvider(create: (context) => DummyRestaurantViewModel()),
+        ChangeNotifierProvider(create: (context) => UserViewModel()),
       ],
       child: const MainApp(),
     ),

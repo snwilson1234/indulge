@@ -1,7 +1,13 @@
 
-import 'package:email_validator/email_validator.dart';
 
-class UserViewModel {
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
+
+class UserViewModel extends ChangeNotifier{
+
+  Map<String, bool> dietaryRestrictionCheckboxes = {};
+  Map<String, bool> foodExperienceCheckboxes = {};
 
   static String? validateUsername(String? value) {
     if (value != "") {
@@ -39,6 +45,24 @@ class UserViewModel {
     }
   }
 
+  void initDietaryButtonList(strings) {
+    dietaryRestrictionCheckboxes = initXButtonList(strings);
+  } 
+
+  void initFoodButtonList(strings) {
+    foodExperienceCheckboxes = initXButtonList(strings);
+  } 
+
+  Map<String, bool> initXButtonList(strings) {
+    List<String> list = [];
+    List<bool> selected = [];
+    for (String word in strings) {
+      list.add(word);
+      selected.add(false);
+    }
+    return Map.fromIterables(list, selected);
+  }
+
   static Map<String, bool> buttonList(strings) {
     List<String> list = [];
     List<bool> selected = [];
@@ -47,6 +71,12 @@ class UserViewModel {
       selected.add(false);
     }
     return Map.fromIterables(list, selected);
-}
+  }
+
+  void setCheckbox(Map<String, bool> map, String key, bool? value) {
+    map[key] = value!;
+    notifyListeners(); 
+  }
+  
 
 }

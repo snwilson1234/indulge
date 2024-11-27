@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/dietary_restrictions_view.dart';
+import 'package:indulge/user/widgets/checkbox_list.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';
 
 class FoodCategoryPreferencesView extends StatefulWidget {
@@ -51,49 +52,7 @@ class _FoodCategoryPreferencesViewState extends State<FoodCategoryPreferencesVie
                 height: 24,
               ),
 
-              Expanded(
-                child: Form(
-                  key: formKey,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: Colors.white12
-                        ),
-                        color: Theme.of(context).canvasColor,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(24),
-                          child: CupertinoScrollbar(
-                            thumbVisibility: true,
-                              child: ListView(
-                                children: foodExperienceCheckboxes.keys.map((String key) {
-                                  return CupertinoCheckboxListTile(
-                                    title: Text(
-                                      key, 
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    contentPadding: const EdgeInsets.all(24),
-                                    activeColor: UserConstants.actionColor,
-                                    value: foodExperienceCheckboxes[key],
-                                    onChanged: (value) {
-                                      setState( () {
-                                        foodExperienceCheckboxes[key] = value!;
-                                      });
-                                    },);
-                                  }
-                                ).toList(),
-                              ),
-                          ),
-                        ),
-                      ),
-                  ),
-                ),
-              ),
+              CheckboxList(checkboxes: foodExperienceCheckboxes),
 
               SizedBox(
                 height: 100,
