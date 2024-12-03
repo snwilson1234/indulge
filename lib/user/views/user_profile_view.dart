@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/user/views/login_view.dart';
+import 'package:indulge/user/views/account_editing_view.dart';
 import 'package:indulge/user/widgets/profile_list_item.dart';
 
 class UserProfileView extends StatelessWidget{
@@ -107,11 +108,26 @@ class UserProfileView extends StatelessWidget{
             ),
           ),
           const ListSeparator(),
-          const ProfileItemWidget(text: "Food Experience"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, CupertinoPageRoute(builder: (context) => AccountEditingView(preferenceType: "food")));
+            },
+            child: const ProfileItemWidget(text: "Food Experience"),
+          ),
           const ListSeparator(),
-          const ProfileItemWidget(text: "Price and Distance"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, CupertinoPageRoute(builder: (context) => AccountEditingView(preferenceType: "p&r")));
+            },
+            child: const ProfileItemWidget(text: "Price and Distance"),
+          ),
           const ListSeparator(),
-          const ProfileItemWidget(text: "Dietary Restrictions"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, CupertinoPageRoute(builder: (context) => AccountEditingView(preferenceType: "diet")));
+            },
+            child: const ProfileItemWidget(text: "Dietary Restrictions"),
+          ),
           const ListSeparator(),
 
           Expanded(
@@ -124,7 +140,7 @@ class UserProfileView extends StatelessWidget{
                     "Change Password",
                   ), 
                   onPressed: () {
-                    
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) =>  AccountEditingView(preferenceType: "cp"),));
                   }
                 ),
                 CupertinoButton.filled(

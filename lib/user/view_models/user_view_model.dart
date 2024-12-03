@@ -3,9 +3,19 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
+import 'package:indulge/user/models/user_model.dart';
 
 class UserViewModel extends ChangeNotifier{
 
+  final userData = UserData(
+    username: "username", 
+    password: "password", 
+    foodPreferences: {}, 
+    dietaryRestrictions: {}, 
+    reviewed: 0, 
+    saved: 0,
+    radius: 1,
+  );
   Map<String, bool> dietaryRestrictionCheckboxes = {};
   Map<String, bool> foodExperienceCheckboxes = {};
 
@@ -76,6 +86,15 @@ class UserViewModel extends ChangeNotifier{
   void setCheckbox(Map<String, bool> map, String key, bool? value) {
     map[key] = value!;
     notifyListeners(); 
+  }
+
+  String? checkOldPassword(String? pass) {
+    if ( pass == userData.password ) {
+      return null;
+    }
+    else {
+      return "Incorrect password";
+    }
   }
   
 

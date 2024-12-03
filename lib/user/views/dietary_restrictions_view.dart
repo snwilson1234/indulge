@@ -8,7 +8,6 @@ import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/TODO.dart';
 import 'package:indulge/user/views/price_radius_view.dart';
 import 'package:indulge/user/widgets/checkbox_list.dart';
-import 'package:indulge/user/widgets/dietary_restrictions_checkboxes.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';
 import 'package:provider/provider.dart';
 
