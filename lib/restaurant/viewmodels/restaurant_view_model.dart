@@ -16,8 +16,26 @@ class RestaurantViewModel extends ChangeNotifier {
 
   RestaurantService service = RestaurantService();
 
-  void fetchRestaurants() {
-    service.getAllRestaurants();
+  void fetchRestaurants() async {
+    _isLoading = true;
+    List<Restaurant> tempRestaurants = await service.getAllRestaurants();
+    //probably a better way to do this but doing this for now
+    _restaurants = tempRestaurants.map(
+      (restaurant) => Restaurant.fromMap(
+        {
+          'id': restaurant.id,
+          'name' : restaurant.name,
+          'distance': restaurant.distance,
+          'type': restaurant.type,
+          'imageUrl': restaurant.imageUrl,
+          'globalRating': restaurant.globalRating,
+          'listId': restaurant.listId,
+          'reviewed': restaurant.reviewed
+        }
+      )
+    ).toList();
+    _isLoading = false;
+    notifyListeners();
   }
 
   void updateRestaurant(Restaurant restaurant) {

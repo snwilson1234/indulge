@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
 
 

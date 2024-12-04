@@ -1,7 +1,6 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/user/views/login_view.dart';
 import 'package:indulge/user/views/user_profile_view.dart';
@@ -14,7 +13,6 @@ import 'package:flutter/foundation.dart';
 // Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/database/db_service.dart';
-import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/lists/views/list_detail_view.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';

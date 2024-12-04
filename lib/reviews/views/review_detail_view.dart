@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/static_star_widget.dart';
-import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
 import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';

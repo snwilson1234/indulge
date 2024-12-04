@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/list_separator.dart';
-import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
 
 
