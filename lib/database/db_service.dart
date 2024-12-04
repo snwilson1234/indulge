@@ -33,11 +33,9 @@ class DatabaseService {
         _createRestaurantListTable(batch);
 
         _createRestaurantTable(batch);
-        // _createDummyRestaurantTable(batch);
         _createReviewTable(batch);
         _makeListInserts(batch);
         _makeRestaurantTableInserts(batch);
-        // _makeRestaurantInserts(batch);
         _makeReviewInserts(batch);
         // TODO: add more tables & dummy data
         await batch.commit();
@@ -67,7 +65,6 @@ class DatabaseService {
       FOREIGN KEY (restaurantId) REFERENCES Restaurant(id) ON DELETE CASCADE
       );'''
     );
-    //FOREIGN KEY (restaurantId) REFERENCES DummyRestaurant(id) ON DELETE CASCADE
   }
 
   static void _createRestaurantListTable(Batch batch) {
@@ -80,40 +77,12 @@ class DatabaseService {
     );
   }
 
-  // static void _createDummyRestaurantTable(Batch batch) {
-  //   batch.execute(("DROP TABLE IF EXISTS DummyRestaurant"));
-  //   batch.execute('''
-  //   CREATE TABLE DummyRestaurant(
-  //     id INTEGER PRIMARY KEY AUTOINCREMENT, 
-  //     restaurantName TEXT,
-  //     listId INTEGER,
-  //     reviewed INTEGER,
-  //     FOREIGN KEY (listId) REFERENCES RestaurantList(id) on DELETE CASCADE
-  //     );'''
-  //   );
-  // }
-
   static void _makeReviewInserts(Batch batch) {
     batch.execute('''
     INSERT INTO Review values(1,1,"Taco Tavern",5,"My favorite place to eat!");
     ''');
-    // batch.execute('''
-    // INSERT INTO Review values(2,2,"Pasta Palace", 4,"Waited a little too long, but food was great!");
-    // ''');
 
   }
-
-  // static void _makeRestaurantInserts(Batch batch) {
-  //   batch.execute('''
-  //   INSERT INTO DummyRestaurant values(1,"Taco Tavern",1,1);
-  //   ''');
-  //   batch.execute('''
-  //   INSERT INTO DummyRestaurant values(2,"Pasta Palace",1,0);
-  //   ''');
-  //   batch.execute('''
-  //   INSERT INTO DummyRestaurant values(3,"Sushi Spot",2,0);
-  //   ''');
-  // }
 
   static void _makeListInserts(Batch batch) {
     batch.execute('''
