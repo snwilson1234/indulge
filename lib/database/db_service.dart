@@ -91,6 +91,15 @@ class DatabaseService {
     batch.execute('''
     INSERT INTO RestaurantList values(2,"Chinese");
     ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(3,"Mexican");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(4,"Italian");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(5,"Japanese");
+    ''');
   } 
 
   static void _createRestaurantTable(Batch batch) {
@@ -117,7 +126,7 @@ class DatabaseService {
       'type': 'Mexican',
       'imageUrl': 'https://static.stacker.com/s3fs-public/41THDS_96.png',
       'globalRating': 4.8,
-      'listId': 1,
+      'listId': null,
       'reviewed': 1,
     });
 
@@ -127,7 +136,7 @@ class DatabaseService {
       'type': 'Italian',
       'imageUrl': 'https://goodfoodpittsburgh.com/wp-content/uploads/2020/01/83578012_597313894148871_4528116092105059721_n-820x1024.jpg',
       'globalRating': 4.5,
-      'listId': 1,
+      'listId': null,
       'reviewed': 0,
     });
 
@@ -137,7 +146,7 @@ class DatabaseService {
       'type': 'Japanese',
       'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
       'globalRating': 4.2,
-      'listId': 2,
+      'listId': null,
       'reviewed': 0
     });
   }

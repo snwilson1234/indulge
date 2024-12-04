@@ -40,7 +40,7 @@ class Restaurant {
       type: map['type'] as String,
       imageUrl: map['imageUrl'] as String,
       globalRating: map['globalRating'] as double,
-      listId: map['listId'] as int,
+      listId: map['listId'] as int?,
       reviewed: map['reviewed'] as int
     );
   }

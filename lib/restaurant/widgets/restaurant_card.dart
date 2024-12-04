@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'dart:math';
 import 'package:indulge/restaurant/models/restaurant.dart';
+import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
+import 'package:provider/provider.dart';
 
 class SwipeableRestaurantCard extends StatefulWidget {
   final Restaurant restaurant;
@@ -63,6 +66,21 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
 
   void _triggerIndulged() {
     _animateDownward(widget.onSkip);
+    // Provider.of(RestaurantViewModel).
+    Restaurant newRestaurant = Restaurant.fromMap(
+      {
+        'id': widget.restaurant.id,
+        'name': widget.restaurant.name,
+        'distance': widget.restaurant.distance,
+        'type': widget.restaurant.type,
+        'imageUrl': widget.restaurant.imageUrl,
+        'globalRating': widget.restaurant.globalRating,
+        'listId': 1,//add to been there
+        'reviewed': widget.restaurant.reviewed
+      }
+    );
+     Provider.of<RestaurantViewModel>(context, listen: false).updateRestaurant(newRestaurant);
+     Provider.of<ListsViewModel>(context, listen: false).fetchLists();
   }
 
   void _animateOffScreen(bool toRight, VoidCallback onComplete) {

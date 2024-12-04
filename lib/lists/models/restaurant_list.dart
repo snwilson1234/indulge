@@ -25,10 +25,11 @@ class RestaurantList {
   RestaurantList.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     name = map['name'];
-    print("list items: ${map['listItems']}");
-    List<dynamic> decodedList = jsonDecode(map['listItems']);
-    listItems = decodedList
-                  .map((item) => Restaurant.fromMap(item as Map<String, dynamic>))
-                  .toList();
+    if (map['listItems'] == null) {
+      listItems = [];
+    }
+    else {
+      listItems = map['listItems'];
+    }
   }
 }
