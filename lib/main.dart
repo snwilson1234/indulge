@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
+import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/user/views/login_view.dart';
 import 'package:indulge/user/views/user_profile_view.dart';
 import 'package:path/path.dart';
@@ -53,7 +54,6 @@ void main() async {
         ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
         ChangeNotifierProvider(create: (context) => ListsViewModel()),
         ChangeNotifierProvider(create: (context) => RestaurantViewModel()),
-        ChangeNotifierProvider(create: (context) => DummyRestaurantViewModel()),
       ],
       child: const MainApp(),
     ),
@@ -138,12 +138,12 @@ class _MainPageState extends State<MainPage> {
               return CupertinoTabView(
                 routes: <String, WidgetBuilder>{
                   homeRoute: (context) => ChangeNotifierProvider(
-                    create: (_) => RestaurantViewModel()..fetchRestaurantsFromJson(),
+                    create: (_) => RestaurantViewModel()..fetchRestaurants(),
                     child: RestaurantView(),
                   ),
                 },
                 builder: (context) => ChangeNotifierProvider(
-                  create: (_) => RestaurantViewModel()..fetchRestaurantsFromJson(),
+                  create: (_) => RestaurantViewModel()..fetchRestaurants(),
                   child: RestaurantView(),
                 ),
               );
@@ -154,7 +154,7 @@ class _MainPageState extends State<MainPage> {
                   listDetailRoute: (context) {
                     final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
                     final String name = arguments['name'];
-                    final List<DummyRestaurant> list = arguments['listItems'];
+                    final List<Restaurant> list = arguments['listItems'];
                     return ListDetailView(name: name, listItems: list);
                   }
                 },

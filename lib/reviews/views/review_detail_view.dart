@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/static_star_widget.dart';
 import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
+import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:provider/provider.dart';
@@ -88,7 +89,7 @@ class ReviewDetailView extends StatelessWidget {
                   Provider.of<ReviewsViewModel>(context, listen: false).deleteReview(reviewId!);
                   
                   // update the restaurant so it is no longer reviewed
-                  Provider.of<DummyRestaurantViewModel>(context, listen: false).setRestuarantReviewedById(reviewViewModel.restaurantId!, 0);
+                  Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantReviewedById(reviewViewModel.restaurantId!, 0);
                   // fetch the updated list of reviews
                   
                   Provider.of<ReviewsViewModel>(context, listen: false).fetchReviews();

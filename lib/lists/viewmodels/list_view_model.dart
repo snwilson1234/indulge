@@ -1,6 +1,7 @@
 
 import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/lists/models/restaurant_list.dart';
+import 'package:indulge/restaurant/models/restaurant.dart';
 
 class ListViewModel {
   final RestaurantList list;
@@ -15,7 +16,7 @@ class ListViewModel {
     return list.name;
   }
 
-  List<DummyRestaurant>? get listItems {
+  List<Restaurant>? get listItems {
     return list.listItems;
   }
 }

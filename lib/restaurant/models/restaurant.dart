@@ -4,7 +4,9 @@ class Restaurant {
   final String distance;
   final String type;
   final String imageUrl;
-  final double rating;
+  final double globalRating;
+  final int? listId;
+  int? reviewed;
 
   Restaurant({
     this.id,
@@ -12,7 +14,9 @@ class Restaurant {
     required this.distance,
     required this.type,
     required this.imageUrl,
-    required this.rating,
+    required this.globalRating,
+    this.listId,
+    this.reviewed,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,7 +26,9 @@ class Restaurant {
       'distance': distance,
       'type': type,
       'imageUrl': imageUrl,
-      'rating': rating,
+      'globalRating': globalRating,
+      'listId': listId,
+      'reviewed': reviewed
     };
   }
 
@@ -33,7 +39,9 @@ class Restaurant {
       distance: map['distance'] as String,
       type: map['type'] as String,
       imageUrl: map['imageUrl'] as String,
-      rating: map['rating'] as double,
+      globalRating: map['globalRating'] as double,
+      listId: map['listId'] as int,
+      reviewed: map['reviewed'] as int
     );
   }
 }

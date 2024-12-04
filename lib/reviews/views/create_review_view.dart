@@ -3,6 +3,8 @@ import 'package:indulge/common/star_widget.dart';
 import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
+import 'package:indulge/restaurant/models/restaurant.dart';
+import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:indulge/reviews/models/review.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
@@ -57,7 +59,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
         ?.where((item) => item.reviewed == 0)
         .toList() ?? [];
 
-    if (alreadyReviwedList.isEmpty) {
+    if (alreadyReviwedList!.isEmpty) {
       return const CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text("New Review"),
@@ -112,13 +114,13 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                   },
                   children:
                       List<Widget>.generate(alreadyReviwedList!.length, (int index) {
-                    return Center(child: Text(alreadyReviwedList[index].restaurantName!));
+                    return Center(child: Text(alreadyReviwedList[index].name!));
                   }),
                 ),
               ),
               // This displays the selected restaurant name.
               child: Text(
-                alreadyReviwedList![_selectedRestaurant].restaurantName!,
+                alreadyReviwedList![_selectedRestaurant].name!,
                 style: const TextStyle(
                   fontSize: 22.0,
                 ),
@@ -170,15 +172,15 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                     onPressed: () {
                       final review = Review.withParams(
                         restaurantId: alreadyReviwedList[_selectedRestaurant].id,
-                        restaurantName: alreadyReviwedList[_selectedRestaurant].restaurantName,
+                        restaurantName: alreadyReviwedList[_selectedRestaurant].name,
                         rating: _rating,
                         comment: _reviewController.text,
                       );
                       final reviewsViewModel = Provider.of<ReviewsViewModel>(context, listen: false);
                       reviewsViewModel.submitReview(review);
-                      DummyRestaurant restaurant = alreadyReviwedList[_selectedRestaurant];
+                      Restaurant restaurant = alreadyReviwedList[_selectedRestaurant];
                       restaurant.reviewed = 1;
-                      Provider.of<DummyRestaurantViewModel>(context, listen: false).updateRestaurant(restaurant);
+                      Provider.of<RestaurantViewModel>(context, listen: false).updateRestaurant(restaurant);
                       Provider.of<ReviewsViewModel>(context, listen: false).fetchReviews();
                       Navigator.of(context).pop();
                       print("submitted review!");

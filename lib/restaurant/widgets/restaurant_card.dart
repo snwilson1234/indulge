@@ -201,7 +201,7 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            "${widget.restaurant.rating} ★ | ${widget.restaurant.distance}",
+                            "${widget.restaurant.globalRating} ★ | ${widget.restaurant.distance}",
                             style: const TextStyle(
                               color: CupertinoColors.white,
                               fontSize: 16,

@@ -13,14 +13,18 @@ class RestaurantListService {
         rl.name,
         json_group_array(
             json_object(
-                'id', dr.id,
-                'restaurantName', dr.restaurantName,
-                'listId', dr.listId,
-                'reviewed', dr.reviewed
+                'id', r.id,
+                'name', r.name,
+                'distance', r.distance,
+                'type', r.type,
+                'imageUrl', r.imageUrl,
+                'globalRating', r.globalRating,
+                'listId', r.listId,
+                'reviewed', r.reviewed
             )
         ) AS listItems
     FROM RestaurantList rl
-    LEFT JOIN DummyRestaurant dr ON rl.id = dr.listId
+    LEFT JOIN Restaurant r ON rl.id = r.listId
     GROUP BY rl.id, rl.name;
     ''');
 

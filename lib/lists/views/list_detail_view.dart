@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/lists/models/dummy_restaurant.dart';
+import 'package:indulge/restaurant/models/restaurant.dart';
 
 
 class ListDetailView extends StatelessWidget {
   final String name;
-  final List<DummyRestaurant> listItems;
+  final List<Restaurant> listItems;
 
   const ListDetailView({super.key, required this.name, required this.listItems});
 
@@ -33,7 +34,7 @@ class ListDetailView extends StatelessWidget {
             return Row(
               children: <Widget>[
                 Text(
-                  list.restaurantName!,
+                  list.name!,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
