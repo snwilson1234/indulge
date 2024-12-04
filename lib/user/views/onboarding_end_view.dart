@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:indulge/main.dart';
 import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
+import 'package:indulge/user/view_models/user_view_model.dart';
 
 class EndOfOnboardingView extends StatelessWidget {
-  const EndOfOnboardingView({super.key});
+  final UserViewModel vm;
+  const EndOfOnboardingView({super.key, required this.vm});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,9 @@ class EndOfOnboardingView extends StatelessWidget {
                   ),
                 ), 
                 onPressed: () {
-                  Navigator.push(context, CupertinoPageRoute(builder: (context) => const MainPage(),));
+                  vm.updateDatabase();
+                  vm.info();
+                  Navigator.push(context, CupertinoPageRoute(builder: (context) => MainPage(userVM: vm,),));
                 }
               ),
             ],

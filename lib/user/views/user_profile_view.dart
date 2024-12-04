@@ -2,11 +2,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/list_separator.dart';
+import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/login_view.dart';
 import 'package:indulge/user/views/account_editing_view.dart';
 import 'package:indulge/user/widgets/profile_list_item.dart';
 
 class UserProfileView extends StatelessWidget{
+
+  final UserViewModel vm;
+  UserProfileView({super.key, required this.vm});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +27,12 @@ class UserProfileView extends StatelessWidget{
               fontSize: 40,
             ),
           ),
-          ListSeparator(),
+          const ListSeparator(),
           Center(
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(12),
                   height: 150,
                   width: 150,
                   decoration: BoxDecoration(
@@ -42,29 +46,29 @@ class UserProfileView extends StatelessWidget{
                     ),
                   ),
                 ),
-                const Text(
-                  "Username",
-                  style: TextStyle(
+                Text(
+                  vm.userData.username,
+                  style: const TextStyle(
                     color: CupertinoColors.black,
                     fontSize: 24,
                     fontWeight: FontWeight.bold
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 24),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Column(
                         children: [
                           Text(
-                            "8",
-                            style: TextStyle(
+                            "${vm.userData.reviewed}",
+                            style: const TextStyle(
                               color: CupertinoColors.black,
                               fontWeight: FontWeight.bold
                             ),
                           ),
-                          Text(
+                          const Text(
                             "Spots Reviewed",
                             style: TextStyle(
                               color: CupertinoColors.black,
@@ -76,13 +80,13 @@ class UserProfileView extends StatelessWidget{
                       Column(
                         children: [
                           Text(
-                            "23",
-                            style: TextStyle(
+                            "${vm.userData.saved}",
+                            style: const TextStyle(
                               color: CupertinoColors.black,
                               fontWeight: FontWeight.bold
                             ),
                           ),
-                          Text(
+                          const Text(
                             "Spots Saved",
                             style: TextStyle(
                               color: CupertinoColors.black,
@@ -110,21 +114,21 @@ class UserProfileView extends StatelessWidget{
           const ListSeparator(),
           GestureDetector(
             onTap: () {
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => AccountEditingView(preferenceType: "food")));
+              Navigator.push(context, CupertinoPageRoute(builder: (context) => AccountEditingView(preferenceType: "food", vm: vm,)));
             },
             child: const ProfileItemWidget(text: "Food Experience"),
           ),
           const ListSeparator(),
           GestureDetector(
             onTap: () {
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => AccountEditingView(preferenceType: "p&r")));
+              Navigator.push(context, CupertinoPageRoute(builder: (context) => AccountEditingView(preferenceType: "p&r", vm: vm,)));
             },
             child: const ProfileItemWidget(text: "Price and Distance"),
           ),
           const ListSeparator(),
           GestureDetector(
             onTap: () {
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => AccountEditingView(preferenceType: "diet")));
+              Navigator.push(context, CupertinoPageRoute(builder: (context) => AccountEditingView(preferenceType: "diet", vm: vm,)));
             },
             child: const ProfileItemWidget(text: "Dietary Restrictions"),
           ),
@@ -140,7 +144,7 @@ class UserProfileView extends StatelessWidget{
                     "Change Password",
                   ), 
                   onPressed: () {
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) =>  AccountEditingView(preferenceType: "cp"),));
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) =>  AccountEditingView(preferenceType: "cp", vm: vm,),));
                   }
                 ),
                 CupertinoButton.filled(
@@ -150,8 +154,9 @@ class UserProfileView extends StatelessWidget{
                   ), 
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true)
-                    .pushAndRemoveUntil( CupertinoPageRoute(builder: (context) => LoginView()), 
-                    (route) => false);
+                    .pushAndRemoveUntil( 
+                      CupertinoPageRoute(builder: (context) => const LoginView()), 
+                      (route) => false);
                   }
                 )
               ],

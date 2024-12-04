@@ -5,9 +5,11 @@ import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/food_categories_view.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';
+import 'package:provider/provider.dart';
 
 class NewUserInfoView extends StatefulWidget {
-  const NewUserInfoView({super.key});
+  final UserViewModel vm;
+  const NewUserInfoView({super.key, required this.vm});
 
 
   @override
@@ -26,6 +28,8 @@ class _NewUserInfoViewState extends State<NewUserInfoView> {
 
   @override
   Widget build(BuildContext context) {
+
+    final vm = widget.vm;
     
     return CupertinoPageScaffold(
       child: SafeArea(
@@ -164,7 +168,10 @@ class _NewUserInfoViewState extends State<NewUserInfoView> {
                       () {
                         final form = formKey.currentState!;
                         if (form.validate()) {
-                          Navigator.push(context, CupertinoPageRoute(builder: (context) => const FoodCategoryPreferencesView(),));
+                          vm.updateUsername(userInfo["username"]!);
+                          vm.updatePassword(userInfo["password"]!);
+                          vm.updateEmail(userInfo["email"]!);
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => FoodCategoryPreferencesView(vm: vm),));
                         }
                       }
                     ),

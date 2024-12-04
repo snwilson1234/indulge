@@ -10,9 +10,10 @@ import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 
 class AccountEditingView extends StatefulWidget{
   
+  final UserViewModel vm;
   final String preferenceType;
 
-  AccountEditingView({super.key, required this.preferenceType});
+  AccountEditingView({super.key, required this.preferenceType, required this.vm});
 
   @override
   State<AccountEditingView> createState() => _AccountEditingViewState();
@@ -43,7 +44,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
 
   Widget build(BuildContext context) {
 
-    final vm = Provider.of<UserViewModel>(context);
+    final vm = widget.vm;
     return getContentWidget(context, vm, widget.preferenceType);
 
     
@@ -197,7 +198,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
           const SizedBox(
             height: 24,
           ),
-          CheckboxList(checkboxes: vm.foodExperienceCheckboxes),
+          CheckboxList(checkboxes: vm.userData.foodPreferences, vm: vm),
           const SizedBox(
             height: 24,
           ),
@@ -237,7 +238,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
           const SizedBox(
             height: 24,
           ),
-          CheckboxList(checkboxes: vm.dietaryRestrictionCheckboxes),
+          CheckboxList(checkboxes: vm.userData.dietaryRestrictions, vm: vm),
           const SizedBox(
             height: 24,
           ),
@@ -336,7 +337,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                   ),
                   Text(
                     "${radius.round()} mile(s)",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: CupertinoColors.black,
                     ),
                   )
@@ -347,7 +348,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
               height: 24,
             ),
             CupertinoButton.filled(
-              child: Text("Save"), 
+              child: const Text("Save"), 
               onPressed: () {
                 Navigator.pop(context);
               },

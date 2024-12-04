@@ -6,16 +6,21 @@ import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 
-class CheckboxList extends StatelessWidget {
+class CheckboxList extends StatefulWidget {
 
   final Map<String, bool> checkboxes;
+  final UserViewModel vm;
 
-  CheckboxList({required this.checkboxes});
+  CheckboxList({required this.checkboxes, required this.vm});
+
+  @override
+  State<CheckboxList> createState() => _CheckboxListState();
+}
+
+class _CheckboxListState extends State<CheckboxList> {
 
   @override
   Widget build(BuildContext context) {
-
-    final vm = Provider.of<UserViewModel>(context);
 
     return Expanded(
         child: Container(
@@ -33,7 +38,7 @@ class CheckboxList extends StatelessWidget {
               child: CupertinoScrollbar(
                 thumbVisibility: true,
                 child: ListView(
-                  children: this.checkboxes.keys.map((String key) {
+                  children: widget.checkboxes.keys.map((String key) {
                     return CupertinoCheckboxListTile(
                       title: Text(
                         key, 
@@ -43,9 +48,11 @@ class CheckboxList extends StatelessWidget {
                       ),
                       contentPadding: const EdgeInsets.all(24),
                       activeColor: UserConstants.actionColor,
-                      value: this.checkboxes[key],
+                      value: widget.checkboxes[key],
                       onChanged: (value) {
-                        vm.setCheckbox(checkboxes, key, value);
+                        setState(() {
+                        widget.vm.setCheckbox(widget.checkboxes, key, value);
+                        });
                       },);
                     }
                   ).toList(),

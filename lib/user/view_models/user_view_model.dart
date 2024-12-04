@@ -8,16 +8,20 @@ import 'package:indulge/user/models/user_model.dart';
 class UserViewModel extends ChangeNotifier{
 
   final userData = UserData(
-    username: "username", 
-    password: "password", 
+    username: "", 
+    password: "", 
+    email: "",
     foodPreferences: {}, 
     dietaryRestrictions: {}, 
+    pricePoints: [],
     reviewed: 0, 
     saved: 0,
     radius: 1,
   );
-  Map<String, bool> dietaryRestrictionCheckboxes = {};
-  Map<String, bool> foodExperienceCheckboxes = {};
+
+  // ----------------------------------------------------------------------------------------------------
+  // --------------------------------- Static utility methods -------------------------------------------
+  // ----------------------------------------------------------------------------------------------------
 
   static String? validateUsername(String? value) {
     if (value != "") {
@@ -55,12 +59,22 @@ class UserViewModel extends ChangeNotifier{
     }
   }
 
+  // TODO: Method checks if user/pass combo already exists in DB
+
+  // ----------------------------------------------------------------------------------------------------
+  // --------------------------------- Instance methods -------------------------------------------------
+  // ----------------------------------------------------------------------------------------------------
+
+  void loadUserAccountInfo() {
+
+  }
+
   void initDietaryButtonList(strings) {
-    dietaryRestrictionCheckboxes = initXButtonList(strings);
+    userData.dietaryRestrictions = initXButtonList(strings);
   } 
 
   void initFoodButtonList(strings) {
-    foodExperienceCheckboxes = initXButtonList(strings);
+    userData.foodPreferences = initXButtonList(strings);
   } 
 
   Map<String, bool> initXButtonList(strings) {
@@ -95,6 +109,48 @@ class UserViewModel extends ChangeNotifier{
     else {
       return "Incorrect password";
     }
+  }
+
+  void updateModelPriceAndRadius(List<dynamic> newPricePoints, double newRadius) {
+    userData.pricePoints = newPricePoints;
+    userData.radius = newRadius;
+  }
+
+  void updateUsername(String username) {
+    userData.username = username;
+  }
+
+  void updatePassword(String password) {
+    userData.password = password;
+  }
+
+  void updateEmail(String email) {
+    userData.email = email;
+  }
+
+  void updateReviewed(bool addedOrDeleted) {
+    userData.reviewed += (addedOrDeleted) ? 1 : -1;
+  }
+
+  void updateSaved(bool addedOrDeleted) {
+    userData.saved += (addedOrDeleted) ? 1 : -1;
+  }
+
+  // For debugging purposes
+  void info() {
+    print(userData.username);
+    print(userData.password);
+    print(userData.email);
+    print(userData.foodPreferences);
+    print(userData.dietaryRestrictions);
+    print(userData.pricePoints);
+    print(userData.reviewed);
+    print(userData.saved);
+    print(userData.radius);
+  }
+
+  void updateDatabase(){
+    // TODO: Update database with all user data
   }
   
 

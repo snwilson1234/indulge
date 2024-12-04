@@ -3,11 +3,13 @@ import 'package:button_multiselect/button_multiselect.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
+import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/onboarding_end_view.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';
 
 class PriceAndRadiusPreferenceView extends StatefulWidget {
-  const PriceAndRadiusPreferenceView({super.key});
+  final UserViewModel vm;
+  const PriceAndRadiusPreferenceView({super.key, required this.vm});
 
 
   @override
@@ -21,6 +23,8 @@ class _PriceAndRadiusPreferenceViewState extends State<PriceAndRadiusPreferenceV
 
   @override
   Widget build(BuildContext context) {
+
+    final vm = widget.vm;
     
     return CupertinoPageScaffold(
       child: SafeArea(
@@ -131,7 +135,8 @@ class _PriceAndRadiusPreferenceViewState extends State<PriceAndRadiusPreferenceV
                       ),
                       onPressed: pricePoints.isEmpty ? null : 
                       () {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => const EndOfOnboardingView(),));
+                        vm.updateModelPriceAndRadius(pricePoints, radius);
+                        Navigator.push(context, CupertinoPageRoute(builder: (context) => EndOfOnboardingView(vm: vm),));
                       }
                     ),
                   ]

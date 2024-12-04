@@ -12,7 +12,8 @@ import 'package:indulge/user/widgets/progress_bar.dart';
 import 'package:provider/provider.dart';
 
 class DietaryRestrictionView extends StatefulWidget {
-  const DietaryRestrictionView({super.key});
+  final UserViewModel vm;
+  const DietaryRestrictionView({super.key, required this.vm});
 
   @override
   State<DietaryRestrictionView> createState() => _DietaryRestrictionView();
@@ -23,7 +24,7 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
   @override
   void initState() {
     super.initState();
-    Provider.of<UserViewModel>(context, listen: false).initDietaryButtonList(UserConstants.dietaryRestrictions);
+    widget.vm.initDietaryButtonList(UserConstants.dietaryRestrictions);
   }
 
   final formKey = GlobalKey<FormState>();
@@ -31,7 +32,7 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
   @override
   Widget build(BuildContext context) {
 
-  final vm = Provider.of<UserViewModel>(context);
+  final vm = widget.vm;
 
     return CupertinoPageScaffold(
       
@@ -62,7 +63,7 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
                 ),
                 
 
-                CheckboxList(checkboxes: vm.dietaryRestrictionCheckboxes),
+                CheckboxList(checkboxes: vm.userData.dietaryRestrictions, vm: vm,),
 
 
                 SizedBox(
@@ -89,7 +90,7 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
                           backgroundColor: WidgetStatePropertyAll(UserConstants.actionColor),
                         ),
                         onPressed: () {
-                          Navigator.push(context, CupertinoPageRoute(builder: (context) => const PriceAndRadiusPreferenceView(),));
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => PriceAndRadiusPreferenceView(vm: vm),));
                         }
                       ),
                     ]

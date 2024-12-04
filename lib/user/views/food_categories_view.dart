@@ -9,7 +9,8 @@ import 'package:indulge/user/widgets/checkbox_list.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';
 
 class FoodCategoryPreferencesView extends StatefulWidget {
-  const FoodCategoryPreferencesView({super.key});
+  final UserViewModel vm;
+  const FoodCategoryPreferencesView({super.key, required this.vm});
 
 
   @override
@@ -17,13 +18,20 @@ class FoodCategoryPreferencesView extends StatefulWidget {
 }
 
 class _FoodCategoryPreferencesViewState extends State<FoodCategoryPreferencesView> {
+  
   final formKey = GlobalKey<FormState>();
-  Map<String, bool> foodExperienceCheckboxes = UserViewModel.buttonList(UserConstants.foodExperiences);
+  @override
+  void initState() {
+    super.initState();
+    widget.vm.initFoodButtonList(UserConstants.foodExperiences);
+  }
 
 
 
   @override
   Widget build(BuildContext context) {
+
+    final vm = widget.vm;
     
     return CupertinoPageScaffold(
       child: SafeArea(
@@ -52,7 +60,7 @@ class _FoodCategoryPreferencesViewState extends State<FoodCategoryPreferencesVie
                 height: 24,
               ),
 
-              CheckboxList(checkboxes: foodExperienceCheckboxes),
+              CheckboxList(checkboxes: vm.userData.foodPreferences, vm: vm,),
 
               SizedBox(
                 height: 100,
@@ -78,7 +86,7 @@ class _FoodCategoryPreferencesViewState extends State<FoodCategoryPreferencesVie
                         backgroundColor: WidgetStatePropertyAll(UserConstants.actionColor),
                       ),
                       onPressed: () {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => const DietaryRestrictionView(),));
+                        Navigator.push(context, CupertinoPageRoute(builder: (context) =>  DietaryRestrictionView(vm: vm,),));
                       }
                     ),
                   ]
