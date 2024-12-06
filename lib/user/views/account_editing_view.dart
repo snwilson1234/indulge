@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/widgets/checkbox_list.dart';
+import 'package:indulge/user/widgets/price_options.dart';
 import 'package:provider/provider.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 
@@ -28,8 +29,6 @@ class _AccountEditingViewState extends State<AccountEditingView> {
   void initState() {
     super.initState();
     radius = Provider.of<UserViewModel>(context, listen: false).userData.radius;
-    Provider.of<UserViewModel>(context, listen: false).initDietaryButtonList(UserConstants.dietaryRestrictions);
-    Provider.of<UserViewModel>(context, listen: false).initFoodButtonList(UserConstants.foodExperiences);
   }
   
   
@@ -258,8 +257,6 @@ class _AccountEditingViewState extends State<AccountEditingView> {
 
   Widget priceRadiusWidget(BuildContext context, UserViewModel vm) {
 
-    // TODO: Make work with vm
-    List<dynamic> pricePoints = [];
 
     return Padding(
       padding: const EdgeInsets.all(12),
@@ -294,19 +291,12 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                       ),
                     ),
                   ),
-                  ButtonMultiSelect(
-                    buttonSize: ButtonSize.medium,
-                    items: [
-                      ButtonMultiSelectItem<int>(label: "\$", value: 1, ),
-                      ButtonMultiSelectItem<int>(label: "\$\$", value: 2, ),
-                      ButtonMultiSelectItem<int>(label: "\$\$\$", value: 3, ),
-                    ], 
-                    onSelectedChanged: (data) {  
-                      // TODO: update vm
-                      pricePoints = data;
-                    }, 
-                    primaryColor: UserConstants.actionColor, 
-                    textColor: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: MediaQuery.sizeOf(context).width,
+                      child: PriceOptions(vm: vm)
+                    ),
                   ),
                   const SizedBox(
                     height: 100,
@@ -323,10 +313,10 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                   SizedBox(
                     width: 300,
                     child: CupertinoSlider(
-                      value: radius, 
+                      value: vm.userData.radius, 
                       onChanged: (newRadius) {
                         setState(() {
-                          radius = newRadius;
+                          vm.updateModelRadius(newRadius);
                         });
                       },
                       min: 1,
@@ -336,7 +326,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                     ),
                   ),
                   Text(
-                    "${radius.round()} mile(s)",
+                    "${vm.userData.radius.round()} mile(s)",
                     style: const TextStyle(
                       color: CupertinoColors.black,
                     ),
@@ -349,7 +339,8 @@ class _AccountEditingViewState extends State<AccountEditingView> {
             ),
             CupertinoButton.filled(
               child: const Text("Save"), 
-              onPressed: () {
+              onPressed: !context.watch<UserViewModel>().pricePointsChosen ? null : () {
+                vm.info();
                 Navigator.pop(context);
               },
             ),

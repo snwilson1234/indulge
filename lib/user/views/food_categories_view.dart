@@ -23,7 +23,7 @@ class _FoodCategoryPreferencesViewState extends State<FoodCategoryPreferencesVie
   @override
   void initState() {
     super.initState();
-    widget.vm.initFoodButtonList(UserConstants.foodExperiences);
+    // widget.vm.initFoodButtonList(UserConstants.foodExperiences);
   }
 
 

@@ -24,7 +24,7 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
   @override
   void initState() {
     super.initState();
-    widget.vm.initDietaryButtonList(UserConstants.dietaryRestrictions);
+    // widget.vm.initDietaryButtonList(UserConstants.dietaryRestrictions);
   }
 
   final formKey = GlobalKey<FormState>();

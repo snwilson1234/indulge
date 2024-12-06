@@ -13,11 +13,12 @@ class UserViewModel extends ChangeNotifier{
     email: "",
     foodPreferences: {}, 
     dietaryRestrictions: {}, 
-    pricePoints: [],
+    pricePoints: {},
     reviewed: 0, 
     saved: 0,
     radius: 1,
   );
+  bool pricePointsChosen = false;
 
   // ----------------------------------------------------------------------------------------------------
   // --------------------------------- Static utility methods -------------------------------------------
@@ -69,15 +70,22 @@ class UserViewModel extends ChangeNotifier{
 
   }
 
-  void initDietaryButtonList(strings) {
-    userData.dietaryRestrictions = initXButtonList(strings);
+  void newUser() {
+    _initDietaryCheckboxes(UserConstants.dietaryRestrictions);
+    _initFoodCheckboxes(UserConstants.foodExperiences);
+    _initPricePoints(UserConstants.pricePoints);
+    _initRadius();
+  }
+
+  void _initDietaryCheckboxes(strings) {
+    userData.dietaryRestrictions = initXMap(strings);
   } 
 
-  void initFoodButtonList(strings) {
-    userData.foodPreferences = initXButtonList(strings);
+  void _initFoodCheckboxes(strings) {
+    userData.foodPreferences = initXMap(strings);
   } 
 
-  Map<String, bool> initXButtonList(strings) {
+  Map<String, bool> initXMap(strings) {
     List<String> list = [];
     List<bool> selected = [];
     for (String word in strings) {
@@ -85,6 +93,15 @@ class UserViewModel extends ChangeNotifier{
       selected.add(false);
     }
     return Map.fromIterables(list, selected);
+  }
+
+  void _initPricePoints(strings) {
+    userData.pricePoints = initXMap(strings);
+    pricePointsChosen = false;
+  }
+
+  void _initRadius() {
+    userData.radius = 1;
   }
 
   static Map<String, bool> buttonList(strings) {
@@ -111,9 +128,28 @@ class UserViewModel extends ChangeNotifier{
     }
   }
 
-  void updateModelPriceAndRadius(List<dynamic> newPricePoints, double newRadius) {
-    userData.pricePoints = newPricePoints;
+  bool arePricePointsChosen() {
+    for (bool value in userData.pricePoints.values) {
+      if (value) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void updateModelRadius(double newRadius) {
     userData.radius = newRadius;
+  }
+
+  void updateModelPrices(String key) {
+    userData.pricePoints[key] = !(userData.pricePoints[key]!);
+    if (userData.pricePoints.values.contains(true)) {
+      pricePointsChosen = true;
+    }
+    else {
+      pricePointsChosen = false;
+    }
+    notifyListeners();
   }
 
   void updateUsername(String username) {

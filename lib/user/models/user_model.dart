@@ -7,7 +7,7 @@ class UserData {
   String email;
   Map<String, bool> foodPreferences;
   Map<String, bool> dietaryRestrictions;
-  List<dynamic> pricePoints;
+  Map<String, bool> pricePoints;
   int reviewed;
   int saved;
   double radius;

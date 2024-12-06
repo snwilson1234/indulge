@@ -104,7 +104,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ), 
                 onPressed: () {
-                  // TODO: Send user to onboarding process
+                  vm.newUser();
                   Navigator.push(context, CupertinoPageRoute(builder: (context) => NewUserInfoView(vm: vm),));
                 },
               ),

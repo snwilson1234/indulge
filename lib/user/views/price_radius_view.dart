@@ -2,10 +2,14 @@
 import 'package:button_multiselect/button_multiselect.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/onboarding_end_view.dart';
+import 'package:indulge/user/widgets/price_options.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';
+import 'package:indulge/user/widgets/toggle_button.dart';
+import 'package:provider/provider.dart';
 
 class PriceAndRadiusPreferenceView extends StatefulWidget {
   final UserViewModel vm;
@@ -18,8 +22,13 @@ class PriceAndRadiusPreferenceView extends StatefulWidget {
 
 class _PriceAndRadiusPreferenceViewState extends State<PriceAndRadiusPreferenceView> {
 
-  List<dynamic> pricePoints = [];
-  double radius = 1;
+
+  @override
+  initState() {
+    super.initState();
+    // widget.vm.initPricePoints(UserConstants.pricePoints);
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -33,81 +42,71 @@ class _PriceAndRadiusPreferenceViewState extends State<PriceAndRadiusPreferenceV
           child: Column(
             children: [
               const SizedBox(
-                  height: 32,
+                height: 32,
+              ),
+              const ProgressBar(
+                stage: 4
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              const Text(
+                "One last thing...",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
-                const ProgressBar(
-                  stage: 4
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                const Text(
-                  "One last thing...",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
 
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          "What price points are you most interested in?",
-                        ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        "What price points are you most interested in?",
                       ),
-                      ButtonMultiSelect(
-                        buttonSize: ButtonSize.medium,
-                        items: [
-                          ButtonMultiSelectItem<int>(label: "\$", value: 1, ),
-                          ButtonMultiSelectItem<int>(label: "\$\$", value: 2, ),
-                          ButtonMultiSelectItem<int>(label: "\$\$\$", value: 3, ),
-                        ], 
-                        onSelectedChanged: (data) {  
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: MediaQuery.sizeOf(context).width,
+                        child: PriceOptions(vm: vm)
+                      ),
+                    ),
+                    SizedBox(height: 100,),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        "How far would you travel for suggested food?",
+                      ),
+                    ),
+                    SizedBox(
+                      width: 300,
+                      child: CupertinoSlider(
+                        value: vm.userData.radius, 
+                        onChanged: (newRadius) {
                           setState(() {
-                            pricePoints = data;
+                            vm.updateModelRadius(newRadius);
                           });
-                        }, 
-                        primaryColor: UserConstants.actionColor, 
-                        textColor: Colors.white,
+                        },
+                        min: 1,
+                        max: 15,
+                        activeColor: UserConstants.actionColor,
+                        divisions: 14,
                       ),
-                      const SizedBox(
-                        height: 100,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          "How far would you travel for suggested food?",
-                        ),
-                      ),
-                      SizedBox(
-                        width: 300,
-                        child: CupertinoSlider(
-                          value: radius, 
-                          onChanged: (newRadius) {
-                            setState(() {
-                              radius = newRadius;
-                            });
-                          },
-                          min: 1,
-                          max: 15,
-                          activeColor: UserConstants.actionColor,
-                          divisions: 14,
-                        ),
-                      ),
-                      Text(
-                        "${radius.round()} mile(s)",
-                      )
-                    ],
-                  ),
+                    ),
+                    Text(
+                      "${vm.userData.radius.round()} mile(s)",
+                    )
+                  ],
                 ),
+              ),
 
               SizedBox(
                 height: 100,
@@ -130,12 +129,11 @@ class _PriceAndRadiusPreferenceViewState extends State<PriceAndRadiusPreferenceV
                       icon: const Icon(Icons.chevron_right_sharp, color: Colors.black,),
                       iconSize: 50,
                       style: ButtonStyle(
-                        backgroundColor: pricePoints.isNotEmpty ? 
+                        backgroundColor: context.watch<UserViewModel>().pricePointsChosen ? 
                         const WidgetStatePropertyAll(UserConstants.actionColor) : const WidgetStatePropertyAll(Colors.white70),
                       ),
-                      onPressed: pricePoints.isEmpty ? null : 
+                      onPressed: !context.watch<UserViewModel>().pricePointsChosen ? null : 
                       () {
-                        vm.updateModelPriceAndRadius(pricePoints, radius);
                         Navigator.push(context, CupertinoPageRoute(builder: (context) => EndOfOnboardingView(vm: vm),));
                       }
                     ),
