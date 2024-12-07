@@ -94,7 +94,7 @@ class _MainPageState extends State<MainPage> {
         ),
         // TODO: Make +/- interactible buttons
         trailing: Text(
-          "+ ${widget.userVM.userData.radius.round()} mi -",
+          "+ ${context.watch<UserViewModel>().userData.radius.round()} mi -",
           style: const TextStyle(
             color: CupertinoColors.black,
           ),

@@ -5,7 +5,6 @@ import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/user/views/new_user_info_view.dart';
-import 'package:indulge/user/views/TODO.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {

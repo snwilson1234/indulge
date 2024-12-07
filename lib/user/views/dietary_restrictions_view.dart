@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 import 'package:indulge/user/view_models/user_view_model.dart';
-import 'package:indulge/user/views/TODO.dart';
 import 'package:indulge/user/views/price_radius_view.dart';
 import 'package:indulge/user/widgets/checkbox_list.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';

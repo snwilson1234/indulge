@@ -95,8 +95,11 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                           color: Colors.black
                         ),
                         key: const Key("old"),
+                        obscureText: true,
                         onChanged: (value) {
-                          userInfo["old_pass"] = value;
+                          setState(() {
+                            userInfo["old_pass"] = value;
+                          });
                         },
                         validator: (value) {
                           return vm.checkOldPassword(userInfo["old_pass"]);
@@ -126,8 +129,11 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                           color: Colors.black
                         ),
                         key: const Key("new_pass"),
+                        obscureText: true,
                         onChanged: (value) {
-                          userInfo["new_pass"] = value;
+                          setState(() {
+                            userInfo["new_pass"] = value;
+                          });
                         },
                       ),
                       CupertinoTextFormFieldRow(
@@ -139,8 +145,11 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                           color: Colors.black
                         ),
                         key: const Key("confirm_pass"),
+                        obscureText: true,
                         onChanged: (value) {
-                          userInfo["confirm_pass"] = value;
+                          setState(() {
+                            userInfo["confirm_pass"] = value;
+                          });
                         },
                         validator: (value) {
                           return UserViewModel.validatePasswordConfirmation(userInfo["confirm_pass"], userInfo["new_pass"]);
@@ -156,10 +165,12 @@ class _AccountEditingViewState extends State<AccountEditingView> {
             ),
             CupertinoButton.filled(
               child: Text("Change Password"), 
-              onPressed: () {
+              onPressed: (userInfo["old_pass"] == "" || userInfo["new_pass"] == "" || userInfo["confirm_pass"] == "") ? null : 
+              () {
                 final form = formKey.currentState;
                 if (form!.validate()) {
                   // TODO: update model and db
+                  vm.updatePassword(userInfo["new_pass"]!);
                   Navigator.pop(context);
                 }
               }
