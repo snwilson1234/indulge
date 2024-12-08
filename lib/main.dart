@@ -1,6 +1,7 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
 import 'package:indulge/user/views/login_view.dart';
 import 'package:indulge/user/views/user_profile_view.dart';
@@ -54,6 +55,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => ListsViewModel()),
         ChangeNotifierProvider(create: (context) => RestaurantViewModel()),
         ChangeNotifierProvider(create: (context) => DummyRestaurantViewModel()),
+        ChangeNotifierProvider(create: (context) => UserViewModel()),
       ],
       child: const MainApp(),
     ),
@@ -76,7 +78,8 @@ class MainApp extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final UserViewModel userVM;
+  const MainPage({super.key, required this.userVM});
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -87,9 +90,9 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
+      navigationBar: CupertinoNavigationBar(
         backgroundColor: CupertinoColors.white,
-        leading: Column(
+        leading: const Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -105,8 +108,8 @@ class _MainPageState extends State<MainPage> {
         ),
         // TODO: Make +/- interactible buttons
         trailing: Text(
-          "+ 20 mi -",
-          style: TextStyle(
+          "+ ${context.watch<UserViewModel>().userData.radius.round()} mi -",
+          style: const TextStyle(
             color: CupertinoColors.black,
           ),
         ),
@@ -175,9 +178,9 @@ class _MainPageState extends State<MainPage> {
             case 3:
               return CupertinoTabView(
                 routes: <String, WidgetBuilder>{
-                  profileRoute: (context) => UserProfileView(),
+                  profileRoute: (context) => UserProfileView(vm: widget.userVM),
                 },
-                builder: (context) => UserProfileView(),
+                builder: (context) => UserProfileView(vm: widget.userVM),
               );
             default:
               return CupertinoTabView(
