@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indulge/main.dart';
-import 'package:indulge/restaurant/widgets/restaurant_item_widget.dart';
+import 'package:indulge/restaurant/views/restaurant_view.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 import 'package:indulge/user/view_models/user_view_model.dart';
 

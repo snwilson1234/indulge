@@ -3,11 +3,6 @@ import 'package:indulge/lists/models/restaurant_list.dart';
 
 
 class RestaurantListService {
-  
-  Future<int> insertRestaurantList(RestaurantList restaurantList) async {
-    final db = await DatabaseService.database;
-    return await db.insert('RestaurantList', restaurantList.toMap());
-  }
 
   Future<List<RestaurantList>> getAllRestaurantLists() async {
     final db = await DatabaseService.database;
@@ -36,35 +31,44 @@ class RestaurantListService {
     });
   }
 
-  Future<List<RestaurantList>> getRestaurantListById(int id) async {
-    final db = await DatabaseService.database;
-    final List<Map<String, dynamic>> maps = await db.query(
-      'RestaurantList',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
 
-    return List.generate(maps.length, (i) {
-      return RestaurantList.fromMap(maps[i]);
-    });
-  }
 
-  Future<int> updateRestaurantList(RestaurantList restaurantList) async {
-    final db = await DatabaseService.database;
-    return await db.update(
-      'RestaurantList',
-      restaurantList.toMap(),
-      where: 'id = ?',
-      whereArgs: [restaurantList.id],
-    );
-  }
 
-  Future<int> deleteRestaurantList(int id) async {
-    final db = await DatabaseService.database;
-    return await db.delete(
-      'RestaurantList',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
+  // Not currently used
+  // Future<int> updateRestaurantList(RestaurantList restaurantList) async {
+  //   final db = await DatabaseService.database;
+  //   return await db.update(
+  //     'RestaurantList',
+  //     restaurantList.toMap(),
+  //     where: 'id = ?',
+  //     whereArgs: [restaurantList.id],
+  //   );
+  // }
+
+  // Future<int> deleteRestaurantList(int id) async {
+  //   final db = await DatabaseService.database;
+  //   return await db.delete(
+  //     'RestaurantList',
+  //     where: 'id = ?',
+  //     whereArgs: [id],
+  //   );
+  // }
+
+  // Future<List<RestaurantList>> getRestaurantListById(int id) async {
+  //   final db = await DatabaseService.database;
+  //   final List<Map<String, dynamic>> maps = await db.query(
+  //     'RestaurantList',
+  //     where: 'id = ?',
+  //     whereArgs: [id],
+  //   );
+
+  //   return List.generate(maps.length, (i) {
+  //     return RestaurantList.fromMap(maps[i]);
+  //   });
+  // }
+
+  // Future<int> insertRestaurantList(RestaurantList restaurantList) async {
+  //   final db = await DatabaseService.database;
+  //   return await db.insert('RestaurantList', restaurantList.toMap());
+  // }
 }

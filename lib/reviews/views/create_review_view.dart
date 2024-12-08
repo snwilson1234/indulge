@@ -4,7 +4,6 @@ import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/lists/viewmodels/dummy_restaurant_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/reviews/models/review.dart';
-import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
 
@@ -53,15 +52,24 @@ class _CreateReviewViewState extends State<CreateReviewView> {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<ListsViewModel>(context);
-    if (vm.lists.isEmpty) {
-      print("Empty list!");
-      return Text("something went wrong.");
-    }
-    else {
-      final beenThereList = vm.lists[0].listItems
+    final beenThereList = vm.lists[0];
+    final alreadyReviwedList = beenThereList.listItems
         ?.where((item) => item.reviewed == 0)
-        .toList();
-      return CupertinoPageScaffold(
+        .toList() ?? [];
+
+    if (alreadyReviwedList.isEmpty) {
+      return const CupertinoPageScaffold(
+        navigationBar: const CupertinoNavigationBar(
+          middle: Text("New Review"),
+          backgroundColor: CupertinoColors.white,
+        ),
+        child: Center(
+          child: Text("There are no more restaurants to review. Get swiping!"),
+        )
+      );
+    }
+
+    return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text(
           "New Review",
@@ -103,14 +111,14 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                     });
                   },
                   children:
-                      List<Widget>.generate(beenThereList!.length, (int index) {
-                    return Center(child: Text(beenThereList[index].restaurantName!));
+                      List<Widget>.generate(alreadyReviwedList!.length, (int index) {
+                    return Center(child: Text(alreadyReviwedList[index].restaurantName!));
                   }),
                 ),
               ),
               // This displays the selected restaurant name.
               child: Text(
-                beenThereList![_selectedRestaurant].restaurantName!,
+                alreadyReviwedList![_selectedRestaurant].restaurantName!,
                 style: const TextStyle(
                   fontSize: 22.0,
                 ),
@@ -161,16 +169,18 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                     color: CupertinoColors.black,
                     onPressed: () {
                       final review = Review.withParams(
-                        restaurantId: beenThereList[_selectedRestaurant].id,
-                        restaurantName: beenThereList[_selectedRestaurant].restaurantName,
+                        restaurantId: alreadyReviwedList[_selectedRestaurant].id,
+                        restaurantName: alreadyReviwedList[_selectedRestaurant].restaurantName,
                         rating: _rating,
                         comment: _reviewController.text,
                       );
                       final reviewsViewModel = Provider.of<ReviewsViewModel>(context, listen: false);
                       reviewsViewModel.submitReview(review);
-                      DummyRestaurant restaurant = beenThereList[_selectedRestaurant];
+                      DummyRestaurant restaurant = alreadyReviwedList[_selectedRestaurant];
                       restaurant.reviewed = 1;
                       Provider.of<DummyRestaurantViewModel>(context, listen: false).updateRestaurant(restaurant);
+                      Provider.of<ReviewsViewModel>(context, listen: false).fetchReviews();
+                      Navigator.of(context).pop();
                       print("submitted review!");
                     },
                     child: const Text(
@@ -203,7 +213,6 @@ class _CreateReviewViewState extends State<CreateReviewView> {
         ),
       )
     );
-    }
   }
 
 }
