@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:indulge/lists/models/dummy_restaurant.dart';
+import 'package:indulge/restaurant/models/restaurant.dart';
 
 
 class RestaurantList {
   int? id;
   String? name;
-  List<DummyRestaurant>? listItems;
+  List<Restaurant>? listItems;
 
   Map<String, Object?> toMap() {
     var map = <String, Object?>{
@@ -25,10 +25,11 @@ class RestaurantList {
   RestaurantList.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     name = map['name'];
-    print("list items: ${map['listItems']}");
-    List<dynamic> decodedList = jsonDecode(map['listItems']);
-    listItems = decodedList
-                  .map((item) => DummyRestaurant.fromMap(item as Map<String, dynamic>))
-                  .toList();
+    if (map['listItems'] == null) {
+      listItems = [];
+    }
+    else {
+      listItems = map['listItems'];
+    }
   }
 }
