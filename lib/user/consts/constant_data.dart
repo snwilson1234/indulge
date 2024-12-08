@@ -35,5 +35,11 @@ const List<String> foodExperiences = [
   "Family-Friendly",
 ];
 
+const List<String> pricePoints = [
+  "\$",
+  "\$\$",
+  "\$\$\$",
+];
+
 const actionColor = Color.fromRGBO(252, 162, 114, 1);
 

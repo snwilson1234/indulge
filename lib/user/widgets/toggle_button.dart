@@ -2,15 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:indulge/user/view_models/user_view_model.dart';
 
 class ToggleButton extends StatefulWidget{
-  final dynamic value;
+  final String value;
+  final UserViewModel vm;
 
-  const ToggleButton({
-    Key? key,
-    required this.value,
-    })
-    : super(key: key);
+  const ToggleButton({super.key, required this.value, required this.vm});
 
 
   @override
@@ -18,48 +16,51 @@ class ToggleButton extends StatefulWidget{
 }
 
 class _ToggleButtonState extends State<ToggleButton> {
-  bool selected = false;
-
-
 
   @override
   Widget build(BuildContext context) {
-    if (selected) {
-      return CupertinoButton(
-          color: const Color.fromRGBO(241, 149, 120, 1),
-          minSize: 10,
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          borderRadius: BorderRadius.circular(24),
-          child: Text(
-            widget.value,
-            style: const TextStyle(
-              color: Colors.white,
+    if (widget.vm.userData.pricePoints[widget.value]!) {
+      return Container(
+        width: 90,
+        height: 50,
+        child: CupertinoButton(
+            color: const Color.fromRGBO(241, 149, 120, 1),
+            padding: EdgeInsets.all(8),
+            borderRadius: BorderRadius.circular(12),
+            child: Text(
+              widget.value,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
             ),
-          ),
-          onPressed: () {
-            setState(() {
-              selected = false;
-            });
-          },
+            onPressed: () {
+              setState(() {
+                widget.vm.updateModelPrices(widget.value);
+              });
+            },
+        ),
       );
     }
     else {
-      return CupertinoButton(
-          color: Colors.white54,
-          minSize: 10,
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          borderRadius: BorderRadius.circular(24),
-          child: Text(
-            widget.value,
-            style: const TextStyle(
-              color: Colors.white,
+      return Container(
+        width: 90,
+        height: 50,
+        child: CupertinoButton(
+            color: const Color.fromARGB(255, 41, 41, 41),
+            padding: EdgeInsets.all(8),
+            borderRadius: BorderRadius.circular(12),
+            child: Text(
+              widget.value,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
             ),
-          ),
-          onPressed: () {
-            setState(() {
-              selected = true;
-            });
-          },
+            onPressed: () {
+              setState(() {
+                widget.vm.updateModelPrices(widget.value);
+              });
+            },
+        ),
       );
     }
   }

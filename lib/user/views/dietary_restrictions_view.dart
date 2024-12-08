@@ -5,12 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 import 'package:indulge/user/view_models/user_view_model.dart';
-import 'package:indulge/user/views/TODO.dart';
 import 'package:indulge/user/views/price_radius_view.dart';
+import 'package:indulge/user/widgets/checkbox_list.dart';
 import 'package:indulge/user/widgets/progress_bar.dart';
+import 'package:provider/provider.dart';
 
 class DietaryRestrictionView extends StatefulWidget {
-  const DietaryRestrictionView({super.key});
+  final UserViewModel vm;
+  const DietaryRestrictionView({super.key, required this.vm});
 
   @override
   State<DietaryRestrictionView> createState() => _DietaryRestrictionView();
@@ -18,12 +20,19 @@ class DietaryRestrictionView extends StatefulWidget {
 
 class _DietaryRestrictionView extends State<DietaryRestrictionView> {
 
+  @override
+  void initState() {
+    super.initState();
+    // widget.vm.initDietaryButtonList(UserConstants.dietaryRestrictions);
+  }
 
-  Map<String, bool> dietaryRestrictionCheckboxes = UserViewModel.buttonList(UserConstants.dietaryRestrictions);
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+
+  final vm = widget.vm;
+
     return CupertinoPageScaffold(
       
         child: SafeArea(
@@ -52,49 +61,9 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
                   height: 24,
                 ),
                 
-                Expanded(
-                  child: Form(
-                    key: formKey,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: Colors.white12
-                        ),
-                        color: Theme.of(context).canvasColor,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(24),
-                          child: CupertinoScrollbar(
-                            thumbVisibility: true,
-                            child: ListView(
-                              children: dietaryRestrictionCheckboxes.keys.map((String key) {
-                                return CupertinoCheckboxListTile(
-                                  title: Text(
-                                    key, 
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  contentPadding: const EdgeInsets.all(24),
-                                  activeColor: UserConstants.actionColor,
-                                  value: dietaryRestrictionCheckboxes[key],
-                                  onChanged: (value) {
-                                    setState( () {
-                                      dietaryRestrictionCheckboxes[key] = value!;
-                                    });
-                                  },);
-                                }
-                              ).toList(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+
+                CheckboxList(checkboxes: vm.userData.dietaryRestrictions, vm: vm,),
+
 
                 SizedBox(
                   height: 100,
@@ -120,7 +89,7 @@ class _DietaryRestrictionView extends State<DietaryRestrictionView> {
                           backgroundColor: WidgetStatePropertyAll(UserConstants.actionColor),
                         ),
                         onPressed: () {
-                          Navigator.push(context, CupertinoPageRoute(builder: (context) => const PriceAndRadiusPreferenceView(),));
+                          Navigator.push(context, CupertinoPageRoute(builder: (context) => PriceAndRadiusPreferenceView(vm: vm),));
                         }
                       ),
                     ]

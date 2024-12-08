@@ -6,7 +6,7 @@ import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/lists/views/user_lists_view.dart';
 import 'package:indulge/user/views/new_user_info_view.dart';
-import 'package:indulge/user/views/TODO.dart';
+import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -17,12 +17,14 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final formKey = GlobalKey<FormState>();
-  final userViewModel = UserViewModel();
   static const actionColor = Color.fromRGBO(252, 162, 114, 1);
 
 
   @override
   Widget build(BuildContext context) {
+
+    final vm = Provider.of<UserViewModel>(context);
+
     return CupertinoPageScaffold(
       child: Center(
         child: SizedBox (
@@ -87,7 +89,7 @@ class _LoginViewState extends State<LoginView> {
                   onPressed: () {
                     final form = formKey.currentState!;
                     if (form.validate()) {
-                      Navigator.push(context, CupertinoPageRoute(builder: (context) => const MainPage(),));
+                      Navigator.push(context, CupertinoPageRoute(builder: (context) => MainPage(userVM: vm),));
                       // TODO: Let user into app
                     }
                   }
@@ -102,8 +104,8 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ), 
                 onPressed: () {
-                  // TODO: Send user to onboarding process
-                  Navigator.push(context, CupertinoPageRoute(builder: (context) => const NewUserInfoView(),));
+                  vm.newUser();
+                  Navigator.push(context, CupertinoPageRoute(builder: (context) => NewUserInfoView(vm: vm),));
                 },
               ),
             ],
