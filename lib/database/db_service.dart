@@ -31,13 +31,12 @@ class DatabaseService {
         // create our tables
         var batch = db.batch();
         _createRestaurantListTable(batch);
-        _createDummyRestaurantTable(batch);
+
+        _createRestaurantTable(batch);
         _createReviewTable(batch);
         _makeListInserts(batch);
-        _makeRestaurantInserts(batch);
-        _makeReviewInserts(batch);
-        _createRestaurantTable(batch);
         _makeRestaurantTableInserts(batch);
+        _makeReviewInserts(batch);
         // TODO: add more tables & dummy data
         await batch.commit();
         print("Successfully committed batch");
@@ -63,7 +62,7 @@ class DatabaseService {
       restaurantName TEXT,
       rating REAL,
       comment TEXT,
-      FOREIGN KEY (restaurantId) REFERENCES DummyRestaurant(id) ON DELETE CASCADE
+      FOREIGN KEY (restaurantId) REFERENCES Restaurant(id) ON DELETE CASCADE
       );'''
     );
   }
@@ -78,39 +77,11 @@ class DatabaseService {
     );
   }
 
-  static void _createDummyRestaurantTable(Batch batch) {
-    batch.execute(("DROP TABLE IF EXISTS DummyRestaurant"));
-    batch.execute('''
-    CREATE TABLE DummyRestaurant(
-      id INTEGER PRIMARY KEY AUTOINCREMENT, 
-      restaurantName TEXT,
-      listId INTEGER,
-      reviewed INTEGER,
-      FOREIGN KEY (listId) REFERENCES RestaurantList(id) on DELETE CASCADE
-      );'''
-    );
-  }
-
   static void _makeReviewInserts(Batch batch) {
     batch.execute('''
     INSERT INTO Review values(1,1,"Taco Tavern",5,"My favorite place to eat!");
     ''');
-    // batch.execute('''
-    // INSERT INTO Review values(2,2,"Pasta Palace", 4,"Waited a little too long, but food was great!");
-    // ''');
 
-  }
-
-  static void _makeRestaurantInserts(Batch batch) {
-    batch.execute('''
-    INSERT INTO DummyRestaurant values(1,"Taco Tavern",1,1);
-    ''');
-    batch.execute('''
-    INSERT INTO DummyRestaurant values(2,"Pasta Palace",1,0);
-    ''');
-    batch.execute('''
-    INSERT INTO DummyRestaurant values(3,"Sushi Spot",2,0);
-    ''');
   }
 
   static void _makeListInserts(Batch batch) {
@@ -120,45 +91,63 @@ class DatabaseService {
     batch.execute('''
     INSERT INTO RestaurantList values(2,"Chinese");
     ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(3,"Mexican");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(4,"Italian");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(5,"Japanese");
+    ''');
   } 
 
   static void _createRestaurantTable(Batch batch) {
-    batch.execute('DROP TABLE IF EXISTS Restaurants');
+    batch.execute('DROP TABLE IF EXISTS Restaurant');
     batch.execute('''
-      CREATE TABLE Restaurants (
+      CREATE TABLE Restaurant (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         distance TEXT NOT NULL,
         type TEXT NOT NULL,
         imageUrl TEXT NOT NULL,
-        rating REAL NOT NULL
+        globalRating REAL NOT NULL,
+        listId INTEGER,
+        reviewed INTEGER,
+        FOREIGN KEY (listId) REFERENCES RestaurantList(id) on DELETE CASCADE
       )
     ''');
   }
 
   static void _makeRestaurantTableInserts(Batch batch) {
-    batch.insert('Restaurants', {
+    batch.insert('Restaurant', {
       'name': 'Taco Tavern',
       'distance': '1.5 mi',
       'type': 'Mexican',
-      'imageUrl': 'https://via.placeholder.com/400',
-      'rating': 4.8,
+      'imageUrl': 'https://static.stacker.com/s3fs-public/41THDS_96.png',
+      'globalRating': 4.8,
+      'listId': null,
+      'reviewed': 1,
     });
 
-    batch.insert('Restaurants', {
+    batch.insert('Restaurant', {
       'name': 'Pasta Palace',
       'distance': '2.3 mi',
       'type': 'Italian',
-      'imageUrl': 'https://via.placeholder.com/400',
-      'rating': 4.5,
+      'imageUrl': 'https://goodfoodpittsburgh.com/wp-content/uploads/2020/01/83578012_597313894148871_4528116092105059721_n-820x1024.jpg',
+      'globalRating': 4.5,
+      'listId': null,
+      'reviewed': 0,
     });
 
-    batch.insert('Restaurants', {
+    batch.insert('Restaurant', {
       'name': 'Sushi Spot',
       'distance': '3.2 mi',
       'type': 'Japanese',
-      'imageUrl': 'https://via.placeholder.com/400',
-      'rating': 4.2,
+      'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
+      'globalRating': 4.2,
+      'listId': null,
+      'reviewed': 0
     });
   }
 

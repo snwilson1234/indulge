@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:indulge/lists/models/dummy_restaurant.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/widgets/list_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
