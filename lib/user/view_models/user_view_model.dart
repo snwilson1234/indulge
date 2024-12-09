@@ -142,9 +142,13 @@ class UserViewModel extends ChangeNotifier{
   }
 
   /// Updates the user's search radius to be [newRadius] to find new restaurants
+  /// Will update as long as 1 <= [newRadius] <= 15
   void updateModelRadius(double newRadius) {
-    userData.radius = newRadius;
-    notifyListeners();
+    if (newRadius <= 15 && newRadius >= 1) {
+      userData.radius = newRadius;
+      notifyListeners();
+    }
+
   }
 
   /// Updates the user's preferred [pricePoints] based on the [key] given
