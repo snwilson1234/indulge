@@ -39,7 +39,6 @@ class _AccountEditingViewState extends State<AccountEditingView> {
     "confirm_pass": "",
   };
 
-  Map<String, bool> foodExperienceCheckboxes = UserViewModel.buttonList(UserConstants.foodExperiences);
 
   Widget build(BuildContext context) {
 

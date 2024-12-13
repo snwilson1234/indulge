@@ -5,6 +5,7 @@ import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/login_view.dart';
 import 'package:indulge/user/views/user_profile_view.dart';
+import 'package:indulge/user/widgets/radius_changer.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -105,12 +106,7 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
         // TODO: Make +/- interactible buttons
-        trailing: Text(
-          "+ ${context.watch<UserViewModel>().userData.radius.round()} mi -",
-          style: const TextStyle(
-            color: CupertinoColors.black,
-          ),
-        ),
+        trailing: RadiusChanger(vm: widget.userVM),
       ),
       child: CupertinoTabScaffold(
         backgroundColor: CupertinoColors.white,
