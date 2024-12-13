@@ -30,10 +30,16 @@ class DatabaseService {
       onCreate: (db, version) async {
         // create our tables
         var batch = db.batch();
-        _createRestaurantListTable(batch);
 
+        _createRestaurantListTable(batch);
         _createRestaurantTable(batch);
         _createReviewTable(batch);
+
+        _createAccountInfoTable(batch);
+        _createPreferencesTable(batch);
+        _createDietaryRestrictionsTable(batch);
+        _createPriceTable(batch);
+
         _makeListInserts(batch);
         _makeRestaurantTableInserts(batch);
         _makeReviewInserts(batch);
@@ -85,8 +91,7 @@ class DatabaseService {
         password TEXT,
         reviewed INTEGER,
         saved INTEGER,
-        radius INTEGER,
-        FOREIGN KEY (username) REFERENCES Preferences(username) ON DELETE CASCADE
+        radius INTEGER
       );'''
     );
   }
@@ -95,8 +100,9 @@ class DatabaseService {
     batch.execute('''
       CREATE TABLE Preferences(
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        username TEXT,
-        price INTEGER,
+        userId INTEGER,
+        cuisineType STRING,
+        FOREIGN KEY (userId) REFERENCES AccountInfo(id) ON DELETE CASCADE
       );
     ''');
   }
@@ -105,8 +111,9 @@ class DatabaseService {
     batch.execute('''
       CREATE TABLE DietaryRestrictions(
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        username TEXT,
-        price INTEGER,
+        userId INTEGER,
+        restriction STRING,
+        FOREIGN KEY (userId) REFERENCES AccountInfo(id) ON DELETE CASCADE
       );
     ''');
   }
@@ -115,8 +122,9 @@ class DatabaseService {
     batch.execute('''
       CREATE TABLE Price(
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        username TEXT,
+        userId INTEGER,
         price INTEGER,
+        FOREIGN KEY (userId) REFERENCES AccountInfo(id) ON DELETE CASCADE
       );
     ''');
   }
