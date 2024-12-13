@@ -130,7 +130,8 @@ class DatabaseService {
         imageUrl TEXT NOT NULL,
         globalRating REAL NOT NULL,
         reviewed INTEGER,
-        indulged INTEGER
+        indulged INTEGER,
+        viewed INTEGER
       )
     ''');
   }
