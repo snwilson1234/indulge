@@ -4,7 +4,7 @@ import 'dart:async';
 
 class DatabaseService {
   static Database? _database;
-
+  
   static Future<Database> get database async {
     if (_database != null) {
       // open the DB if already initialized
@@ -31,11 +31,21 @@ class DatabaseService {
       onCreate: (db, version) async {
         // create our tables
         var batch = db.batch();
+
         _createRestaurantListTable(batch);
         _createRestaurantTable(batch);
         _createRestaurantListHelperTable(batch);
         _createReviewTable(batch);
 
+        _createAccountInfoTable(batch);
+        _createPreferencesTable(batch);
+        _createDietaryRestrictionsTable(batch);
+        _createPriceTable(batch);
+
+        _makeAccountInfoInsert(batch);
+        _makeDietaryRestrictionsInsert(batch);
+        _makePreferencesInsert(batch);
+        _makePriceInsert(batch);
         _makeListInserts(batch);
         _makeRestaurantTableInserts(batch);
         _makeReviewInserts(batch);
@@ -94,11 +104,97 @@ class DatabaseService {
     );
   }
 
+  static void _createAccountInfoTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS AccountInfo');
+    batch.execute('''
+      CREATE TABLE AccountInfo(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        username TEXT,
+        password TEXT,
+        email TEXT,
+        reviewed INTEGER,
+        saved INTEGER,
+        radius REAL
+      );'''
+    );
+  }
+
+  static void _createPreferencesTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS Preferences');
+    batch.execute('''
+      CREATE TABLE Preferences(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        userId INTEGER,
+        preference STRING,
+        FOREIGN KEY (userId) REFERENCES AccountInfo(id) ON DELETE CASCADE
+      );
+    ''');
+  }
+
+  static void _createDietaryRestrictionsTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS DietaryRestrictions');
+    batch.execute('''
+      CREATE TABLE DietaryRestrictions(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        userId INTEGER,
+        restriction STRING,
+        FOREIGN KEY (userId) REFERENCES AccountInfo(id) ON DELETE CASCADE
+      );
+    ''');
+  }
+
+  static void _createPriceTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS Price');
+    batch.execute('''
+      CREATE TABLE Price(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        userId INTEGER,
+        price INTEGER,
+        FOREIGN KEY (userId) REFERENCES AccountInfo(id) ON DELETE CASCADE
+      );
+    ''');
+  }
+
+  static void _makeAccountInfoInsert(Batch batch) {
+    batch.execute('''
+      INSERT INTO AccountInfo values(1, "user", "pass", "user@email.com", 2, 7, 8);
+    ''');
+  }
+
+  static void _makePriceInsert(Batch batch) {
+    batch.execute('''
+      INSERT INTO Price values(1, 1, 1);
+    ''');
+    batch.execute('''
+      INSERT INTO Price values(2, 1, 1);
+    ''');
+  }
+
+  static void _makePreferencesInsert(Batch batch) {
+    batch.execute('''
+      INSERT INTO Preferences values(1, 1, "Italian");
+    ''');
+    batch.execute('''
+      INSERT INTO Preferences values(2, 1, "Peruvian");
+    ''');
+    batch.execute('''
+      INSERT INTO Preferences values(3, 1, "Middle-Eastern");
+    ''');
+  }
+  static void _makeDietaryRestrictionsInsert(Batch batch) {
+        batch.execute('''
+      INSERT INTO DietaryRestrictions values(1, 1, "Dairy Allergy");
+    ''');
+    batch.execute('''
+      INSERT INTO DietaryRestrictions values(2, 1, "Vegan");
+    ''');
+  }
+  
+
   static void _makeReviewInserts(Batch batch) {
     batch.execute('''
     INSERT INTO Review values(1,1,"Taco Tavern",5,"My favorite place to eat!");
     ''');
-
   }
 
   static void _makeListInserts(Batch batch) {
