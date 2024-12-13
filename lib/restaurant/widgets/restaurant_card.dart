@@ -67,10 +67,11 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
     addToTypeListTemp();
   }
 
-  void addToTypeListTemp() async {
+  Future<void> addToTypeListTemp() async {
     String restaurantName = widget.restaurant.name;
     RestaurantList restaurantList = await Provider.of<ListsViewModel>(context, listen: false).getListByName(widget.restaurant.type);
-    Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(restaurantList.id!, widget.restaurant.id!);
+    await Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(restaurantList.id!, widget.restaurant.id!);
+    Provider.of<ListsViewModel>(context, listen: false).fetchLists();
   }
 
   void _triggerIndulged() {
@@ -78,7 +79,6 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
     final int restaurantId = widget.restaurant.id!;
     Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(1, restaurantId);
     Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantIndulgedById(restaurantId, 1);
-    Provider.of<ListsViewModel>(context, listen: false).fetchLists();
     addToTypeListTemp();
   }
 

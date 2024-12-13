@@ -7,10 +7,11 @@ class DatabaseService {
 
   static Future<Database> get database async {
     if (_database != null) {
+      // open the DB if already initialized
       print("Database found. Opening...");
       return _database!;
     } else {
-      // Initialize database
+      // otherwise, initialize the DB
       print("Database not found. Initializing...");
       _database = await _initDatabase();
       print("intiialized the database.");
@@ -31,14 +32,16 @@ class DatabaseService {
         // create our tables
         var batch = db.batch();
         _createRestaurantListTable(batch);
-
         _createRestaurantTable(batch);
         _createRestaurantListHelperTable(batch);
         _createReviewTable(batch);
+
         _makeListInserts(batch);
         _makeRestaurantTableInserts(batch);
         _makeReviewInserts(batch);
         // TODO: add more tables & dummy data
+
+        // commit the transaction
         await batch.commit();
         print("Successfully committed batch");
       },
@@ -73,7 +76,7 @@ class DatabaseService {
     batch.execute('''
     CREATE TABLE RestaurantList(
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
-      name TEXT
+      name TEXT NOT NULL UNIQUE
       );'''
     );
   }
@@ -184,18 +187,4 @@ class DatabaseService {
     });
   }
 
-
-
-
-  static void _deleteAllReviews(Batch batch) {
-
-  }
-
-  static void _deleteAllLists(Batch batch) {
-    
-  }
-
-  static void _deleteAllRestaurants(Batch batch) {
-    
-  }
 }

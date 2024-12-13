@@ -68,14 +68,22 @@ class RestaurantListService {
 
   Future<RestaurantList> getListById(int listId) async {
     final db = await DatabaseService.database;
-    final List<Map<String, dynamic>> listMap = await db.query('RestaurantList', where: 'id = $listId');
+    final List<Map<String, dynamic>> listMap = await db.query(
+      'RestaurantList', 
+      where: 'id = ?',
+      whereArgs: [listId]
+    );
     final RestaurantList restaurantList = RestaurantList.fromMap(listMap[0]);
     return restaurantList;
   }
 
   Future<RestaurantList> getListByName(String listName) async {
     final db = await DatabaseService.database;
-    final List<Map<String, dynamic>> listMap = await db.query('RestaurantList', where: 'name = "$listName"');
+    final List<Map<String, dynamic>> listMap = await db.query(
+      'RestaurantList', 
+      where: 'name = ?',
+      whereArgs: [listName]
+    );
     final RestaurantList restaurantList = RestaurantList.fromMap(listMap[0]);
     return restaurantList;
   }
