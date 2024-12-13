@@ -17,6 +17,8 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final formKey = GlobalKey<FormState>();
+  final usernameController = TextEditingController(text: "");
+  final passwordController = TextEditingController(text: "");
   static const actionColor = Color.fromRGBO(252, 162, 114, 1);
 
 
@@ -59,16 +61,28 @@ class _LoginViewState extends State<LoginView> {
                     CupertinoTextFormFieldRow(
                       placeholder: "Username",
                       key: const Key("user"),
+                      controller: usernameController,
+                      onChanged: (value) {
+                        setState(() {
+                          usernameController.text = value;
+                        });
+                      },
                       validator: (String? value) {
-                        return UserViewModel.validateUsername(value);
+                        return vm.validateUsername(usernameController.text, passwordController.text);
                       },
                     ),
                     CupertinoTextFormFieldRow(
                       placeholder: "Password",
                       key: const Key("pass"),
+                      controller: passwordController,
                       obscureText: true,
+                      onChanged: (value) {
+                        setState(() {
+                          passwordController.text = value;
+                        });
+                      },
                       validator: (String? value) {
-                        return UserViewModel.validatePassword(value);
+                        return vm.validatePassword(usernameController.text, passwordController.text);
                       },
                     ),
                   ],
@@ -89,6 +103,7 @@ class _LoginViewState extends State<LoginView> {
                   onPressed: () {
                     final form = formKey.currentState!;
                     if (form.validate()) {
+                      vm.loadUserAccountInfo(usernameController.text, passwordController.text);
                       Navigator.push(context, CupertinoPageRoute(builder: (context) => MainPage(userVM: vm),));
                       // TODO: Let user into app
                     }

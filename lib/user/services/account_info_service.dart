@@ -49,7 +49,7 @@ class AccountInfoService {
 
   }
 
-  Future<void> insertAccountInfo(String username, UserData userData) async {
+  void insertAccountInfo(String username, UserData userData) async {
 
     final db = await DatabaseService.database;
     final userId = await db.insert("AccountInfo", {
@@ -117,7 +117,7 @@ class AccountInfoService {
 
   }
 
-  Future<void> updateAccountInfo(AccountInfoData newData, String username) async {
+  void updateAccountInfo(AccountInfoData newData, String username) async {
 
     final db = await DatabaseService.database;
     final userId = await _getUserId(db, username);
@@ -125,7 +125,7 @@ class AccountInfoService {
 
   }
 
-  Future<void> updatePrices(String username, List<int> prices) async {
+  void updatePrices(String username, List<int> prices) async {
 
     final db = await DatabaseService.database;
     final userId = await _getUserId(db, username);
@@ -135,7 +135,7 @@ class AccountInfoService {
 
   }
 
-  Future<void> updatePreferences(String username, List<String> preferences) async {
+  void updatePreferences(String username, List<String> preferences) async {
 
     final db = await DatabaseService.database;
     final userId = await _getUserId(db, username);
@@ -145,7 +145,7 @@ class AccountInfoService {
 
   }
 
-  Future<void> updateDietaryRestrictions(String username, List<String> restrictions) async {
+  void updateDietaryRestrictions(String username, List<String> restrictions) async {
 
     final db = await DatabaseService.database;
     final userId = await _getUserId(db, username);
@@ -185,6 +185,7 @@ class AccountInfoService {
       radius: user["radius"] as double
     );
 
+    return userData;
 
   }
 
@@ -249,7 +250,38 @@ class AccountInfoService {
 
   }
 
-  
+  Future<bool> userExists(String username) async {
+
+    final db = await DatabaseService.database;
+    final userList = await db.query(
+      "AccountInfo", 
+      where: "username = ?", 
+      whereArgs: [username]
+    );
+    if (userList.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> passwordMatchesUsername(String username, String password) async {
+
+    final db = await DatabaseService.database;
+    final userList = await db.query(
+      "AccountInfo", 
+      where: "username = ? AND password = ?", 
+      whereArgs: [username, password]
+    );
+    if (userList.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<List<Map<String, dynamic>>> getAllAccountInfo() async {
+    final db = await DatabaseService.database;
+    return await db.query("AccountInfo");
+  }
 
 
 }
