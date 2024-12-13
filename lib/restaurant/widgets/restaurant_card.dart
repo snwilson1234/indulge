@@ -75,7 +75,9 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
 
   void _triggerIndulged() {
     _animateDownward(widget.onSkip);
-    Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(1, widget.restaurant.id!);
+    final int restaurantId = widget.restaurant.id!;
+    Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(1, restaurantId);
+    Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantIndulgedById(restaurantId, 1);
     Provider.of<ListsViewModel>(context, listen: false).fetchLists();
     addToTypeListTemp();
   }

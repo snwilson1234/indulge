@@ -37,4 +37,17 @@ class RestaurantService {
     }
   }
 
+  void setRestuarantIndulgedById(int id, int indulged) async {
+    final db = await DatabaseService.database;
+    if (indulged == 0) {
+      await db.rawUpdate('''
+        UPDATE Restaurant SET indulged=0 where id=${id};
+      ''');
+    } 
+    else {
+      await db.rawUpdate('''
+        UPDATE Restaurant SET indulged=1 where id=${id};
+      ''');
+    }
+  }
 }

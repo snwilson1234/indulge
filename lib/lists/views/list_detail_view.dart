@@ -49,7 +49,7 @@ class ListDetailView extends StatelessWidget {
                     color: CupertinoColors.black,
                   ),
                 ),
-                if (shouldShowButton)
+                if (shouldShowButton && restaurant.indulged == 0)
                   Container(//only want to show this when name != "Been There"
                     alignment: Alignment.center,
                     child: CupertinoButton(
@@ -60,9 +60,10 @@ class ListDetailView extends StatelessWidget {
                           color: CupertinoColors.white
                         ),
                       ), 
-                      onPressed: () {
+                      onPressed: () async {
                         print('pressed indulged on ${restaurant.name}'); //TODO: remove this
-                        Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(id, restaurant.id!);
+                        await Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(1, restaurant.id!);
+                        Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantIndulgedById(restaurant.id!, 1);
                         Navigator.of(context).pop();
                       }
                     ),
