@@ -51,7 +51,7 @@ class ListDetailView extends StatelessWidget {
                     alignment: Alignment.center,
                     child: CupertinoButton(
                       color: CupertinoColors.white,
-                      child: Text(
+                      child: const Text(
                         "Indulged",
                         style: TextStyle(
                           color: CupertinoColors.black

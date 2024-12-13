@@ -30,7 +30,7 @@ class _UserReviewsViewState extends State<UserReviewsView> {
     final vm = Provider.of<ReviewsViewModel>(context);
     return Container(
       color: CupertinoColors.black,
-      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Stack(
         children: <Widget>[
           Column(
@@ -45,7 +45,9 @@ class _UserReviewsViewState extends State<UserReviewsView> {
                   fontSize: 30,
                 ),
               ),
-              const ListSeparator(),
+              const SizedBox(
+                height: 20,
+              ),
               CupertinoSearchTextField(
                 controller: _textController,
                 onSubmitted: (value) {
@@ -62,7 +64,9 @@ class _UserReviewsViewState extends State<UserReviewsView> {
                   vm.fetchReviews();
                 },
               ),
-              const ListSeparator(),
+              const SizedBox(
+                height: 20,
+              ),
               Expanded(
                 child: ReviewListWidget(
                   reviews: vm.reviews

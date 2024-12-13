@@ -25,7 +25,7 @@ class _DefaultState extends State<UserListsView> {
     final vm = Provider.of<ListsViewModel>(context);
     return Container(
       color: CupertinoColors.black,
-      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,

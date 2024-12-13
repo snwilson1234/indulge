@@ -92,7 +92,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.black,
+        backgroundColor: indulgeSecondary,
         leading: const Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +102,7 @@ class _MainPageState extends State<MainPage> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: CupertinoColors.white,
+                color: indulgePrimary,
               ),
             ),
           ],
@@ -113,9 +113,9 @@ class _MainPageState extends State<MainPage> {
       child: CupertinoTabScaffold(
         backgroundColor: CupertinoColors.white,
         tabBar: CupertinoTabBar(
-          backgroundColor: CupertinoColors.black,
-          activeColor: CupertinoColors.white,
-          inactiveColor: CupertinoColors.inactiveGray,
+          backgroundColor: indulgeSecondary,
+          activeColor: indulgePrimary,
+          inactiveColor: indulgePrimaryInactive,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.home),
