@@ -149,6 +149,26 @@ class DatabaseService {
       'listId': null,
       'reviewed': 0
     });
+
+    batch.insert('Restaurant', {
+      'name': 'Hibachi House',
+      'distance': '3.2 mi',
+      'type': 'Japanese',
+      'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
+      'globalRating': 4.2,
+      'listId': 5,
+      'reviewed': 0
+    });
+
+    batch.insert('Restaurant', {
+      'name': 'Umami Universe',
+      'distance': '3.2 mi',
+      'type': 'Japanese',
+      'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
+      'globalRating': 4.2,
+      'listId': 5,
+      'reviewed': 0
+    });
   }
 
 

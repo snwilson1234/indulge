@@ -14,4 +14,8 @@ class ListsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool shouldShowIndulgedButton(String listName) {
+    return listName != 'Been There';
+  }
+
 }
