@@ -31,6 +31,7 @@ class RestaurantViewModel extends ChangeNotifier {
           'globalRating': restaurant.globalRating,
           'reviewed': restaurant.reviewed,
           'indulged': restaurant.indulged,
+          'viewed' : restaurant.viewed,
         }
       )
     ).toList();
