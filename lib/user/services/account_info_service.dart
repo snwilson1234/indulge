@@ -8,12 +8,12 @@ class AccountInfoService {
   Future<int> _getUserId(Database db, String username) async {
     final user = await db.query(
       "AccountInfo",
-      columns: ["userId"],
+      columns: ["id"],
       where: "username = ?",
       whereArgs: [username]
     );
 
-    return user[0]["userId"] as int;
+    return user[0]["id"] as int;
   }
 
   Future<void> _insertPrices(Database db, int userId, List<int> prices) async {
@@ -30,7 +30,7 @@ class AccountInfoService {
   Future<void> _insertPreferences(Database db, int userId, List<String> preferences) async {
 
     for (String preference in preferences) {
-      await db.insert("Price", {
+      await db.insert("Preferences", {
         "userId": userId,
         "preference": preference
       });
@@ -41,7 +41,7 @@ class AccountInfoService {
   Future<void> _insertDietaryRestrictions(Database db, int userId, List<String> restrictions) async {
 
     for (String restriction in restrictions) {
-      await db.insert("Price", {
+      await db.insert("DietaryRestrictions", {
         "userId": userId,
         "restriction": restriction
       });
@@ -49,7 +49,7 @@ class AccountInfoService {
 
   }
 
-  void insertAccountInfo(String username, UserData userData) async {
+  void insertAccountInfo(AccountInfoData userData) async {
 
     final db = await DatabaseService.database;
     final userId = await db.insert("AccountInfo", {
@@ -60,42 +60,6 @@ class AccountInfoService {
       "saved": userData.saved,
       "radius": userData.radius
     });
-
-    final List<int> prices = [];
-    final List<String> restrictions = [];
-    final List<String> preferences = [];
-
-    for (MapEntry<String, bool> entry in userData.dietaryRestrictions.entries) {
-      if (!entry.value){
-        continue;
-      }
-      if (entry.key == "\$") {
-        prices.add(1);
-      }
-      else if (entry.key == "\$\$") {
-        prices.add(2);
-      }
-      else if (entry.key == "\$\$\$") {
-        prices.add(3);
-      }
-    }
-
-    for (MapEntry<String, bool> entry in userData.foodPreferences.entries) {
-      if (entry.value) {
-        preferences.add(entry.key);
-      }
-    }
-
-    for (MapEntry<String, bool> entry in userData.dietaryRestrictions.entries) {
-      if (entry.value) {
-        restrictions.add(entry.key);
-      }
-    }
-
-    await _insertDietaryRestrictions(db, userId, restrictions);
-    await _insertPreferences(db, userId, preferences);
-    await _insertPrices(db, userId, prices);
-
     
   }
 
@@ -121,7 +85,7 @@ class AccountInfoService {
 
     final db = await DatabaseService.database;
     final userId = await _getUserId(db, username);
-    await db.update("AccountInfo", newData.toMap(), where: "userID = ?", whereArgs: [userId]);
+    await db.update("AccountInfo", newData.toMap(), where: "id = ?", whereArgs: [userId]);
 
   }
 
@@ -154,6 +118,7 @@ class AccountInfoService {
     await _insertDietaryRestrictions(db, userId, restrictions);
 
   }
+
 
   Future<UserData?> getAccountInfo(String username, String password) async {
 
@@ -238,7 +203,7 @@ class AccountInfoService {
     final Map<String, bool> restrictions = {};
     final restrictionList = await db.query("DietaryRestrictions", where: "userId = ?", whereArgs: [userId]);
     for (Map<String, Object?> restriction in restrictionList) {
-      final key = restriction["preference"] as String;
+      final key = restriction["restriction"] as String;
       restrictions[key] = true;
     }
     for (String restriction in UserConstants.dietaryRestrictions) {

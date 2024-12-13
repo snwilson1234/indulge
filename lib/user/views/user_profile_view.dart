@@ -153,6 +153,7 @@ class UserProfileView extends StatelessWidget{
             
                   ), 
                   onPressed: () {
+                    vm.updateDatabase(false);
                     Navigator.of(context, rootNavigator: true)
                     .pushAndRemoveUntil( 
                       CupertinoPageRoute(builder: (context) => const LoginView()), 

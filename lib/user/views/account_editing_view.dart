@@ -97,7 +97,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                         obscureText: true,
                         onChanged: (value) {
                           setState(() {
-                            userInfo["old_pass"] = value;
+                            userInfo["old_pass"] = value.trim();
                           });
                         },
                         validator: (value) {
@@ -131,7 +131,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                         obscureText: true,
                         onChanged: (value) {
                           setState(() {
-                            userInfo["new_pass"] = value;
+                            userInfo["new_pass"] = value.trim();
                           });
                         },
                       ),
@@ -147,7 +147,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                         obscureText: true,
                         onChanged: (value) {
                           setState(() {
-                            userInfo["confirm_pass"] = value;
+                            userInfo["confirm_pass"] = value.trim();
                           });
                         },
                         validator: (value) {

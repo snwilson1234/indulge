@@ -81,7 +81,7 @@ class UserViewModel extends ChangeNotifier{
     if (password == "") {
       return "Must input username";
     }
-    else if (!passwordMatchesUsername(username!, password!)) {
+    else if (userExists(username!) && !passwordMatchesUsername(username, password!)) {
       return "Password doesn't match";
     }
     else {
@@ -112,6 +112,7 @@ class UserViewModel extends ChangeNotifier{
   /// Loads preexisting user account info into [UserData] model
   void loadUserAccountInfo(String username, String password) async {
     final user = await accountInfoService.getAccountInfo(username, password);
+    pricePointsChosen = true;
     if (user != null) {
       userData.username = user.username;
       userData.password = user.password;
@@ -239,7 +240,7 @@ class UserViewModel extends ChangeNotifier{
     userData.saved += (addedOrDeleted) ? 1 : -1;
   }
 
-  // For debugging purposes
+  /// For debugging purposes
   void info() {
     print(userData.username);
     print(userData.password);
@@ -252,8 +253,47 @@ class UserViewModel extends ChangeNotifier{
     print(userData.radius);
   }
 
-  void updateDatabase(){
+  /// Naive implementation (for prototype) to update database
+  void updateDatabase(bool newUser) {
     // TODO: Update database with all user data
+    final List<String> restrictions = [];
+    final List<String> preferences = [];
+    final List<int> prices = [];
+    final AccountInfoData newData = AccountInfoData(
+      username: userData.username, 
+      password: userData.password, 
+      email: userData.email, 
+      reviewed: userData.reviewed, 
+      saved: userData.saved, 
+      radius: userData.radius
+    );
+
+    for (MapEntry<String, bool> entry in userData.foodPreferences.entries) {
+      if (entry.value) {
+        preferences.add(entry.key);
+      }
+    }
+    for (MapEntry<String, bool> entry in userData.dietaryRestrictions.entries) {
+      if (entry.value) {
+        restrictions.add(entry.key);
+      }
+    }
+    for (MapEntry<String, bool> entry in userData.pricePoints.entries) {
+      if (entry.value) {
+        prices.add(entry.key.length + 1);
+      }
+    }
+
+    if (newUser) {
+      accountInfoService.insertAccountInfo(newData);
+    }
+    else {
+      accountInfoService.updateAccountInfo(newData, userData.username);
+      accountInfoService.updateDietaryRestrictions(userData.username, restrictions);
+      accountInfoService.updatePreferences(userData.username, preferences);
+      accountInfoService.updatePrices(userData.username, prices);
+    }
+
   }
   
 

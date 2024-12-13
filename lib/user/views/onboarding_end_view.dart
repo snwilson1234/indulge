@@ -51,7 +51,7 @@ class EndOfOnboardingView extends StatelessWidget {
                   ),
                 ), 
                 onPressed: () {
-                  vm.updateDatabase();
+                  vm.updateDatabase(true);
                   vm.info();
                   Navigator.push(context, CupertinoPageRoute(builder: (context) => MainPage(userVM: vm,),));
                 }

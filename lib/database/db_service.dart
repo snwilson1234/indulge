@@ -97,7 +97,7 @@ class DatabaseService {
         email TEXT,
         reviewed INTEGER,
         saved INTEGER,
-        radius INTEGER
+        radius REAL
       );'''
     );
   }

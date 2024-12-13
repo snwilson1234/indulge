@@ -16,6 +16,13 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+
+  @override
+  void initState() {
+    print("init state");
+    super.initState();
+    Provider.of<UserViewModel>(context, listen: false).fetchAccountInfo();
+  }
   final formKey = GlobalKey<FormState>();
   final usernameController = TextEditingController(text: "");
   final passwordController = TextEditingController(text: "");
@@ -64,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
                       controller: usernameController,
                       onChanged: (value) {
                         setState(() {
-                          usernameController.text = value;
+                          usernameController.text = value.trim();
                         });
                       },
                       validator: (String? value) {
@@ -78,7 +85,7 @@ class _LoginViewState extends State<LoginView> {
                       obscureText: true,
                       onChanged: (value) {
                         setState(() {
-                          passwordController.text = value;
+                          passwordController.text = value.trim();
                         });
                       },
                       validator: (String? value) {
