@@ -18,7 +18,8 @@ class RestaurantViewModel extends ChangeNotifier {
 
   void fetchRestaurants() async {
     _isLoading = true;
-    List<Restaurant> tempRestaurants = await service.getAllRestaurants();
+    List<Restaurant> tempRestaurants = await service.getUnviewedRestaurants();
+
     //probably a better way to do this but doing this for now
     _restaurants = tempRestaurants.map(
       (restaurant) => Restaurant.fromMap(
@@ -29,8 +30,9 @@ class RestaurantViewModel extends ChangeNotifier {
           'type': restaurant.type,
           'imageUrl': restaurant.imageUrl,
           'globalRating': restaurant.globalRating,
-          'listId': restaurant.listId,
-          'reviewed': restaurant.reviewed
+          'reviewed': restaurant.reviewed,
+          'indulged': restaurant.indulged,
+          'viewed' : restaurant.viewed,
         }
       )
     ).toList();
@@ -38,30 +40,42 @@ class RestaurantViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setRestuarantIndulgedById(int id, int indulged) {
+    service.setRestuarantIndulgedById(id, indulged);
+    notifyListeners();
+  }
+
   void updateRestaurant(Restaurant restaurant) {
     service.updateRestaurant(restaurant);
+    notifyListeners();
   }
 
   void setRestuarantReviewedById(int id, int reviewed) {
     service.setRestuarantReviewedById(id, reviewed);
+    notifyListeners();
+  }
+
+  void setRestuarantViewedById(int id, int viewed) {
+    service.setRestuarantViewedById(id, viewed);
+    notifyListeners();
   }
 
   void swipeLeft() {
-    if (_currentIndex < _restaurants.length - 1) {
+    if (_currentIndex < _restaurants.length) {
       _currentIndex++;
       notifyListeners();
     }
   }
 
   void swipeRight() {
-    if (_currentIndex < _restaurants.length - 1) {
+    if (_currentIndex < _restaurants.length) {
       _currentIndex++;
       notifyListeners();
     }
   }
 
   void skip() {
-    if (_currentIndex < _restaurants.length - 1) {
+    if (_currentIndex < _restaurants.length) {
       _currentIndex++;
       notifyListeners();
     }

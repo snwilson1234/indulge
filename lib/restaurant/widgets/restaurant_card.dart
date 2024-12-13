@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:indulge/lists/models/restaurant_list.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'dart:math';
 import 'package:indulge/restaurant/models/restaurant.dart';
@@ -58,29 +59,29 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
 
   void _triggerSwipeLeft() {
     _animateOffScreen(false, widget.onSwipeLeft);
+    final int restaurantId = widget.restaurant.id!;
+    Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantViewedById(restaurantId, 1);
   }
 
   void _triggerSwipeRight() {
     _animateOffScreen(true, widget.onSwipeRight);
+    final int restaurantId = widget.restaurant.id!;
+    Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantViewedById(restaurantId, 1);
+    addToTypeListTemp();
+  }
+
+  Future<void> addToTypeListTemp() async {
+    RestaurantList restaurantList = await Provider.of<ListsViewModel>(context, listen: false).getListByName(widget.restaurant.type);
+    await Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(restaurantList.id!, widget.restaurant.id!);
+    Provider.of<ListsViewModel>(context, listen: false).fetchLists();
   }
 
   void _triggerIndulged() {
     _animateDownward(widget.onSkip);
-    // Provider.of(RestaurantViewModel).
-    Restaurant newRestaurant = Restaurant.fromMap(
-      {
-        'id': widget.restaurant.id,
-        'name': widget.restaurant.name,
-        'distance': widget.restaurant.distance,
-        'type': widget.restaurant.type,
-        'imageUrl': widget.restaurant.imageUrl,
-        'globalRating': widget.restaurant.globalRating,
-        'listId': 1,//add to been there
-        'reviewed': widget.restaurant.reviewed
-      }
-    );
-     Provider.of<RestaurantViewModel>(context, listen: false).updateRestaurant(newRestaurant);
-     Provider.of<ListsViewModel>(context, listen: false).fetchLists();
+    final int restaurantId = widget.restaurant.id!;
+    Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(1, restaurantId);
+    Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantIndulgedById(restaurantId, 1);
+    addToTypeListTemp();
   }
 
   void _animateOffScreen(bool toRight, VoidCallback onComplete) {

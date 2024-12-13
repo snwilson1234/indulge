@@ -4,13 +4,14 @@ import 'dart:async';
 
 class DatabaseService {
   static Database? _database;
-
+  
   static Future<Database> get database async {
     if (_database != null) {
+      // open the DB if already initialized
       print("Database found. Opening...");
       return _database!;
     } else {
-      // Initialize database
+      // otherwise, initialize the DB
       print("Database not found. Initializing...");
       _database = await _initDatabase();
       print("intiialized the database.");
@@ -33,6 +34,7 @@ class DatabaseService {
 
         _createRestaurantListTable(batch);
         _createRestaurantTable(batch);
+        _createRestaurantListHelperTable(batch);
         _createReviewTable(batch);
 
         _createAccountInfoTable(batch);
@@ -48,6 +50,8 @@ class DatabaseService {
         _makeRestaurantTableInserts(batch);
         _makeReviewInserts(batch);
         // TODO: add more tables & dummy data
+
+        // commit the transaction
         await batch.commit();
         print("Successfully committed batch");
       },
@@ -82,7 +86,20 @@ class DatabaseService {
     batch.execute('''
     CREATE TABLE RestaurantList(
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
-      name TEXT
+      name TEXT NOT NULL UNIQUE
+      );'''
+    );
+  }
+
+  static void _createRestaurantListHelperTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS ListHelper');
+    batch.execute('''
+    CREATE TABLE ListHelper(
+      id INTEGER PRIMARY KEY AUTOINCREMENT, 
+      listId INTEGER,
+      restaurantId INTEGER,
+      FOREIGN KEY (listId) REFERENCES RestaurantList(id),
+      FOREIGN KEY (restaurantId) REFERENCES Restaurant(id)
       );'''
     );
   }
@@ -208,9 +225,9 @@ class DatabaseService {
         type TEXT NOT NULL,
         imageUrl TEXT NOT NULL,
         globalRating REAL NOT NULL,
-        listId INTEGER,
         reviewed INTEGER,
-        FOREIGN KEY (listId) REFERENCES RestaurantList(id) on DELETE CASCADE
+        indulged INTEGER,
+        viewed INTEGER
       )
     ''');
   }
@@ -222,8 +239,9 @@ class DatabaseService {
       'type': 'Mexican',
       'imageUrl': 'https://static.stacker.com/s3fs-public/41THDS_96.png',
       'globalRating': 4.8,
-      'listId': null,
-      'reviewed': 1,
+      'reviewed': 0,
+      'indulged': 0,
+      'viewed' : 0
     });
 
     batch.insert('Restaurant', {
@@ -232,8 +250,9 @@ class DatabaseService {
       'type': 'Italian',
       'imageUrl': 'https://goodfoodpittsburgh.com/wp-content/uploads/2020/01/83578012_597313894148871_4528116092105059721_n-820x1024.jpg',
       'globalRating': 4.5,
-      'listId': null,
       'reviewed': 0,
+      'indulged': 0,
+      'viewed' : 0
     });
 
     batch.insert('Restaurant', {
@@ -242,23 +261,32 @@ class DatabaseService {
       'type': 'Japanese',
       'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
       'globalRating': 4.2,
-      'listId': null,
-      'reviewed': 0
+      'reviewed': 0,
+      'indulged': 0,
+      'viewed' : 0
+    });
+
+    batch.insert('Restaurant', {
+      'name': 'Hibachi House',
+      'distance': '3.2 mi',
+      'type': 'Japanese',
+      'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
+      'globalRating': 4.2,
+      'reviewed': 0,
+      'indulged': 0,
+      'viewed' : 0
+    });
+
+    batch.insert('Restaurant', {
+      'name': 'Umami Universe',
+      'distance': '3.2 mi',
+      'type': 'Japanese',
+      'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
+      'globalRating': 4.2,
+      'reviewed': 0,
+      'indulged': 0,
+      'viewed' : 0
     });
   }
 
-
-
-
-  static void _deleteAllReviews(Batch batch) {
-
-  }
-
-  static void _deleteAllLists(Batch batch) {
-    
-  }
-
-  static void _deleteAllRestaurants(Batch batch) {
-    
-  }
 }

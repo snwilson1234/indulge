@@ -13,6 +13,19 @@ class RestaurantService {
     });
   }
 
+   Future<List<Restaurant>> getUnviewedRestaurants() async {
+    final db = await DatabaseService.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'Restaurant', 
+      where: 'viewed = ?',
+      whereArgs: [0],
+    );
+
+    return List.generate(maps.length, (i) {
+      return Restaurant.fromMap(maps[i]);
+    });
+  }
+
   Future<int> updateRestaurant(Restaurant restaurant) async {
     final db = await DatabaseService.database;
     return await db.update(
@@ -37,4 +50,31 @@ class RestaurantService {
     }
   }
 
+   void setRestuarantViewedById(int id, int viewed) async {
+    final db = await DatabaseService.database;
+    if (viewed == 0) {
+      await db.rawUpdate('''
+        UPDATE Restaurant SET viewed=0 where id=${id};
+      ''');
+    } 
+    else {
+      await db.rawUpdate('''
+        UPDATE Restaurant SET viewed=1 where id=${id};
+      ''');
+    }
+  }
+
+  void setRestuarantIndulgedById(int id, int indulged) async {
+    final db = await DatabaseService.database;
+    if (indulged == 0) {
+      await db.rawUpdate('''
+        UPDATE Restaurant SET indulged=0 where id=${id};
+      ''');
+    } 
+    else {
+      await db.rawUpdate('''
+        UPDATE Restaurant SET indulged=1 where id=${id};
+      ''');
+    }
+  }
 }
