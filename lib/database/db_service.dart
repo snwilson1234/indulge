@@ -77,6 +77,50 @@ class DatabaseService {
     );
   }
 
+  static void _createAccountInfoTable(Batch batch) {
+    batch.execute('''
+      CREATE TABLE AccountInfo(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        username TEXT,
+        password TEXT,
+        reviewed INTEGER,
+        saved INTEGER,
+        radius INTEGER,
+        FOREIGN KEY (username) REFERENCES Preferences(username) ON DELETE CASCADE
+      );'''
+    );
+  }
+
+  static void _createPreferencesTable(Batch batch) {
+    batch.execute('''
+      CREATE TABLE Preferences(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        username TEXT,
+        price INTEGER,
+      );
+    ''');
+  }
+
+  static void _createDietaryRestrictionsTable(Batch batch) {
+    batch.execute('''
+      CREATE TABLE DietaryRestrictions(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        username TEXT,
+        price INTEGER,
+      );
+    ''');
+  }
+
+  static void _createPriceTable(Batch batch) {
+    batch.execute('''
+      CREATE TABLE Price(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        username TEXT,
+        price INTEGER,
+      );
+    ''');
+  }
+
   static void _makeReviewInserts(Batch batch) {
     batch.execute('''
     INSERT INTO Review values(1,1,"Taco Tavern",5,"My favorite place to eat!");
