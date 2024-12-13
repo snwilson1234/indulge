@@ -80,7 +80,6 @@ class ReviewDetailView extends StatelessWidget {
               child: CupertinoButton(
                 color: CupertinoColors.systemRed,
                 onPressed: () {
-                  print("pressed delete!");
                   // TODO: add a popup ("are you sure you want to delete this review?")
                   final reviewId = reviewViewModel.id;
                   // delete the review

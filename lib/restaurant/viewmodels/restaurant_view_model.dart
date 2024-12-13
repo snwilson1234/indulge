@@ -29,8 +29,8 @@ class RestaurantViewModel extends ChangeNotifier {
           'type': restaurant.type,
           'imageUrl': restaurant.imageUrl,
           'globalRating': restaurant.globalRating,
-          'listId': restaurant.listId,
-          'reviewed': restaurant.reviewed
+          'reviewed': restaurant.reviewed,
+          'indulged': restaurant.indulged,
         }
       )
     ).toList();
@@ -38,12 +38,19 @@ class RestaurantViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setRestuarantIndulgedById(int id, int indulged) {
+    service.setRestuarantIndulgedById(id, indulged);
+    notifyListeners();
+  }
+
   void updateRestaurant(Restaurant restaurant) {
     service.updateRestaurant(restaurant);
+    notifyListeners();
   }
 
   void setRestuarantReviewedById(int id, int reviewed) {
     service.setRestuarantReviewedById(id, reviewed);
+    notifyListeners();
   }
 
   void swipeLeft() {
