@@ -7,7 +7,7 @@ class RestaurantView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<RestaurantViewModel>(context);
-
+   
     return CupertinoPageScaffold(
       child: SafeArea(
         child: viewModel.isLoading
@@ -15,6 +15,15 @@ class RestaurantView extends StatelessWidget {
             : Stack(
                 alignment: Alignment.center,
                 children: [
+                  // Display a message if no more cards are available
+                  if (viewModel.currentIndex >= viewModel.restaurants.length - 1) 
+                    const Center(
+                      child: Text(
+                        "No more restaurants",
+                        style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 18),
+                      ),
+                    ),
+                  
                   // Display the current card
                   if (viewModel.currentIndex < viewModel.restaurants.length)
                     SwipeableRestaurantCard(
@@ -22,15 +31,6 @@ class RestaurantView extends StatelessWidget {
                       onSwipeLeft: viewModel.swipeLeft,
                       onSwipeRight: viewModel.swipeRight,
                       onSkip: viewModel.skip,
-                    ),
-
-                  // Display a message if no more cards are available
-                  if (viewModel.currentIndex >= viewModel.restaurants.length)
-                    const Center(
-                      child: Text(
-                        "No more restaurants",
-                        style: TextStyle(color: CupertinoColors.systemGrey, fontSize: 18),
-                      ),
                     ),
                 ],
               ),

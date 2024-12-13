@@ -59,16 +59,18 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
 
   void _triggerSwipeLeft() {
     _animateOffScreen(false, widget.onSwipeLeft);
+    final int restaurantId = widget.restaurant.id!;
+    Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantViewedById(restaurantId, 1);
   }
 
   void _triggerSwipeRight() {
     _animateOffScreen(true, widget.onSwipeRight);
-    // TODO: find a better way to do this.
+    final int restaurantId = widget.restaurant.id!;
+    Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantViewedById(restaurantId, 1);
     addToTypeListTemp();
   }
 
   Future<void> addToTypeListTemp() async {
-    String restaurantName = widget.restaurant.name;
     RestaurantList restaurantList = await Provider.of<ListsViewModel>(context, listen: false).getListByName(widget.restaurant.type);
     await Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(restaurantList.id!, widget.restaurant.id!);
     Provider.of<ListsViewModel>(context, listen: false).fetchLists();

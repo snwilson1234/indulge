@@ -18,7 +18,8 @@ class RestaurantViewModel extends ChangeNotifier {
 
   void fetchRestaurants() async {
     _isLoading = true;
-    List<Restaurant> tempRestaurants = await service.getAllRestaurants();
+    List<Restaurant> tempRestaurants = await service.getUnviewedRestaurants();
+
     //probably a better way to do this but doing this for now
     _restaurants = tempRestaurants.map(
       (restaurant) => Restaurant.fromMap(
@@ -31,6 +32,7 @@ class RestaurantViewModel extends ChangeNotifier {
           'globalRating': restaurant.globalRating,
           'reviewed': restaurant.reviewed,
           'indulged': restaurant.indulged,
+          'viewed' : restaurant.viewed,
         }
       )
     ).toList();
@@ -53,22 +55,27 @@ class RestaurantViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setRestuarantViewedById(int id, int viewed) {
+    service.setRestuarantViewedById(id, viewed);
+    notifyListeners();
+  }
+
   void swipeLeft() {
-    if (_currentIndex < _restaurants.length - 1) {
+    if (_currentIndex < _restaurants.length) {
       _currentIndex++;
       notifyListeners();
     }
   }
 
   void swipeRight() {
-    if (_currentIndex < _restaurants.length - 1) {
+    if (_currentIndex < _restaurants.length) {
       _currentIndex++;
       notifyListeners();
     }
   }
 
   void skip() {
-    if (_currentIndex < _restaurants.length - 1) {
+    if (_currentIndex < _restaurants.length) {
       _currentIndex++;
       notifyListeners();
     }

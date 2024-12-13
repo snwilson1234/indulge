@@ -127,7 +127,8 @@ class DatabaseService {
         imageUrl TEXT NOT NULL,
         globalRating REAL NOT NULL,
         reviewed INTEGER,
-        indulged INTEGER
+        indulged INTEGER,
+        viewed INTEGER
       )
     ''');
   }
@@ -140,7 +141,8 @@ class DatabaseService {
       'imageUrl': 'https://static.stacker.com/s3fs-public/41THDS_96.png',
       'globalRating': 4.8,
       'reviewed': 0,
-      'indulged': 0
+      'indulged': 0,
+      'viewed' : 0
     });
 
     batch.insert('Restaurant', {
@@ -150,7 +152,8 @@ class DatabaseService {
       'imageUrl': 'https://goodfoodpittsburgh.com/wp-content/uploads/2020/01/83578012_597313894148871_4528116092105059721_n-820x1024.jpg',
       'globalRating': 4.5,
       'reviewed': 0,
-      'indulged': 0
+      'indulged': 0,
+      'viewed' : 0
     });
 
     batch.insert('Restaurant', {
@@ -160,7 +163,8 @@ class DatabaseService {
       'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
       'globalRating': 4.2,
       'reviewed': 0,
-      'indulged': 0
+      'indulged': 0,
+      'viewed' : 0
     });
 
     batch.insert('Restaurant', {
@@ -170,7 +174,8 @@ class DatabaseService {
       'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
       'globalRating': 4.2,
       'reviewed': 0,
-      'indulged': 0
+      'indulged': 0,
+      'viewed' : 0
     });
 
     batch.insert('Restaurant', {
@@ -180,7 +185,8 @@ class DatabaseService {
       'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
       'globalRating': 4.2,
       'reviewed': 0,
-      'indulged': 0
+      'indulged': 0,
+      'viewed' : 0
     });
   }
 
