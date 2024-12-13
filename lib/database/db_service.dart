@@ -93,6 +93,7 @@ class DatabaseService {
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         username TEXT,
         password TEXT,
+        email TEXT,
         reviewed INTEGER,
         saved INTEGER,
         radius INTEGER
@@ -105,7 +106,7 @@ class DatabaseService {
       CREATE TABLE Preferences(
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         userId INTEGER,
-        cuisineType STRING,
+        preference STRING,
         FOREIGN KEY (userId) REFERENCES AccountInfo(id) ON DELETE CASCADE
       );
     ''');
