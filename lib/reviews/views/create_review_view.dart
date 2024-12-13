@@ -140,7 +140,6 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               child: StarWidget(
                 initialRating: _rating,
                 onRatingChanged: (rating) {
-                  print("Changing rating in create reivew view $rating");
                   setState(() {
                     _rating = rating;
                   });
@@ -181,7 +180,6 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       Provider.of<RestaurantViewModel>(context, listen: false).updateRestaurant(restaurant);
                       Provider.of<ReviewsViewModel>(context, listen: false).fetchReviews();
                       Navigator.of(context).pop();
-                      print("submitted review!");
                     },
                     child: const Text(
                       "Submit",

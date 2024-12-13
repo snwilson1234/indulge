@@ -17,7 +17,6 @@ class UserListWidget extends StatelessWidget {
       itemBuilder: (context, index) {
 
         final list = lists[index];
-        print("list: $list");
 
         return GestureDetector(
           onTap: () {

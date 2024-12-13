@@ -29,7 +29,6 @@ class _StarWidgetState extends State<StarWidget> {
               setState(() {
                 _rating = rating;
               });
-              print("Rating changed to $_rating");
               widget.onRatingChanged(_rating);
             },
           );

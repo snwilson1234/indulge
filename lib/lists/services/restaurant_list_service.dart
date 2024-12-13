@@ -25,29 +25,8 @@ class RestaurantListService {
       }
       List<Map<String, dynamic>> restaurantL = await db.query('Restaurant', where: 'id = $restaurantId');
       Map<String, dynamic> restaurant = restaurantL[0];
-      print("restaurant map: $restaurant");
       restaurantsByList[listId]!.add(restaurant);
     }
-
-    // for (var listMap in listMaps) {
-    //   int listId = listMap['id'];
-
-    //   if (!restaurantsByList.containsKey(listId)) {
-    //     restaurantsByList[listId] = [];
-    //   }
-
-    //   for (var restaurant in restaurantMaps) {
-    //     int restListId = restaurant['listId'] ?? -1;
-    //     if (restListId == -1) {
-    //       continue;
-    //     }
-    //     else {
-    //       if (listId == restListId) {
-    //         restaurantsByList[listId]!.add(restaurant);
-    //       }
-    //     }
-    //   }
-    // }
 
     return listMaps.map((listMap) {
       int listId = listMap['id'];
