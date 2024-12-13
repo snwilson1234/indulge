@@ -40,6 +40,10 @@ class DatabaseService {
         _createDietaryRestrictionsTable(batch);
         _createPriceTable(batch);
 
+        _makeAccountInfoInsert(batch);
+        _makeDietaryRestrictionsInsert(batch);
+        _makePreferencesInsert(batch);
+        _makePriceInsert(batch);
         _makeListInserts(batch);
         _makeRestaurantTableInserts(batch);
         _makeReviewInserts(batch);
@@ -129,11 +133,46 @@ class DatabaseService {
     ''');
   }
 
+  static void _makeAccountInfoInsert(Batch batch) {
+    batch.execute('''
+      INSERT INTO AccountInfo values(1, "user", "pass", 2, 7, 8);
+    ''');
+  }
+
+  static void _makePriceInsert(Batch batch) {
+    batch.execute('''
+      INSERT INTO Price values(1, 1, 1);
+    ''');
+    batch.execute('''
+      INSERT INTO Price values(2, 1, 1);
+    ''');
+  }
+
+  static void _makePreferencesInsert(Batch batch) {
+    batch.execute('''
+      INSERT INTO Preferences values(1, 1, "Italian");
+    ''');
+    batch.execute('''
+      INSERT INTO Preferences values(2, 1, "Peruvian");
+    ''');
+    batch.execute('''
+      INSERT INTO Preferences values(3, 1, "Middle-Eastern");
+    ''');
+  }
+  static void _makeDietaryRestrictionsInsert(Batch batch) {
+        batch.execute('''
+      INSERT INTO Preferences values(1, 1, "Dairy Allergy");
+    ''');
+    batch.execute('''
+      INSERT INTO Preferences values(2, 1, "Vegan");
+    ''');
+  }
+  
+
   static void _makeReviewInserts(Batch batch) {
     batch.execute('''
     INSERT INTO Review values(1,1,"Taco Tavern",5,"My favorite place to eat!");
     ''');
-
   }
 
   static void _makeListInserts(Batch batch) {
