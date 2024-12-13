@@ -88,6 +88,7 @@ class DatabaseService {
   }
 
   static void _createAccountInfoTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS AccountInfo');
     batch.execute('''
       CREATE TABLE AccountInfo(
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -102,6 +103,7 @@ class DatabaseService {
   }
 
   static void _createPreferencesTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS Preferences');
     batch.execute('''
       CREATE TABLE Preferences(
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -113,6 +115,7 @@ class DatabaseService {
   }
 
   static void _createDietaryRestrictionsTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS DietaryRestrictions');
     batch.execute('''
       CREATE TABLE DietaryRestrictions(
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -124,6 +127,7 @@ class DatabaseService {
   }
 
   static void _createPriceTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS Price');
     batch.execute('''
       CREATE TABLE Price(
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -136,7 +140,7 @@ class DatabaseService {
 
   static void _makeAccountInfoInsert(Batch batch) {
     batch.execute('''
-      INSERT INTO AccountInfo values(1, "user", "pass", 2, 7, 8);
+      INSERT INTO AccountInfo values(1, "user", "pass", "user@email.com", 2, 7, 8);
     ''');
   }
 
@@ -162,10 +166,10 @@ class DatabaseService {
   }
   static void _makeDietaryRestrictionsInsert(Batch batch) {
         batch.execute('''
-      INSERT INTO Preferences values(1, 1, "Dairy Allergy");
+      INSERT INTO DietaryRestrictions values(1, 1, "Dairy Allergy");
     ''');
     batch.execute('''
-      INSERT INTO Preferences values(2, 1, "Vegan");
+      INSERT INTO DietaryRestrictions values(2, 1, "Vegan");
     ''');
   }
   
