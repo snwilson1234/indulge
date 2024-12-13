@@ -64,6 +64,7 @@ class ListDetailView extends StatelessWidget {
                         print('pressed indulged on ${restaurant.name}'); //TODO: remove this
                         await Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(1, restaurant.id!);
                         Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantIndulgedById(restaurant.id!, 1);
+                        Provider.of<ListsViewModel>(context, listen: false).fetchLists();
                         Navigator.of(context).pop();
                       }
                     ),

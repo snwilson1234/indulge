@@ -95,9 +95,6 @@ class DatabaseService {
   }
 
   static void _makeReviewInserts(Batch batch) {
-    batch.execute('''
-    INSERT INTO Review values(1,1,"Taco Tavern",5,"My favorite place to eat!");
-    ''');
 
   }
 
@@ -142,7 +139,7 @@ class DatabaseService {
       'type': 'Mexican',
       'imageUrl': 'https://static.stacker.com/s3fs-public/41THDS_96.png',
       'globalRating': 4.8,
-      'reviewed': 1,
+      'reviewed': 0,
       'indulged': 0
     });
 
