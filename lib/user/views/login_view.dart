@@ -78,8 +78,7 @@ class _LoginViewState extends State<LoginView> {
               Container(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: CupertinoButton(
-                  color: actionColor,
+                child: CupertinoButton.filled(
                   child: const Text(
                     "Login",
                     style: TextStyle(

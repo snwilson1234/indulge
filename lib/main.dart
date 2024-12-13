@@ -1,6 +1,7 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:indulge/common/theme.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/login_view.dart';
@@ -61,6 +62,7 @@ void main() async {
   );
 }
 
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
@@ -70,7 +72,7 @@ class MainApp extends StatelessWidget {
       routes: {
         "/login": (context) => const LoginView(),
       },
-      theme: const CupertinoThemeData(brightness: Brightness.dark),
+      theme: indulgeTheme,
       home: const LoginView(),
     );
   }
@@ -90,7 +92,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.white,
+        backgroundColor: CupertinoColors.black,
         leading: const Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +102,7 @@ class _MainPageState extends State<MainPage> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: CupertinoColors.black,
+                color: CupertinoColors.white,
               ),
             ),
           ],
@@ -111,8 +113,8 @@ class _MainPageState extends State<MainPage> {
       child: CupertinoTabScaffold(
         backgroundColor: CupertinoColors.white,
         tabBar: CupertinoTabBar(
-          backgroundColor: CupertinoColors.white,
-          activeColor: CupertinoColors.black,
+          backgroundColor: CupertinoColors.black,
+          activeColor: CupertinoColors.white,
           inactiveColor: CupertinoColors.inactiveGray,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_rating/flutter_rating.dart';
+import 'package:indulge/common/theme.dart';
 
 class StaticStarWidget extends StatelessWidget {
   final double rating;
@@ -8,7 +9,7 @@ class StaticStarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StarRating(
-      color: CupertinoColors.black,
+      color: indulgePrimary,
       rating: rating,
       allowHalfRating: false,
     );

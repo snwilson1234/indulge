@@ -34,7 +34,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        color: CupertinoColors.systemBackground.resolveFrom(context),
+        color: CupertinoColors.black,
         child: SafeArea(
           top: false,
           child: child,
@@ -61,7 +61,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
       return const CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           middle: Text("New Review"),
-          backgroundColor: CupertinoColors.white,
+          backgroundColor: CupertinoColors.black,
         ),
         child: Center(
           child: Text("There are no more restaurants to review. Get swiping!"),
@@ -74,14 +74,14 @@ class _CreateReviewViewState extends State<CreateReviewView> {
         middle: Text(
           "New Review",
           style: TextStyle(
-            color: CupertinoColors.black,
+            color: CupertinoColors.white,
           ),
         ),
-        backgroundColor: CupertinoColors.white,
+        backgroundColor: CupertinoColors.black,
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
-        color: CupertinoColors.white,
+        color: CupertinoColors.black,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +89,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
             const Text(
               "Selected:",
               style: TextStyle(
-                color: CupertinoColors.black,
+                color: CupertinoColors.white,
               ),
             ),
             CupertinoButton(
@@ -128,13 +128,13 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               "Choose your rating:",
               style: TextStyle(
                 fontSize: 30,
-                color: CupertinoColors.black,
+                color: CupertinoColors.white,
               ),
             ),
             const SizedBox(height: 20.0),
             IconTheme(
               data: const IconThemeData(
-                color: CupertinoColors.black,
+                color: CupertinoColors.white,
                 size: 40.0
               ), 
               child: StarWidget(
@@ -151,7 +151,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               "Describe your experience:",
               style: TextStyle(
                 fontSize: 30,
-                color: CupertinoColors.black,
+                color: CupertinoColors.white,
               ),
             ),
             const SizedBox(height: 10.0),
@@ -165,7 +165,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               child: Column(
                 children: <Widget>[
                   CupertinoButton(
-                    color: CupertinoColors.black,
+                    color: CupertinoColors.white,
                     onPressed: () {
                       final review = Review.withParams(
                         restaurantId: alreadyReviwedList[_selectedRestaurant].id,
@@ -185,7 +185,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       "Submit",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: CupertinoColors.white,
+                        color: CupertinoColors.black,
                       ),
                     ),
                   ),
@@ -200,7 +200,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       "Cancel",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: CupertinoColors.white
+                        color: CupertinoColors.black
                       ),
                     ),
                   )

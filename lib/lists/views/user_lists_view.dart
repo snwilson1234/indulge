@@ -24,7 +24,7 @@ class _DefaultState extends State<UserListsView> {
   Widget build(BuildContext context) {
     final vm = Provider.of<ListsViewModel>(context);
     return Container(
-      color: CupertinoColors.white,
+      color: CupertinoColors.black,
       padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +33,6 @@ class _DefaultState extends State<UserListsView> {
           const Text(
             "My Lists",
             style: TextStyle(
-              color: Color.fromARGB(255, 0, 0, 0),
               fontWeight: FontWeight.bold,
               fontSize: 30,
             ),

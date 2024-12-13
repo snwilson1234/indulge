@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_rating/flutter_rating.dart';
+import 'package:indulge/common/theme.dart';
 
 class StarWidget extends StatefulWidget {
   final double initialRating;
@@ -22,16 +23,16 @@ class _StarWidgetState extends State<StarWidget> {
   @override
   Widget build(BuildContext context) {
     return StarRating(
-      color: CupertinoColors.black,
-            rating: _rating,
-            allowHalfRating: false,
-            onRatingChanged: (rating) {
-              setState(() {
-                _rating = rating;
-              });
-              widget.onRatingChanged(_rating);
-            },
-          );
+      color: indulgePrimary,
+      rating: _rating,
+      allowHalfRating: false,
+      onRatingChanged: (rating) {
+        setState(() {
+          _rating = rating;
+        });
+        widget.onRatingChanged(_rating);
+      },
+    );
   }
   
 }

@@ -29,7 +29,7 @@ class _UserReviewsViewState extends State<UserReviewsView> {
   Widget build(BuildContext context) {
     final vm = Provider.of<ReviewsViewModel>(context);
     return Container(
-      color: CupertinoColors.white,
+      color: CupertinoColors.black,
       padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
       child: Stack(
         children: <Widget>[
@@ -40,7 +40,7 @@ class _UserReviewsViewState extends State<UserReviewsView> {
               const Text(
                 "My Reviews",
                 style: TextStyle(
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: CupertinoColors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
                 ),
@@ -73,12 +73,9 @@ class _UserReviewsViewState extends State<UserReviewsView> {
           Container(
             alignment: Alignment.bottomRight,
             padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-            child: CupertinoButton(
-              color: CupertinoColors.black,
+            child: CupertinoButton.filled(
               borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-              child: const IconTheme(data: const IconThemeData(
-                color: CupertinoColors.white
-              ), child: Icon(CupertinoIcons.plus)),
+              child: const Icon(CupertinoIcons.plus),
               onPressed: () {
                 Navigator.of(context).pushNamed(
                   newReviewRoute,

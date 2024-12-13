@@ -22,15 +22,12 @@ class ListDetailView extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         middle: Text(
           "$name Restaurants",
-          style: TextStyle(
-            color: CupertinoColors.black,
-          ),
         ),
-        backgroundColor: CupertinoColors.white,
+        // backgroundColor: CupertinoColors.black,
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-        color: CupertinoColors.white,
+        // color: CupertinoColors.black,
         child: ListView.separated(
           itemCount: listItems.length,
           itemBuilder: (context, index) {
@@ -46,18 +43,18 @@ class ListDetailView extends StatelessWidget {
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: CupertinoColors.black,
+                    color: CupertinoColors.white,
                   ),
                 ),
                 if (shouldShowButton && restaurant.indulged == 0)
                   Container(//only want to show this when name != "Been There"
                     alignment: Alignment.center,
                     child: CupertinoButton(
-                      color: CupertinoColors.black,
+                      color: CupertinoColors.white,
                       child: Text(
                         "Indulged",
                         style: TextStyle(
-                          color: CupertinoColors.white
+                          color: CupertinoColors.black
                         ),
                       ), 
                       onPressed: () async {
