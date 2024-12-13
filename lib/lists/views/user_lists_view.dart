@@ -37,7 +37,9 @@ class _DefaultState extends State<UserListsView> {
               fontSize: 30,
             ),
           ),
-          const ListSeparator(),
+          const SizedBox(
+            height: 20,
+          ),
           // TODO?: possibly add searchbar functionality
           // const SearchBar(
             
