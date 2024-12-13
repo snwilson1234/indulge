@@ -33,6 +33,7 @@ class DatabaseService {
         _createRestaurantListTable(batch);
 
         _createRestaurantTable(batch);
+        _createRestaurantListHelperTable(batch);
         _createReviewTable(batch);
         _makeListInserts(batch);
         _makeRestaurantTableInserts(batch);
@@ -77,6 +78,19 @@ class DatabaseService {
     );
   }
 
+  static void _createRestaurantListHelperTable(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS ListHelper');
+    batch.execute('''
+    CREATE TABLE ListHelper(
+      id INTEGER PRIMARY KEY AUTOINCREMENT, 
+      listId INTEGER,
+      restaurantId INTEGER,
+      FOREIGN KEY (listId) REFERENCES RestaurantList(id),
+      FOREIGN KEY (restaurantId) REFERENCES Restaurant(id)
+      );'''
+    );
+  }
+
   static void _makeReviewInserts(Batch batch) {
     batch.execute('''
     INSERT INTO Review values(1,1,"Taco Tavern",5,"My favorite place to eat!");
@@ -112,9 +126,7 @@ class DatabaseService {
         type TEXT NOT NULL,
         imageUrl TEXT NOT NULL,
         globalRating REAL NOT NULL,
-        listId INTEGER,
-        reviewed INTEGER,
-        FOREIGN KEY (listId) REFERENCES RestaurantList(id) on DELETE CASCADE
+        reviewed INTEGER
       )
     ''');
   }
@@ -126,7 +138,6 @@ class DatabaseService {
       'type': 'Mexican',
       'imageUrl': 'https://static.stacker.com/s3fs-public/41THDS_96.png',
       'globalRating': 4.8,
-      'listId': null,
       'reviewed': 1,
     });
 
@@ -136,7 +147,6 @@ class DatabaseService {
       'type': 'Italian',
       'imageUrl': 'https://goodfoodpittsburgh.com/wp-content/uploads/2020/01/83578012_597313894148871_4528116092105059721_n-820x1024.jpg',
       'globalRating': 4.5,
-      'listId': null,
       'reviewed': 0,
     });
 
@@ -146,7 +156,6 @@ class DatabaseService {
       'type': 'Japanese',
       'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
       'globalRating': 4.2,
-      'listId': null,
       'reviewed': 0
     });
 
@@ -156,7 +165,6 @@ class DatabaseService {
       'type': 'Japanese',
       'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
       'globalRating': 4.2,
-      'listId': 5,
       'reviewed': 0
     });
 
@@ -166,7 +174,6 @@ class DatabaseService {
       'type': 'Japanese',
       'imageUrl': 'https://static.stacker.com/s3fs-public/styles/sar_screen_maximum_large/s3/83JKTK_113.png',
       'globalRating': 4.2,
-      'listId': 5,
       'reviewed': 0
     });
   }

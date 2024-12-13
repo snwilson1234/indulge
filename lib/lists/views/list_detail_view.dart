@@ -8,10 +8,12 @@ import 'package:provider/provider.dart';
 
 
 class ListDetailView extends StatelessWidget {
+  final int id;
   final String name;
   final List<Restaurant> listItems;
+  // TODO: remove these attr somehow
 
-  const ListDetailView({super.key, required this.name, required this.listItems});
+  const ListDetailView({super.key, required this.name, required this.listItems, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -60,20 +62,7 @@ class ListDetailView extends StatelessWidget {
                       ), 
                       onPressed: () {
                         print('pressed indulged on ${restaurant.name}'); //TODO: remove this
-                        Restaurant newRestaurant = Restaurant.fromMap(
-                          {
-                            'id': restaurant.id,
-                            'name': restaurant.name,
-                            'distance': restaurant.distance,
-                            'type': restaurant.type,
-                            'imageUrl': restaurant.imageUrl,
-                            'globalRating': restaurant.globalRating,
-                            'listId': 1,//add to been there
-                            'reviewed': restaurant.reviewed
-                          }
-                        );
-                        Provider.of<RestaurantViewModel>(context, listen: false).updateRestaurant(newRestaurant);
-                        Provider.of<ListsViewModel>(context, listen: false).fetchLists();
+                        Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(id, restaurant.id!);
                         Navigator.of(context).pop();
                       }
                     ),

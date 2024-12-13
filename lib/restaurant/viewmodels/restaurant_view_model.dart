@@ -29,7 +29,6 @@ class RestaurantViewModel extends ChangeNotifier {
           'type': restaurant.type,
           'imageUrl': restaurant.imageUrl,
           'globalRating': restaurant.globalRating,
-          'listId': restaurant.listId,
           'reviewed': restaurant.reviewed
         }
       )

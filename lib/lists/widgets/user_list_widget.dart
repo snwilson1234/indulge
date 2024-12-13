@@ -24,6 +24,7 @@ class UserListWidget extends StatelessWidget {
             Navigator.of(context).pushNamed(
               listDetailRoute, 
               arguments: {
+                'id': list.id,
                 'name': list.name,
                 'listItems': list.listItems
               }

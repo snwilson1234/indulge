@@ -154,9 +154,10 @@ class _MainPageState extends State<MainPage> {
                   listRoute: (context) => const UserListsView(),
                   listDetailRoute: (context) {
                     final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+                    final int id = arguments['id'];
                     final String name = arguments['name'];
                     final List<Restaurant> list = arguments['listItems'];
-                    return ListDetailView(name: name, listItems: list);
+                    return ListDetailView(id: id, name: name, listItems: list);
                   }
                 },
                 builder: (context) => const UserListsView(),

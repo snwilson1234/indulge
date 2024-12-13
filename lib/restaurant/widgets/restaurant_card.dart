@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:indulge/lists/models/restaurant_list.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'dart:math';
 import 'package:indulge/restaurant/models/restaurant.dart';
@@ -62,25 +63,21 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
 
   void _triggerSwipeRight() {
     _animateOffScreen(true, widget.onSwipeRight);
+    // TODO: find a better way to do this.
+    addToTypeListTemp();
+  }
+
+  void addToTypeListTemp() async {
+    String restaurantName = widget.restaurant.name;
+    RestaurantList restaurantList = await Provider.of<ListsViewModel>(context, listen: false).getListByName(widget.restaurant.type);
+    Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(restaurantList.id!, widget.restaurant.id!);
   }
 
   void _triggerIndulged() {
     _animateDownward(widget.onSkip);
-    // Provider.of(RestaurantViewModel).
-    Restaurant newRestaurant = Restaurant.fromMap(
-      {
-        'id': widget.restaurant.id,
-        'name': widget.restaurant.name,
-        'distance': widget.restaurant.distance,
-        'type': widget.restaurant.type,
-        'imageUrl': widget.restaurant.imageUrl,
-        'globalRating': widget.restaurant.globalRating,
-        'listId': 1,//add to been there
-        'reviewed': widget.restaurant.reviewed
-      }
-    );
-     Provider.of<RestaurantViewModel>(context, listen: false).updateRestaurant(newRestaurant);
-     Provider.of<ListsViewModel>(context, listen: false).fetchLists();
+    Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(1, widget.restaurant.id!);
+    Provider.of<ListsViewModel>(context, listen: false).fetchLists();
+    addToTypeListTemp();
   }
 
   void _animateOffScreen(bool toRight, VoidCallback onComplete) {

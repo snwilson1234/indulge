@@ -5,7 +5,6 @@ class Restaurant {
   final String type;
   final String imageUrl;
   final double globalRating;
-  final int? listId;
   int? reviewed;
 
   Restaurant({
@@ -15,7 +14,6 @@ class Restaurant {
     required this.type,
     required this.imageUrl,
     required this.globalRating,
-    this.listId,
     this.reviewed,
   });
 
@@ -27,7 +25,6 @@ class Restaurant {
       'type': type,
       'imageUrl': imageUrl,
       'globalRating': globalRating,
-      'listId': listId,
       'reviewed': reviewed
     };
   }
@@ -40,7 +37,6 @@ class Restaurant {
       type: map['type'] as String,
       imageUrl: map['imageUrl'] as String,
       globalRating: map['globalRating'] as double,
-      listId: map['listId'] as int?,
       reviewed: map['reviewed'] as int
     );
   }
