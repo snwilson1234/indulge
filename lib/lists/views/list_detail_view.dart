@@ -74,6 +74,7 @@ class ListDetailView extends StatelessWidget {
                         );
                         Provider.of<RestaurantViewModel>(context, listen: false).updateRestaurant(newRestaurant);
                         Provider.of<ListsViewModel>(context, listen: false).fetchLists();
+                        Navigator.of(context).pop();
                       }
                     ),
                   )
