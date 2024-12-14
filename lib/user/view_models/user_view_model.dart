@@ -254,11 +254,56 @@ class UserViewModel extends ChangeNotifier{
   }
 
   /// Naive implementation (for prototype) to update database
+  /// Updates all possible user data all at once
   void updateDatabase(bool newUser) {
-    // TODO: Update database with all user data
-    final List<String> restrictions = [];
-    final List<String> preferences = [];
-    final List<int> prices = [];
+    
+    // final List<String> restrictions = [];
+    // final List<String> preferences = [];
+    // final List<int> prices = [];
+    // final AccountInfoData newData = AccountInfoData(
+    //   username: userData.username, 
+    //   password: userData.password, 
+    //   email: userData.email, 
+    //   reviewed: userData.reviewed, 
+    //   saved: userData.saved, 
+    //   radius: userData.radius
+    // );
+
+    // for (MapEntry<String, bool> entry in userData.foodPreferences.entries) {
+    //   if (entry.value) {
+    //     preferences.add(entry.key);
+    //   }
+    // }
+    // for (MapEntry<String, bool> entry in userData.dietaryRestrictions.entries) {
+    //   if (entry.value) {
+    //     restrictions.add(entry.key);
+    //   }
+    // }
+    // for (MapEntry<String, bool> entry in userData.pricePoints.entries) {
+    //   if (entry.value) {
+    //     prices.add(entry.key.length + 1);
+    //   }
+    // }
+
+    if (newUser) {
+      insertDBNewUserAccountInfo();
+    }
+    else {
+      updateDBAccountInfo();
+      
+
+      // accountInfoService.updateAccountInfo(newData, userData.username);
+      // accountInfoService.updateDietaryRestrictions(userData.username, restrictions);
+      // accountInfoService.updatePreferences(userData.username, preferences);
+      // accountInfoService.updatePrices(userData.username, prices);
+    }
+    updateDBDietaryRestrictions();
+    updateDBPreferences();
+    updateDBPrices();
+
+  }
+
+  void insertDBNewUserAccountInfo() {
     final AccountInfoData newData = AccountInfoData(
       username: userData.username, 
       password: userData.password, 
@@ -267,34 +312,50 @@ class UserViewModel extends ChangeNotifier{
       saved: userData.saved, 
       radius: userData.radius
     );
+    accountInfoService.insertAccountInfo(newData);
+  }
 
+  void updateDBAccountInfo() {
+    final AccountInfoData newData = AccountInfoData(
+      username: userData.username, 
+      password: userData.password, 
+      email: userData.email, 
+      reviewed: userData.reviewed, 
+      saved: userData.saved, 
+      radius: userData.radius
+    );
+    accountInfoService.updateAccountInfo(newData, newData.username);
+  }
+
+  void updateDBPreferences() {
+    final List<String> preferences = [];
     for (MapEntry<String, bool> entry in userData.foodPreferences.entries) {
       if (entry.value) {
         preferences.add(entry.key);
       }
     }
+    accountInfoService.updatePreferences(userData.username, preferences);
+  }
+  
+  void updateDBDietaryRestrictions() {
+    final List<String> restrictions = [];
     for (MapEntry<String, bool> entry in userData.dietaryRestrictions.entries) {
       if (entry.value) {
         restrictions.add(entry.key);
       }
     }
+    accountInfoService.updateDietaryRestrictions(userData.username, restrictions);
+  }
+
+  void updateDBPrices() {
+    final List<int> prices = [];
     for (MapEntry<String, bool> entry in userData.pricePoints.entries) {
       if (entry.value) {
-        prices.add(entry.key.length + 1);
+        prices.add(entry.key.length);
       }
     }
-
-    if (newUser) {
-      accountInfoService.insertAccountInfo(newData);
-    }
-    else {
-      accountInfoService.updateAccountInfo(newData, userData.username);
-      accountInfoService.updateDietaryRestrictions(userData.username, restrictions);
-      accountInfoService.updatePreferences(userData.username, preferences);
-      accountInfoService.updatePrices(userData.username, prices);
-    }
-
+    accountInfoService.updatePrices(userData.username, prices);
   }
-  
+
 
 }

@@ -168,8 +168,8 @@ class _AccountEditingViewState extends State<AccountEditingView> {
               () {
                 final form = formKey.currentState;
                 if (form!.validate()) {
-                  // TODO: update model and db
                   vm.updatePassword(userInfo["new_pass"]!);
+                  vm.updateDBAccountInfo();
                   Navigator.pop(context);
                 }
               }
@@ -214,6 +214,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
           CupertinoButton.filled(
             child: Text("Save"), 
             onPressed: () {
+              vm.updateDBPreferences();
               Navigator.pop(context);
             },
           ),
@@ -254,6 +255,7 @@ class _AccountEditingViewState extends State<AccountEditingView> {
           CupertinoButton.filled(
             child: Text("Save"), 
             onPressed: () {
+              vm.updateDBDietaryRestrictions();
               Navigator.pop(context);
             },
           ),
@@ -351,6 +353,8 @@ class _AccountEditingViewState extends State<AccountEditingView> {
               child: const Text("Save"), 
               onPressed: !context.watch<UserViewModel>().pricePointsChosen ? null : () {
                 vm.info();
+                vm.updateDBAccountInfo();
+                vm.updateDBPrices();
                 Navigator.pop(context);
               },
             ),
