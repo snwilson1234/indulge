@@ -30,13 +30,13 @@ class ListItemWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 '$size ',
-                style: TextStyle(
+                style: const TextStyle(
                   color: CupertinoColors.white,
                 ),
               ),
               Text(
                 size == 1 ? 'entry' : 'entries',
-                style: TextStyle(
+                style: const TextStyle(
                   color: CupertinoColors.white,
                 ),
               )

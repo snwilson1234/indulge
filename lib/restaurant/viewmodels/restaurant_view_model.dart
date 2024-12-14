@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart'; 
-import 'dart:convert'; 
 import 'package:indulge/restaurant/models/restaurant.dart';
-import 'package:indulge/database/db_service.dart';
 import 'package:indulge/restaurant/services/restaurant_service.dart';
 
 class RestaurantViewModel extends ChangeNotifier {

@@ -1,6 +1,5 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/lists/widgets/user_list_widget.dart';
 import 'package:provider/provider.dart';

@@ -19,11 +19,22 @@ class ListViewModel extends ChangeNotifier{
   }
 
   List<Restaurant>? get listItems {
+    if (list!.listItems == null) {
+      return [];
+    }
     return list?.listItems;
   }
 
   Future<void> getListByName(String name) async {
     list = await listService.getListByName(name);
     notifyListeners();
+  }
+
+  Future<void> getListById(int listId) async {
+    list = await listService.getListById(listId);
+  }
+
+  bool shouldShowIndulgedButton() {
+    return list?.name != 'Been There';
   }
 }

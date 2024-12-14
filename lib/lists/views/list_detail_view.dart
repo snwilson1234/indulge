@@ -2,26 +2,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
-import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:provider/provider.dart';
 
 
-class ListDetailView extends StatelessWidget {
-  final int id;
-  final String name;
-  final List<Restaurant> listItems;
-  // TODO: remove these attr somehow
+class ListDetailView extends StatefulWidget {
+  const ListDetailView({super.key});
 
-  const ListDetailView({super.key, required this.name, required this.listItems, required this.id});
+  @override
+  _ListDetailViewState createState() => _ListDetailViewState();
+}
+
+class _ListDetailViewState extends State<ListDetailView> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool shouldShowButton = Provider.of<ListsViewModel>(context).shouldShowIndulgedButton(name);
+    final vm = Provider.of<ListViewModel>(context, listen: false);
+    bool shouldShowButton = vm.shouldShowIndulgedButton();
+    final listItems = vm.listItems;
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(
-          "$name Restaurants",
+          "${vm.name} Restaurants",
         ),
         // backgroundColor: CupertinoColors.black,
       ),
@@ -29,10 +36,10 @@ class ListDetailView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
         // color: CupertinoColors.black,
         child: ListView.separated(
-          itemCount: listItems.length,
+          itemCount: vm.listItems?.length ?? 0,
           itemBuilder: (context, index) {
 
-            final restaurant = listItems[index];
+            final restaurant = listItems![index];
 
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

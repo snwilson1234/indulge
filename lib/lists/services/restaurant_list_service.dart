@@ -1,7 +1,6 @@
 import 'package:indulge/database/db_service.dart';
 import 'package:indulge/lists/models/restaurant_list.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
-import 'dart:convert';
 
 
 class RestaurantListService {
@@ -10,7 +9,6 @@ class RestaurantListService {
     final db = await DatabaseService.database;
 
     final List<Map<String, dynamic>> listMaps = await db.query('RestaurantList');
-    final List<Map<String, dynamic>> restaurantMaps = await db.query('Restaurant');
     final List<Map<String, dynamic>> listHelperMaps = await db.query('ListHelper', orderBy: 'listId ASC');
 
     Map<int, List<Map<String, dynamic>>> restaurantsByList = {};
@@ -54,6 +52,35 @@ class RestaurantListService {
     return restaurantList;
   }
 
+  Future<RestaurantList> getListById(int listId) async {
+    final db = await DatabaseService.database;
+    
+    // get the list id, name
+    final List<Map<String, dynamic>> listMap = await db.query(
+      'RestaurantList', 
+      where: 'id = ?',
+      whereArgs: [listId]
+    );
+    
+    // get restaurant ids for this list id stored in helper table 
+    final List<Map<String, dynamic>> listItems = await db.query('ListHelper', where: 'listId = ?', whereArgs: [listId]);
+    final List<int> restaurantIds = listItems.map<int>((item) {
+      return item['restaurantId'] as int;
+    }).toList();
+
+    // use restaurant ids to get actual entries
+    final List<Map<String, dynamic>> restaurantMaps = await db.query('Restaurant', where: 'id IN (${List.filled(restaurantIds.length, '?').join(', ')})', whereArgs: restaurantIds);
+
+    // make a restaurant list from this map. sqflite always returns list but we know there is always only one entry due to primary key.
+    RestaurantList restaurantList = RestaurantList.fromMap(listMap[0]);
+    
+    // set the list's listItems to the actual restaurant maps and return final RestaurantList
+    restaurantList.listItems = restaurantMaps.map<Restaurant>((map) {
+      return Restaurant.fromMap(map);
+    }).toList();
+    return restaurantList;
+  }
+
   Future<void> addRestaurantToList(int listId, int restaurantId) async {
     final db = await DatabaseService.database;
     await db.insert('ListHelper', {
@@ -62,41 +89,4 @@ class RestaurantListService {
     });
   }
 
-  // Not currently used
-  // Future<int> updateRestaurantList(RestaurantList restaurantList) async {
-  //   final db = await DatabaseService.database;
-  //   return await db.update(
-  //     'RestaurantList',
-  //     restaurantList.toMap(),
-  //     where: 'id = ?',
-  //     whereArgs: [restaurantList.id],
-  //   );
-  // }
-
-  // Future<int> deleteRestaurantList(int id) async {
-  //   final db = await DatabaseService.database;
-  //   return await db.delete(
-  //     'RestaurantList',
-  //     where: 'id = ?',
-  //     whereArgs: [id],
-  //   );
-  // }
-
-  // Future<List<RestaurantList>> getRestaurantListById(int id) async {
-  //   final db = await DatabaseService.database;
-  //   final List<Map<String, dynamic>> maps = await db.query(
-  //     'RestaurantList',
-  //     where: 'id = ?',
-  //     whereArgs: [id],
-  //   );
-
-  //   return List.generate(maps.length, (i) {
-  //     return RestaurantList.fromMap(maps[i]);
-  //   });
-  // }
-
-  // Future<int> insertRestaurantList(RestaurantList restaurantList) async {
-  //   final db = await DatabaseService.database;
-  //   return await db.insert('RestaurantList', restaurantList.toMap());
-  // }
 }

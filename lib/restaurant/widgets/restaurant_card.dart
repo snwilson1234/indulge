@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:indulge/lists/models/restaurant_list.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
-import 'dart:math';
 import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:provider/provider.dart';
