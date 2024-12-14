@@ -13,8 +13,6 @@ class ReviewDetailView extends StatefulWidget {
 }
 
 class _ReviewDetailViewState extends State<ReviewDetailView> {
-
-  final TextEditingController _reviewController = TextEditingController();
   
   @override
   void initState() {
@@ -28,7 +26,6 @@ class _ReviewDetailViewState extends State<ReviewDetailView> {
     final restaurantName = vm.restaurantName; 
     final rating = vm.rating; 
     final comment = vm.comment;
-    _reviewController.text = comment!;
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text("Review for $restaurantName"),
@@ -62,7 +59,7 @@ class _ReviewDetailViewState extends State<ReviewDetailView> {
             ),
             const SizedBox(height: 10.0),
             Text(
-              comment,
+              comment ?? "",
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.normal

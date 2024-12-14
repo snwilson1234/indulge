@@ -20,7 +20,7 @@ class ReviewListWidget extends StatelessWidget {
 
         return GestureDetector(
           onTap: () {
-            Provider.of<ReviewViewModel>(context, listen: false).fetchReviewById(review!.id!);
+            Provider.of<ReviewViewModel>(context, listen: false).fetchReviewById(review.id!);
             Navigator.of(context).pushNamed(
               reviewDetailRoute, 
             );

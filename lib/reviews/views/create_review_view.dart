@@ -22,7 +22,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
   int _selectedRestaurant = 0;
   double _rating = 0.0;
 
-  TextEditingController _reviewController = TextEditingController();
+  final TextEditingController _reviewController = TextEditingController();
 
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoPicker.
   void _showDialog(Widget child) {
@@ -57,7 +57,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
         ?.where((item) => item.reviewed == 0)
         .toList() ?? [];
 
-    if (alreadyReviwedList!.isEmpty) {
+    if (alreadyReviwedList.isEmpty) {
       return const CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
           middle: Text("New Review"),
@@ -111,14 +111,14 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                     });
                   },
                   children:
-                      List<Widget>.generate(alreadyReviwedList!.length, (int index) {
-                    return Center(child: Text(alreadyReviwedList[index].name!));
+                      List<Widget>.generate(alreadyReviwedList.length, (int index) {
+                    return Center(child: Text(alreadyReviwedList[index].name));
                   }),
                 ),
               ),
               // This displays the selected restaurant name.
               child: Text(
-                alreadyReviwedList![_selectedRestaurant].name!,
+                alreadyReviwedList[_selectedRestaurant].name,
                 style: const TextStyle(
                   fontSize: 22.0,
                 ),

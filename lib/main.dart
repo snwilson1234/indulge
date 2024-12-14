@@ -1,22 +1,18 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:indulge/common/theme.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
-import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/login_view.dart';
 import 'package:indulge/user/views/user_profile_view.dart';
 import 'package:indulge/user/widgets/radius_changer.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:flutter/foundation.dart';
 
 // Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
-import 'package:indulge/database/db_service.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/lists/views/list_detail_view.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
@@ -42,12 +38,8 @@ void main() async {
   }
 
   // Test database connection and foreign keys
-  final db = await DatabaseService.database;
   final dbPath = join(await getDatabasesPath(), 'indulge.db');
   print("DB PATH, changes with simulator restarts: $dbPath");
-
-  var result = await db.rawQuery('PRAGMA foreign_keys;');
-  print("Foreign keys enabled?: ${result.first['foreign_keys']}");
 
   // Start your app
   runApp(
@@ -153,9 +145,7 @@ class _MainPageState extends State<MainPage> {
               return CupertinoTabView(
                 routes: <String, WidgetBuilder>{
                   listRoute: (context) => const UserListsView(),
-                  listDetailRoute: (context) {
-                    return const ListDetailView();
-                  }
+                  listDetailRoute: (context) => const ListDetailView(),
                 },
                 builder: (context) => const UserListsView(),
               );

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_list_widget.dart';
 import 'package:indulge/routing/routes.dart';
