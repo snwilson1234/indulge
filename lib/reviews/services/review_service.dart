@@ -9,6 +9,16 @@ class ReviewService {
     return await db.insert('Review', review.toMap());
   }
 
+  Future<Review> getReviewById(int reviewId) async {
+    final db = await DatabaseService.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'Review',
+      where: 'id = ?',
+      whereArgs: [reviewId]
+    );
+    return Review.fromMap(maps[0]);
+  }
+
   Future<List<Review>> getAllReviews() async {
     final db = await DatabaseService.database;
     final List<Map<String, dynamic>> maps = await db.query('Review');

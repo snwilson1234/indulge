@@ -59,7 +59,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
 
     if (alreadyReviwedList!.isEmpty) {
       return const CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
+        navigationBar: CupertinoNavigationBar(
           middle: Text("New Review"),
           backgroundColor: CupertinoColors.black,
         ),
@@ -189,7 +189,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.0),
+                  const SizedBox(height: 10.0),
                   CupertinoButton(
                     color: CupertinoColors.inactiveGray,
                     onPressed: () {

@@ -53,6 +53,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => ReviewViewModel()),
         ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
         ChangeNotifierProvider(create: (context) => ListsViewModel()),
         ChangeNotifierProvider(create: (context) => ListViewModel()),
@@ -162,10 +163,7 @@ class _MainPageState extends State<MainPage> {
               return CupertinoTabView(
                 routes: <String, WidgetBuilder>{
                   reviewRoute: (context) => const UserReviewsView(),
-                  reviewDetailRoute: (context) {
-                    final reviewViewModel = ModalRoute.of(context)!.settings.arguments as ReviewViewModel;
-                    return ReviewDetailView(reviewViewModel: reviewViewModel);
-                  },
+                  reviewDetailRoute: (context) => const ReviewDetailView(),
                   newReviewRoute: (context) => const CreateReviewView(),
                 },
                 builder: (context) => const UserReviewsView(),
