@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:indulge/common/theme.dart';
 
+// Dynamic star widget for rating restaurants in Reviews.
 class StarWidget extends StatefulWidget {
   final double initialRating;
   final Function(double) onRatingChanged;

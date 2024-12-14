@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/theme.dart';
 
+// Custom List Separator used throughout the application.
 class ListSeparator extends StatelessWidget {
   const ListSeparator({super.key});
 

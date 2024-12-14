@@ -2,19 +2,20 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
 
+// Our Main database service, the sqflite way.
+// Responsible for creating DB tables and making initial inserts.
 class DatabaseService {
   static Database? _database;
   
   static Future<Database> get database async {
     if (_database != null) {
-      // open the DB if already initialized
-      print("Database found. Opening...");
+      // open a DB session if already initialized
       return _database!;
     } else {
-      // otherwise, initialize the DB
+      // otherwise, initialize the DB and open session
       print("Database not found. Initializing...");
       _database = await _initDatabase();
-      print("intiialized the database.");
+      print("Initialized the database.");
       return _database!;
     }
   }
@@ -29,19 +30,19 @@ class DatabaseService {
       version: 1,
       onConfigure: _onConfigure,
       onCreate: (db, version) async {
-        // create our tables
         var batch = db.batch();
 
+        // creating our tables
         _createRestaurantListTable(batch);
         _createRestaurantTable(batch);
         _createRestaurantListHelperTable(batch);
         _createReviewTable(batch);
-
         _createAccountInfoTable(batch);
         _createPreferencesTable(batch);
         _createDietaryRestrictionsTable(batch);
         _createPriceTable(batch);
 
+        // make initial data inserts
         _makeAccountInfoInsert(batch);
         _makeDietaryRestrictionsInsert(batch);
         _makePreferencesInsert(batch);
@@ -49,11 +50,9 @@ class DatabaseService {
         _makeListInserts(batch);
         _makeRestaurantTableInserts(batch);
         _makeReviewInserts(batch);
-        // TODO: add more tables & dummy data
 
         // commit the transaction
         await batch.commit();
-        print("Successfully committed batch");
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         print("tried to upgrade!");

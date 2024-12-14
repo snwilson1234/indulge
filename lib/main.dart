@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:indulge/common/theme.dart';
+import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/login_view.dart';
@@ -54,6 +55,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
         ChangeNotifierProvider(create: (context) => ListsViewModel()),
+        ChangeNotifierProvider(create: (context) => ListViewModel()),
         ChangeNotifierProvider(create: (context) => RestaurantViewModel()),
         ChangeNotifierProvider(create: (context) => UserViewModel()),
       ],

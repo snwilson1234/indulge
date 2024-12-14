@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/lists/models/restaurant_list.dart';
+import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'dart:math';
 import 'package:indulge/restaurant/models/restaurant.dart';
@@ -65,22 +66,29 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
 
   void _triggerSwipeRight() {
     _animateOffScreen(true, widget.onSwipeRight);
+
     final int restaurantId = widget.restaurant.id!;
-    Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantViewedById(restaurantId, 1);
+    final restaurantVM = Provider.of<RestaurantViewModel>(context, listen: false);
+    restaurantVM.setRestuarantViewedById(restaurantId, 1);
     addToTypeListTemp();
   }
 
   Future<void> addToTypeListTemp() async {
-    RestaurantList restaurantList = await Provider.of<ListsViewModel>(context, listen: false).getListByName(widget.restaurant.type);
-    await Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(restaurantList.id!, widget.restaurant.id!);
-    Provider.of<ListsViewModel>(context, listen: false).fetchLists();
+    final listVM = Provider.of<ListViewModel>(context, listen: false);
+    await listVM.getListByName(widget.restaurant.type);
+
+    final allListsVM = Provider.of<ListsViewModel>(context, listen: false);
+    allListsVM.addRestaurantToList(listVM.id!, widget.restaurant.id!);
+    allListsVM.fetchLists();
   }
 
   void _triggerIndulged() {
     _animateDownward(widget.onSkip);
     final int restaurantId = widget.restaurant.id!;
-    Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(1, restaurantId);
-    Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantIndulgedById(restaurantId, 1);
+    final restaurantVM = Provider.of<RestaurantViewModel>(context, listen: false);
+    final allListsVM = Provider.of<ListsViewModel>(context, listen: false);
+    allListsVM.addRestaurantToList(1, restaurantId);
+    restaurantVM.setRestuarantIndulgedById(restaurantId, 1);
     addToTypeListTemp();
   }
 
