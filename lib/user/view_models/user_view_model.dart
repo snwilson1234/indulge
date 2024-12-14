@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
 import 'package:indulge/user/models/user_model.dart';
+import 'package:indulge/user/services/account_info_service.dart';
 
 class UserViewModel extends ChangeNotifier{
 
@@ -21,30 +22,15 @@ class UserViewModel extends ChangeNotifier{
   );
   // Keeps track of whether a user has chosen preferred price points yet
   bool pricePointsChosen = false;
+  // Service to interact with database
+  static final AccountInfoService accountInfoService = AccountInfoService();
+  // Holds the account info
+  List<Map<String, dynamic>> accountInfo = [];
 
   // ----------------------------------------------------------------------------------------------------
   // --------------------------------- Static utility methods -------------------------------------------
   // ----------------------------------------------------------------------------------------------------
 
-  /// Validates whether a user has entered a username or not yet
-  static String? validateUsername(String? value) {
-    if (value != "") {
-      return null;
-    }
-    else {
-      return "Must input username";
-    }
-  }
-
-  /// Validates whether a user has entered a password or not yet
-  static String? validatePassword(String? value) {
-    if (value != "") {
-      return null;
-    }
-    else {
-      return "Must input password";
-    }
-  }
 
   /// Validates whether a user's current email is a valid address
   static String? validateEmail(String? value) {
@@ -67,15 +53,77 @@ class UserViewModel extends ChangeNotifier{
     }
   }
 
-  // TODO: Method checks if user/pass combo already exists in DB
-
   // ----------------------------------------------------------------------------------------------------
   // --------------------------------- Instance methods -------------------------------------------------
   // ----------------------------------------------------------------------------------------------------
 
-  /// Loads preexisting user account info into [UserData] model
-  void loadUserAccountInfo() {
+  void fetchAccountInfo() async {
+    accountInfo = await accountInfoService.getAllAccountInfo();
+    notifyListeners();
+  }
 
+
+  /// Validates whether a user has entered a username or not yet
+  String? validateUsername(String? username, String? password) {
+    if (username == "") {
+      return "Must input username";
+    }
+    else if (!userExists(username!)) {
+      return "Username not found";
+    }
+    else {
+      return null;
+    }
+  }
+
+  /// Validates whether a user has entered a password or not yet
+  String? validatePassword(String? username, String? password) {
+    if (password == "") {
+      return "Must input username";
+    }
+    else if (userExists(username!) && !passwordMatchesUsername(username, password!)) {
+      return "Password doesn't match";
+    }
+    else {
+      return null;
+    }
+  }
+
+  /// Check if the username exists in the database
+  bool userExists(String username) {
+    for (Map<String, dynamic> user in accountInfo) {
+      if (user["username"] == username) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// Check if a password matches a username
+  bool passwordMatchesUsername(String username, String password) {
+    for (Map<String, dynamic> user in accountInfo) {
+      if (user["username"] == username && user["password"] == password) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// Loads preexisting user account info into [UserData] model
+  void loadUserAccountInfo(String username, String password) async {
+    final user = await accountInfoService.getAccountInfo(username, password);
+    pricePointsChosen = true;
+    if (user != null) {
+      userData.username = user.username;
+      userData.password = user.password;
+      userData.email = user.email;
+      userData.foodPreferences = user.foodPreferences;
+      userData.dietaryRestrictions = user.dietaryRestrictions;
+      userData.pricePoints = user.pricePoints;
+      userData.reviewed = user.reviewed;
+      userData.saved = user.saved;
+      userData.radius = user.radius;
+    }
   }
 
   /// Initializes a new user using the [UserData] model
@@ -192,7 +240,7 @@ class UserViewModel extends ChangeNotifier{
     userData.saved += (addedOrDeleted) ? 1 : -1;
   }
 
-  // For debugging purposes
+  /// For debugging purposes
   void info() {
     print(userData.username);
     print(userData.password);
@@ -205,8 +253,47 @@ class UserViewModel extends ChangeNotifier{
     print(userData.radius);
   }
 
-  void updateDatabase(){
+  /// Naive implementation (for prototype) to update database
+  void updateDatabase(bool newUser) {
     // TODO: Update database with all user data
+    final List<String> restrictions = [];
+    final List<String> preferences = [];
+    final List<int> prices = [];
+    final AccountInfoData newData = AccountInfoData(
+      username: userData.username, 
+      password: userData.password, 
+      email: userData.email, 
+      reviewed: userData.reviewed, 
+      saved: userData.saved, 
+      radius: userData.radius
+    );
+
+    for (MapEntry<String, bool> entry in userData.foodPreferences.entries) {
+      if (entry.value) {
+        preferences.add(entry.key);
+      }
+    }
+    for (MapEntry<String, bool> entry in userData.dietaryRestrictions.entries) {
+      if (entry.value) {
+        restrictions.add(entry.key);
+      }
+    }
+    for (MapEntry<String, bool> entry in userData.pricePoints.entries) {
+      if (entry.value) {
+        prices.add(entry.key.length + 1);
+      }
+    }
+
+    if (newUser) {
+      accountInfoService.insertAccountInfo(newData);
+    }
+    else {
+      accountInfoService.updateAccountInfo(newData, userData.username);
+      accountInfoService.updateDietaryRestrictions(userData.username, restrictions);
+      accountInfoService.updatePreferences(userData.username, preferences);
+      accountInfoService.updatePrices(userData.username, prices);
+    }
+
   }
   
 
