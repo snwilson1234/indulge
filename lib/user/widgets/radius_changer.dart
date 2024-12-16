@@ -22,6 +22,7 @@ class RadiusChanger extends StatelessWidget {
           
           onPressed: () {
             vm.updateModelRadius(vm.userData.radius + 1);
+            vm.updateDBAccountInfo();
           },
           icon: const Icon(CupertinoIcons.add),
           color: indulgePrimary,
@@ -40,6 +41,7 @@ class RadiusChanger extends StatelessWidget {
         IconButton(
           onPressed: () {
             vm.updateModelRadius(vm.userData.radius - 1);
+            vm.updateDBAccountInfo();
           },
           icon: const Icon(CupertinoIcons.minus),
           color: indulgePrimary,

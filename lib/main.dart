@@ -102,7 +102,6 @@ class _MainPageState extends State<MainPage> {
             ),
           ],
         ),
-        // TODO: Make +/- interactible buttons
         trailing: RadiusChanger(vm: widget.userVM),
       ),
       child: CupertinoTabScaffold(
