@@ -6,6 +6,7 @@ import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/login_view.dart';
 import 'package:indulge/user/views/account_editing_view.dart';
 import 'package:indulge/user/widgets/profile_list_item.dart';
+import 'package:provider/provider.dart';
 
 class UserProfileView extends StatelessWidget{
 
@@ -62,7 +63,7 @@ class UserProfileView extends StatelessWidget{
                       Column(
                         children: [
                           Text(
-                            "${vm.userData.reviewed}",
+                            "${context.watch<UserViewModel>().userData.reviewed}",
                             style: const TextStyle(
                               color: CupertinoColors.black,
                               fontWeight: FontWeight.bold
@@ -80,7 +81,7 @@ class UserProfileView extends StatelessWidget{
                       Column(
                         children: [
                           Text(
-                            "${vm.userData.saved}",
+                            "${context.watch<UserViewModel>().userData.saved}",
                             style: const TextStyle(
                               color: CupertinoColors.black,
                               fontWeight: FontWeight.bold
