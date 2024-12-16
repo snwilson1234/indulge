@@ -45,14 +45,14 @@ class _UserReviewsViewState extends State<UserReviewsView> {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               CupertinoSearchTextField(
                 controller: _textController,
                 onSubmitted: (value) {
                   // simple searching when typing term and hitting enter
                   if (value.isNotEmpty) {
-                    vm.fetchReviews();
+                    vm.fetchKeywordReviews(value);
                     _textController.clear();
                   }
                   else {

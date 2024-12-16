@@ -19,7 +19,7 @@ class ListViewModel extends ChangeNotifier{
   }
 
   List<Restaurant>? get listItems {
-    if (list!.listItems == null) {
+    if (list == null || list!.listItems == null) {
       return [];
     }
     return list?.listItems;

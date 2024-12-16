@@ -28,6 +28,19 @@ class ReviewService {
     });
   }
 
+  Future<List<Review>> getReviewsBySearchKeyword(String keyword) async {
+    final db = await DatabaseService.database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'Review',
+      where: 'restaurantName LIKE ?',
+      whereArgs: ['%$keyword%']
+    );
+
+    return List.generate(maps.length, (i) {
+      return Review.fromMap(maps[i]);
+    });
+  }
+
   Future<List<Review>> getReviewByRestaurantId(int restaurantId) async {
     final db = await DatabaseService.database;
     final List<Map<String, dynamic>> maps = await db.query(

@@ -12,6 +12,8 @@ class UserListsView extends StatefulWidget {
 }
 
 class _DefaultState extends State<UserListsView> {
+
+  final _textController = TextEditingController();
   
   @override
   void initState() {
@@ -37,12 +39,28 @@ class _DefaultState extends State<UserListsView> {
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           // TODO?: possibly add searchbar functionality
-          // const SearchBar(
-            
-          // ),
+          CupertinoSearchTextField(
+            controller: _textController,
+            onSubmitted: (value) {
+              // simple searching when typing term and hitting enter
+              if (value.isNotEmpty) {
+                vm.fetchKeywordLists(value);
+                _textController.clear();
+              }
+              else {
+                vm.fetchLists();
+              }
+            },
+            onTap: () {
+              vm.fetchLists();
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          ),
           Expanded(
             child: UserListWidget(
               lists: vm.lists

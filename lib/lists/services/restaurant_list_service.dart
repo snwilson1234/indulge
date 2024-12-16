@@ -41,6 +41,56 @@ class RestaurantListService {
 
   }
 
+  Future<List<RestaurantList>> getListsBySearchKeyword(String keyword) async {
+    final db = await DatabaseService.database;
+
+    // Query to fetch RestaurantLists with names matching the keyword
+    final List<Map<String, dynamic>> listMaps = await db.query(
+      'RestaurantList',
+      where: 'name LIKE ?',
+      whereArgs: ['%$keyword%'],
+    );
+
+    // Query to get all the list helpers (associates lists with restaurants)
+    final List<Map<String, dynamic>> listHelperMaps = await db.query('ListHelper', orderBy: 'listId ASC');
+
+    // Map to hold the restaurants by listId
+    Map<int, List<Map<String, dynamic>>> restaurantsByList = {};
+
+    // Build the map of listId to restaurant entries
+    for (var listHelperMap in listHelperMaps) {
+      int listId = listHelperMap['listId'];
+      int restaurantId = listHelperMap['restaurantId'];
+
+      if (!restaurantsByList.containsKey(listId)) {
+        restaurantsByList[listId] = [];
+      }
+
+      List<Map<String, dynamic>> restaurantL = await db.query('Restaurant', where: 'id = $restaurantId');
+      if (restaurantL.isNotEmpty) {
+        Map<String, dynamic> restaurant = restaurantL[0];
+        restaurantsByList[listId]!.add(restaurant);
+      }
+    }
+
+    return listMaps.map((listMap) {
+      int listId = listMap['id'];
+
+      List<Map<String, dynamic>> listItems = restaurantsByList[listId] ?? [];
+
+      List<Restaurant> restaurants = listItems.map((restaurantMap) {
+        return Restaurant.fromMap(restaurantMap);
+      }).toList();
+
+      return RestaurantList.fromMap({
+        'id': listMap['id'],
+        'name': listMap['name'],
+        'listItems': restaurants,
+      });
+    }).toList();
+  }
+
+
   Future<RestaurantList> getListByName(String listName) async {
     final db = await DatabaseService.database;
     final List<Map<String, dynamic>> listMap = await db.query(

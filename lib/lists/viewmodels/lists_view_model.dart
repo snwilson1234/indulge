@@ -14,6 +14,12 @@ class ListsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchKeywordLists(String keyword) async {
+    List<RestaurantList> tempLists = await listService.getListsBySearchKeyword(keyword);
+    lists = tempLists.map((list) => ListViewModel(list: list)).toList();
+    notifyListeners();
+  }
+
   Future<void> addRestaurantToList(int listId, int restaurantId) async {
     listService.addRestaurantToList(listId, restaurantId);
     notifyListeners();

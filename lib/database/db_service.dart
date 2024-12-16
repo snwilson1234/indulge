@@ -210,6 +210,42 @@ class DatabaseService {
     batch.execute('''
     INSERT INTO RestaurantList values(5,"Japanese");
     ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(6,"Peruvian");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(7,"French");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(8,"Spanish");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(9,"American");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(10,"Polish");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(11,"Middle-Eastern");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(12,"Greek");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(13,"Ethiopian");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(14,"Desserts");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(15,"Larger Portions");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(16,"Fancy");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(17,"Family-Friendly");
+    ''');
   } 
 
   static void _createRestaurantTable(Batch batch) {
