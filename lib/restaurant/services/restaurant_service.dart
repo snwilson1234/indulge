@@ -1,6 +1,6 @@
 import 'package:indulge/database/db_service.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
-
+import 'package:indulge/user/services/account_info_service.dart';
 
 class RestaurantService {
 

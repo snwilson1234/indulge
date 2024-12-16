@@ -29,13 +29,15 @@ class RestaurantViewModel extends ChangeNotifier {
           'distance': restaurant.distance,
           'type': restaurant.type,
           'imageUrl': restaurant.imageUrl,
+          'restrictions' : restaurant.restrictions,
           'globalRating': restaurant.globalRating,
           'reviewed': restaurant.reviewed,
           'indulged': restaurant.indulged,
-          'viewed' : restaurant.viewed,
+          'viewed' : restaurant.viewed
         }
       )
     ).toList();
+    
     _isLoading = false;
     notifyListeners();
   }

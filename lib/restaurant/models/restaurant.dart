@@ -4,6 +4,7 @@ class Restaurant {
   final String distance;
   final String type;
   final String imageUrl;
+  final String restrictions;
   final double globalRating;
   int? reviewed;
   int? indulged;
@@ -15,6 +16,7 @@ class Restaurant {
     required this.distance,
     required this.type,
     required this.imageUrl,
+    required this.restrictions,
     required this.globalRating,
     this.reviewed,
     this.indulged,
@@ -28,6 +30,7 @@ class Restaurant {
       'distance': distance,
       'type': type,
       'imageUrl': imageUrl,
+      'restrictions' : restrictions,
       'globalRating': globalRating,
       'reviewed': reviewed,
       'indulged': indulged,
@@ -42,6 +45,7 @@ class Restaurant {
       distance: map['distance'] as String,
       type: map['type'] as String,
       imageUrl: map['imageUrl'] as String,
+      restrictions: map['restrictions'] as String,
       globalRating: map['globalRating'] as double,
       reviewed: map['reviewed'] as int,
       indulged: map['indulged'] as int,
