@@ -43,7 +43,10 @@ class _AccountEditingViewState extends State<AccountEditingView> {
   Widget build(BuildContext context) {
 
     final vm = widget.vm;
-    return getContentWidget(context, vm, widget.preferenceType);
+    return Container(
+      color: CupertinoColors.black,
+      child: getContentWidget(context, vm, widget.preferenceType)
+    );
 
     
   }
@@ -201,7 +204,6 @@ class _AccountEditingViewState extends State<AccountEditingView> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: CupertinoColors.black
             ),
           ),
           const SizedBox(
@@ -242,7 +244,6 @@ class _AccountEditingViewState extends State<AccountEditingView> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: CupertinoColors.black
             ),
           ),
           const SizedBox(
@@ -283,7 +284,6 @@ class _AccountEditingViewState extends State<AccountEditingView> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: CupertinoColors.black,
               ),
             ),
             const SizedBox(
@@ -298,9 +298,6 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                     padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       "What price points are you most interested in?",
-                      style: TextStyle(
-                        color: CupertinoColors.black,
-                      ),
                     ),
                   ),
                   Padding(
@@ -317,9 +314,6 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                     padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       "How far would you travel for suggested food?",
-                      style: TextStyle(
-                        color: CupertinoColors.black,
-                      ),
                     ),
                   ),
                   SizedBox(
@@ -339,9 +333,6 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                   ),
                   Text(
                     "${vm.userData.radius.round()} mile(s)",
-                    style: const TextStyle(
-                      color: CupertinoColors.black,
-                    ),
                   )
                 ],
               ),

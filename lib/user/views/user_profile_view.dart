@@ -16,6 +16,7 @@ class UserProfileView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: CupertinoColors.black,
       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,7 +24,6 @@ class UserProfileView extends StatelessWidget{
           const Text(
             "My Account",
             style: TextStyle(
-              color: CupertinoColors.black,
               fontWeight: FontWeight.bold,
               fontSize: 40,
             ),
@@ -50,7 +50,6 @@ class UserProfileView extends StatelessWidget{
                 Text(
                   vm.userData.username,
                   style: const TextStyle(
-                    color: CupertinoColors.black,
                     fontSize: 24,
                     fontWeight: FontWeight.bold
                   ),
@@ -65,14 +64,12 @@ class UserProfileView extends StatelessWidget{
                           Text(
                             "${context.watch<UserViewModel>().userData.reviewed}",
                             style: const TextStyle(
-                              color: CupertinoColors.black,
                               fontWeight: FontWeight.bold
                             ),
                           ),
                           const Text(
                             "Spots Reviewed",
                             style: TextStyle(
-                              color: CupertinoColors.black,
                               fontWeight: FontWeight.bold
                             ),
                           ),
@@ -83,14 +80,12 @@ class UserProfileView extends StatelessWidget{
                           Text(
                             "${context.watch<UserViewModel>().userData.saved}",
                             style: const TextStyle(
-                              color: CupertinoColors.black,
                               fontWeight: FontWeight.bold
                             ),
                           ),
                           const Text(
                             "Spots Saved",
                             style: TextStyle(
-                              color: CupertinoColors.black,
                               fontWeight: FontWeight.bold
                             ),
                           ),
@@ -108,7 +103,6 @@ class UserProfileView extends StatelessWidget{
           const Text(
             "Edit Preferences",
             style: TextStyle(
-              color: CupertinoColors.black,
               fontStyle: FontStyle.italic
             ),
           ),
