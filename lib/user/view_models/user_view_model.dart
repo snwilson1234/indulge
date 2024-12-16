@@ -57,6 +57,18 @@ class UserViewModel extends ChangeNotifier{
   // --------------------------------- Instance methods -------------------------------------------------
   // ----------------------------------------------------------------------------------------------------
 
+  void incrementReviewed(int userId) async {
+    await accountInfoService.incrementReviewed(userId);
+    loadUserAccountInfo("user","pass"); 
+    notifyListeners();
+  }
+
+  void incrementSaved(int userId) async {
+    await accountInfoService.incrementSaved(userId);
+    loadUserAccountInfo("user","pass"); 
+    notifyListeners();
+  }
+
   void fetchAccountInfo() async {
     accountInfo = await accountInfoService.getAllAccountInfo();
     notifyListeners();

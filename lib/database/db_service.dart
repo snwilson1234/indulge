@@ -156,7 +156,7 @@ class DatabaseService {
 
   static void _makeAccountInfoInsert(Batch batch) {
     batch.execute('''
-      INSERT INTO AccountInfo values(1, "user", "pass", "user@email.com", 2, 7, 8);
+      INSERT INTO AccountInfo values(1, "user", "pass", "user@email.com", 0, 0, 8);
     ''');
   }
 

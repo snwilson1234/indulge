@@ -3,6 +3,7 @@ import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
+import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 class SwipeableRestaurantCard extends StatefulWidget {
@@ -78,6 +79,9 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
     final allListsVM = Provider.of<ListsViewModel>(context, listen: false);
     allListsVM.addRestaurantToList(listVM.id!, widget.restaurant.id!);
     allListsVM.fetchLists();
+
+    final userVM = Provider.of<UserViewModel>(context, listen: false);
+    userVM.incrementSaved(1);
   }
 
   void _triggerIndulged() {

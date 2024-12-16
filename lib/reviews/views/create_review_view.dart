@@ -6,6 +6,7 @@ import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:indulge/reviews/models/review.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
+import 'package:indulge/user/view_models/user_view_model.dart';
 
 import 'package:provider/provider.dart';
 
@@ -177,6 +178,8 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       reviewsViewModel.submitReview(review);
                       Restaurant restaurant = alreadyReviwedList[_selectedRestaurant];
                       restaurant.reviewed = 1;
+                      final userVM = Provider.of<UserViewModel>(context, listen: false);
+                      userVM.incrementReviewed(1);//hard-coded for our single user.
                       Provider.of<RestaurantViewModel>(context, listen: false).updateRestaurant(restaurant);
                       Provider.of<ReviewsViewModel>(context, listen: false).fetchReviews();
                       Navigator.of(context).pop();
