@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
+import 'package:indulge/common/theme.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
@@ -166,7 +167,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               child: Column(
                 children: <Widget>[
                   CupertinoButton(
-                    color: CupertinoColors.white,
+                    color: indulgePrimary,
                     onPressed: () {
                       final review = Review.withParams(
                         restaurantId: alreadyReviwedList[_selectedRestaurant].id,
@@ -188,13 +189,12 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       "Submit",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: CupertinoColors.black,
+                        color: CupertinoColors.white,
                       ),
                     ),
                   ),
                   const SizedBox(height: 10.0),
                   CupertinoButton(
-                    color: CupertinoColors.inactiveGray,
                     onPressed: () {
                       // go back to reviews page
                       Navigator.of(context).pop();
@@ -203,7 +203,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       "Cancel",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: CupertinoColors.black
+                        color: indulgePrimary
                       ),
                     ),
                   )

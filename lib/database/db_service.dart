@@ -43,10 +43,10 @@ class DatabaseService {
         _createPriceTable(batch);
 
         // make initial data inserts
-        _makeAccountInfoInsert(batch);
-        _makeDietaryRestrictionsInsert(batch);
-        _makePreferencesInsert(batch);
-        _makePriceInsert(batch);
+        // _makeAccountInfoInsert(batch);
+        // _makeDietaryRestrictionsInsert(batch);
+        // _makePreferencesInsert(batch);
+        // _makePriceInsert(batch);
         _makeListInserts(batch);
         _makeRestaurantTableInserts(batch);
         _makeReviewInserts(batch);

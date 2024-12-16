@@ -3,6 +3,7 @@
 import 'package:button_multiselect/button_multiselect.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:indulge/common/theme.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/widgets/checkbox_list.dart';
 import 'package:indulge/user/widgets/price_options.dart';
@@ -74,6 +75,16 @@ class _AccountEditingViewState extends State<AccountEditingView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              "Change Password",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
             Form(
               key: formKey,
               child: Column(
@@ -82,19 +93,19 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                     backgroundColor: CupertinoColors.transparent,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.black45
+                        color: Colors.white
                       ),
                       borderRadius: BorderRadius.circular(12),
-                      color: Colors.black12,
+                      color: indulgeSecondary,
                     ),
                     children: [
                       CupertinoTextFormFieldRow(
                         placeholder: "Old Password",
                         placeholderStyle: const TextStyle(
-                          color: Colors.black38
+                          color: CupertinoColors.white
                         ),
                         style: const TextStyle(
-                          color: Colors.black
+                          color: Colors.white
                         ),
                         key: const Key("old"),
                         obscureText: true,
@@ -116,19 +127,19 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                     backgroundColor: CupertinoColors.transparent,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.black54
+                        color: Colors.white
                       ),
                       borderRadius: BorderRadius.circular(12),
-                      color: Colors.black12,
+                      color: indulgeSecondary,
                     ),
                     children: [
                       CupertinoTextFormFieldRow(
                         placeholder: "New Password",
                         placeholderStyle: const TextStyle(
-                          color: Colors.black38
+                          color: CupertinoColors.white
                         ),
                         style: const TextStyle(
-                          color: Colors.black
+                          color: CupertinoColors.white
                         ),
                         key: const Key("new_pass"),
                         obscureText: true,
@@ -141,10 +152,10 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                       CupertinoTextFormFieldRow(
                         placeholder: "Confirm Password",
                         placeholderStyle: const TextStyle(
-                          color: Colors.black38
+                          color: Colors.white
                         ),
                         style: const TextStyle(
-                          color: Colors.black
+                          color: Colors.white
                         ),
                         key: const Key("confirm_pass"),
                         obscureText: true,
@@ -166,7 +177,8 @@ class _AccountEditingViewState extends State<AccountEditingView> {
               height: 50,
             ),
             CupertinoButton.filled(
-              child: Text("Change Password"), 
+              focusColor: indulgePrimary,
+              disabledColor: indulgePrimary,
               onPressed: (userInfo["old_pass"] == "" || userInfo["new_pass"] == "" || userInfo["confirm_pass"] == "") ? null : 
               () {
                 final form = formKey.currentState;
@@ -175,7 +187,13 @@ class _AccountEditingViewState extends State<AccountEditingView> {
                   vm.updateDBAccountInfo();
                   Navigator.pop(context);
                 }
-              }
+              },
+              child: const Text(
+                "Change Password",
+                style: TextStyle(
+                  color: indulgeSecondary
+                ),
+              ), 
             ),
             CupertinoButton(
               child: const Text("Cancel"), 
