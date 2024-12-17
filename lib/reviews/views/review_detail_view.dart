@@ -3,6 +3,7 @@ import 'package:indulge/common/static_star_widget.dart';
 import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
+import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 class ReviewDetailView extends StatefulWidget {
@@ -81,6 +82,9 @@ class _ReviewDetailViewState extends State<ReviewDetailView> {
                   // fetch the updated list of reviews
                   
                   Provider.of<ReviewsViewModel>(context, listen: false).fetchReviews();
+
+                  final userVM = Provider.of<UserViewModel>(context, listen: false);
+                  userVM.decrementReviewed(1);
                   // go back to reviews page
                   
                   Navigator.of(context).pop();

@@ -165,6 +165,53 @@ class AccountInfoService {
     );
   }
 
+  Future<void> decrementReviewed(int userId) async {
+    final db = await DatabaseService.database;
+
+    // get current reviewed count
+    List<Map<String, dynamic>> result = await db.query(
+      'AccountInfo',
+      where: 'id = ?',
+      whereArgs: [userId],
+    );
+    if (result.isEmpty) {
+      return null;
+    }
+    int reviewedCount = result[0]['reviewed'] ?? 0;
+
+    // update in db with incremented val
+    await db.update(
+      'AccountInfo',
+      {'reviewed': reviewedCount - 1},
+      where: 'id = ?',
+      whereArgs: [userId],
+    );
+  }
+
+  Future<void> decrementSaved(int userId) async {
+    final db = await DatabaseService.database;
+
+    // get current reviewed count
+    List<Map<String, dynamic>> result = await db.query(
+      'AccountInfo',
+      where: 'id = ?',
+      whereArgs: [userId],
+    );
+    if (result.isEmpty) {
+      return null;
+    }
+    int savedCount = result[0]['saved'] ?? 0;
+
+    // update in db with incremented val
+    await db.update(
+      'AccountInfo',
+      {'saved': savedCount - 1},
+      where: 'id = ?',
+      whereArgs: [userId],
+    );
+  }
+
+
   Future<UserData?> getAccountInfo(String username, String password) async {
 
     final db = await DatabaseService.database;
