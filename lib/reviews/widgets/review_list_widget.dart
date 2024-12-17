@@ -3,6 +3,7 @@ import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
 import 'package:indulge/reviews/widgets/review_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
+import 'package:provider/provider.dart';
 
 class ReviewListWidget extends StatelessWidget {
   final List<ReviewViewModel> reviews;
@@ -19,9 +20,9 @@ class ReviewListWidget extends StatelessWidget {
 
         return GestureDetector(
           onTap: () {
+            Provider.of<ReviewViewModel>(context, listen: false).fetchReviewById(review.id!);
             Navigator.of(context).pushNamed(
               reviewDetailRoute, 
-              arguments: review
             );
           },
           child: ReviewItemWidget(

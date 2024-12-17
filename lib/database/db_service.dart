@@ -2,19 +2,20 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
 
+// Our Main database service, the sqflite way.
+// Responsible for creating DB tables and making initial inserts.
 class DatabaseService {
   static Database? _database;
   
   static Future<Database> get database async {
     if (_database != null) {
-      // open the DB if already initialized
-      print("Database found. Opening...");
+      // open a DB session if already initialized
       return _database!;
     } else {
-      // otherwise, initialize the DB
+      // otherwise, initialize the DB and open session
       print("Database not found. Initializing...");
       _database = await _initDatabase();
-      print("intiialized the database.");
+      print("Initialized the database.");
       return _database!;
     }
   }
@@ -29,31 +30,29 @@ class DatabaseService {
       version: 1,
       onConfigure: _onConfigure,
       onCreate: (db, version) async {
-        // create our tables
         var batch = db.batch();
 
+        // creating our tables
         _createRestaurantListTable(batch);
         _createRestaurantTable(batch);
         _createRestaurantListHelperTable(batch);
         _createReviewTable(batch);
-
         _createAccountInfoTable(batch);
         _createPreferencesTable(batch);
         _createDietaryRestrictionsTable(batch);
         _createPriceTable(batch);
 
-        _makeAccountInfoInsert(batch);
-        _makeDietaryRestrictionsInsert(batch);
-        _makePreferencesInsert(batch);
-        _makePriceInsert(batch);
+        // make initial data inserts
+        // _makeAccountInfoInsert(batch);
+        // _makeDietaryRestrictionsInsert(batch);
+        // _makePreferencesInsert(batch);
+        // _makePriceInsert(batch);
         _makeListInserts(batch);
         _makeRestaurantTableInserts(batch);
         _makeReviewInserts(batch);
-        // TODO: add more tables & dummy data
 
         // commit the transaction
         await batch.commit();
-        print("Successfully committed batch");
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         print("tried to upgrade!");
@@ -157,7 +156,7 @@ class DatabaseService {
 
   static void _makeAccountInfoInsert(Batch batch) {
     batch.execute('''
-      INSERT INTO AccountInfo values(1, "user", "pass", "user@email.com", 2, 7, 8);
+      INSERT INTO AccountInfo values(1, "user", "pass", "user@email.com", 0, 0, 8);
     ''');
   }
 
@@ -192,9 +191,7 @@ class DatabaseService {
   
 
   static void _makeReviewInserts(Batch batch) {
-    batch.execute('''
-    INSERT INTO Review values(1,1,"Taco Tavern",5,"My favorite place to eat!");
-    ''');
+
   }
 
   static void _makeListInserts(Batch batch) {
@@ -212,6 +209,42 @@ class DatabaseService {
     ''');
     batch.execute('''
     INSERT INTO RestaurantList values(5,"Japanese");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(6,"Peruvian");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(7,"French");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(8,"Spanish");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(9,"American");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(10,"Polish");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(11,"Middle-Eastern");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(12,"Greek");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(13,"Ethiopian");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(14,"Desserts");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(15,"Larger Portions");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(16,"Fancy");
+    ''');
+    batch.execute('''
+    INSERT INTO RestaurantList values(17,"Family-Friendly");
     ''');
   } 
 

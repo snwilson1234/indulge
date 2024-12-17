@@ -14,6 +14,12 @@ class ReviewsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchKeywordReviews(String keyword) async {
+    List<Review> tempReviews = await reviewService.getReviewsBySearchKeyword(keyword);
+    reviews = tempReviews.map((review) => ReviewViewModel(review: review)).toList();
+    notifyListeners();
+  }
+
   void submitReview(Review review) {
     reviewService.insertReview(review);
   }

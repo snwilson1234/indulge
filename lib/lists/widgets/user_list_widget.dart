@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/widgets/list_item_widget.dart';
 import 'package:indulge/routing/routes.dart';
+import 'package:provider/provider.dart';
 
 import '../../common/list_separator.dart';
 
@@ -17,22 +18,18 @@ class UserListWidget extends StatelessWidget {
       itemBuilder: (context, index) {
 
         final list = lists[index];
-        print("list: $list");
 
         return GestureDetector(
           onTap: () {
+            // prepare list detail view with selected list
+            Provider.of<ListViewModel>(context, listen: false).getListById(list.id!);
             Navigator.of(context).pushNamed(
-              listDetailRoute, 
-              arguments: {
-                'id': list.id,
-                'name': list.name,
-                'listItems': list.listItems
-              }
+              listDetailRoute,
             );
           },
           child: ListItemWidget(
             list: list,
-            size: list.listItems!.length
+            size: list.listItems!.length,
           ),
         );
       },

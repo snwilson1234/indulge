@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_rating/flutter_rating.dart';
+import 'package:indulge/common/theme.dart';
 
+// Dynamic star widget for rating restaurants in Reviews.
 class StarWidget extends StatefulWidget {
   final double initialRating;
   final Function(double) onRatingChanged;
@@ -22,17 +24,16 @@ class _StarWidgetState extends State<StarWidget> {
   @override
   Widget build(BuildContext context) {
     return StarRating(
-      color: CupertinoColors.black,
-            rating: _rating,
-            allowHalfRating: false,
-            onRatingChanged: (rating) {
-              setState(() {
-                _rating = rating;
-              });
-              print("Rating changed to $_rating");
-              widget.onRatingChanged(_rating);
-            },
-          );
+      color: indulgePrimary,
+      rating: _rating,
+      allowHalfRating: false,
+      onRatingChanged: (rating) {
+        setState(() {
+          _rating = rating;
+        });
+        widget.onRatingChanged(_rating);
+      },
+    );
   }
   
 }

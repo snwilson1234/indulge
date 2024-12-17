@@ -8,16 +8,14 @@ class ListsViewModel extends ChangeNotifier {
   List<ListViewModel> lists = <ListViewModel>[];
   RestaurantListService listService = RestaurantListService();
 
-  Future<RestaurantList> getListById(int listId) async {
-    return listService.getListById(listId);
-  }
-
-  Future<RestaurantList> getListByName(String name) async {
-    return listService.getListByName(name);
-  }
-
   Future<void> fetchLists() async {
     List<RestaurantList> tempLists = await listService.getAllRestaurantLists();
+    lists = tempLists.map((list) => ListViewModel(list: list)).toList();
+    notifyListeners();
+  }
+
+  Future<void> fetchKeywordLists(String keyword) async {
+    List<RestaurantList> tempLists = await listService.getListsBySearchKeyword(keyword);
     lists = tempLists.map((list) => ListViewModel(list: list)).toList();
     notifyListeners();
   }

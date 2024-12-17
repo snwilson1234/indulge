@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:indulge/common/theme.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:indulge/user/consts/constant_data.dart' as UserConstants;
@@ -24,7 +25,7 @@ class RadiusChanger extends StatelessWidget {
             vm.updateDBAccountInfo();
           },
           icon: const Icon(CupertinoIcons.add),
-          color: CupertinoColors.black,
+          color: indulgePrimary,
         ),
         Container(
           width: 50,
@@ -32,7 +33,7 @@ class RadiusChanger extends StatelessWidget {
             child: Text(
               "${context.watch<UserViewModel>().userData.radius.round()} mi",
               style: const TextStyle(
-                color: CupertinoColors.black,
+                color: indulgePrimary,
               ),
             ),
           ),
@@ -43,7 +44,7 @@ class RadiusChanger extends StatelessWidget {
             vm.updateDBAccountInfo();
           },
           icon: const Icon(CupertinoIcons.minus),
-          color: CupertinoColors.black,
+          color: indulgePrimary,
         ),
       ],
     );

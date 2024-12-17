@@ -1,7 +1,7 @@
-import 'dart:convert';
-
 import 'package:indulge/restaurant/models/restaurant.dart';
 
+// RestaurantList Model, the sqflite way.
+// https://pub.dev/packages/sqflite
 
 class RestaurantList {
   int? id;

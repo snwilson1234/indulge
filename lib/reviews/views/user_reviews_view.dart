@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_list_widget.dart';
 import 'package:indulge/routing/routes.dart';
@@ -29,8 +28,8 @@ class _UserReviewsViewState extends State<UserReviewsView> {
   Widget build(BuildContext context) {
     final vm = Provider.of<ReviewsViewModel>(context);
     return Container(
-      color: CupertinoColors.white,
-      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+      color: CupertinoColors.black,
+      padding: const EdgeInsets.all(8.0),
       child: Stack(
         children: <Widget>[
           Column(
@@ -40,18 +39,20 @@ class _UserReviewsViewState extends State<UserReviewsView> {
               const Text(
                 "My Reviews",
                 style: TextStyle(
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: CupertinoColors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
                 ),
               ),
-              const ListSeparator(),
+              const SizedBox(
+                height: 10,
+              ),
               CupertinoSearchTextField(
                 controller: _textController,
                 onSubmitted: (value) {
                   // simple searching when typing term and hitting enter
                   if (value.isNotEmpty) {
-                    vm.fetchReviews();
+                    vm.fetchKeywordReviews(value);
                     _textController.clear();
                   }
                   else {
@@ -62,7 +63,9 @@ class _UserReviewsViewState extends State<UserReviewsView> {
                   vm.fetchReviews();
                 },
               ),
-              const ListSeparator(),
+              const SizedBox(
+                height: 20,
+              ),
               Expanded(
                 child: ReviewListWidget(
                   reviews: vm.reviews
@@ -73,12 +76,9 @@ class _UserReviewsViewState extends State<UserReviewsView> {
           Container(
             alignment: Alignment.bottomRight,
             padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-            child: CupertinoButton(
-              color: CupertinoColors.black,
+            child: CupertinoButton.filled(
               borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-              child: const IconTheme(data: const IconThemeData(
-                color: CupertinoColors.white
-              ), child: Icon(CupertinoIcons.plus)),
+              child: const Icon(CupertinoIcons.plus),
               onPressed: () {
                 Navigator.of(context).pushNamed(
                   newReviewRoute,

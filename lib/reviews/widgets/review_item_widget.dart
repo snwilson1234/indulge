@@ -15,7 +15,7 @@ class ReviewItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: CupertinoColors.white,
+      color: CupertinoColors.black,
       padding: const EdgeInsets.symmetric(
         vertical: 0,
         horizontal: 10.0
@@ -32,12 +32,12 @@ class ReviewItemWidget extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: CupertinoColors.black,
+                  color: CupertinoColors.white,
                 ),
               ),
               IconTheme(
                 data: const IconThemeData(
-                  color: CupertinoColors.black,
+                  color: CupertinoColors.white,
                   size: 16.0
                 ), 
                 child: StaticStarWidget(

@@ -1,20 +1,18 @@
 // Flutter packages
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-import 'package:indulge/restaurant/models/restaurant.dart';
+import 'package:indulge/common/theme.dart';
+import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/user/view_models/user_view_model.dart';
 import 'package:indulge/user/views/login_view.dart';
 import 'package:indulge/user/views/user_profile_view.dart';
 import 'package:indulge/user/widgets/radius_changer.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:flutter/foundation.dart';
 
 // Our views
 import 'package:indulge/lists/views/user_lists_view.dart';
-import 'package:indulge/database/db_service.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/lists/views/list_detail_view.dart';
 import 'package:indulge/reviews/viewmodels/review_view_model.dart';
@@ -40,19 +38,17 @@ void main() async {
   }
 
   // Test database connection and foreign keys
-  final db = await DatabaseService.database;
   final dbPath = join(await getDatabasesPath(), 'indulge.db');
   print("DB PATH, changes with simulator restarts: $dbPath");
-
-  var result = await db.rawQuery('PRAGMA foreign_keys;');
-  print("Foreign keys enabled?: ${result.first['foreign_keys']}");
 
   // Start your app
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => ReviewViewModel()),
         ChangeNotifierProvider(create: (context) => ReviewsViewModel()),
         ChangeNotifierProvider(create: (context) => ListsViewModel()),
+        ChangeNotifierProvider(create: (context) => ListViewModel()),
         ChangeNotifierProvider(create: (context) => RestaurantViewModel()),
         ChangeNotifierProvider(create: (context) => UserViewModel()),
       ],
@@ -60,6 +56,7 @@ void main() async {
     ),
   );
 }
+
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -70,7 +67,7 @@ class MainApp extends StatelessWidget {
       routes: {
         "/login": (context) => const LoginView(),
       },
-      theme: const CupertinoThemeData(brightness: Brightness.dark),
+      theme: indulgeTheme,
       home: const LoginView(),
     );
   }
@@ -90,7 +87,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.white,
+        backgroundColor: indulgeSecondary,
         leading: const Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +97,7 @@ class _MainPageState extends State<MainPage> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: CupertinoColors.black,
+                color: indulgePrimary,
               ),
             ),
           ],
@@ -110,9 +107,9 @@ class _MainPageState extends State<MainPage> {
       child: CupertinoTabScaffold(
         backgroundColor: CupertinoColors.white,
         tabBar: CupertinoTabBar(
-          backgroundColor: CupertinoColors.white,
-          activeColor: CupertinoColors.black,
-          inactiveColor: CupertinoColors.inactiveGray,
+          backgroundColor: indulgeSecondary,
+          activeColor: indulgePrimary,
+          inactiveColor: indulgePrimaryInactive,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.home),
@@ -147,13 +144,7 @@ class _MainPageState extends State<MainPage> {
               return CupertinoTabView(
                 routes: <String, WidgetBuilder>{
                   listRoute: (context) => const UserListsView(),
-                  listDetailRoute: (context) {
-                    final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-                    final int id = arguments['id'];
-                    final String name = arguments['name'];
-                    final List<Restaurant> list = arguments['listItems'];
-                    return ListDetailView(id: id, name: name, listItems: list);
-                  }
+                  listDetailRoute: (context) => const ListDetailView(),
                 },
                 builder: (context) => const UserListsView(),
               );
@@ -161,10 +152,7 @@ class _MainPageState extends State<MainPage> {
               return CupertinoTabView(
                 routes: <String, WidgetBuilder>{
                   reviewRoute: (context) => const UserReviewsView(),
-                  reviewDetailRoute: (context) {
-                    final reviewViewModel = ModalRoute.of(context)!.settings.arguments as ReviewViewModel;
-                    return ReviewDetailView(reviewViewModel: reviewViewModel);
-                  },
+                  reviewDetailRoute: (context) => const ReviewDetailView(),
                   newReviewRoute: (context) => const CreateReviewView(),
                 },
                 builder: (context) => const UserReviewsView(),

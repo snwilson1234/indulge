@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/star_widget.dart';
+import 'package:indulge/common/theme.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:indulge/reviews/models/review.dart';
 import 'package:indulge/reviews/viewmodels/reviews_view_model.dart';
 import 'package:indulge/reviews/widgets/review_editor_widget.dart';
+import 'package:indulge/user/view_models/user_view_model.dart';
 
 import 'package:provider/provider.dart';
 
@@ -22,7 +24,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
   int _selectedRestaurant = 0;
   double _rating = 0.0;
 
-  TextEditingController _reviewController = TextEditingController();
+  final TextEditingController _reviewController = TextEditingController();
 
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoPicker.
   void _showDialog(Widget child) {
@@ -34,7 +36,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        color: CupertinoColors.systemBackground.resolveFrom(context),
+        color: CupertinoColors.black,
         child: SafeArea(
           top: false,
           child: child,
@@ -57,11 +59,11 @@ class _CreateReviewViewState extends State<CreateReviewView> {
         ?.where((item) => item.reviewed == 0)
         .toList() ?? [];
 
-    if (alreadyReviwedList!.isEmpty) {
+    if (alreadyReviwedList.isEmpty) {
       return const CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
+        navigationBar: CupertinoNavigationBar(
           middle: Text("New Review"),
-          backgroundColor: CupertinoColors.white,
+          backgroundColor: CupertinoColors.black,
         ),
         child: Center(
           child: Text("There are no more restaurants to review. Get swiping!"),
@@ -74,14 +76,14 @@ class _CreateReviewViewState extends State<CreateReviewView> {
         middle: Text(
           "New Review",
           style: TextStyle(
-            color: CupertinoColors.black,
+            color: CupertinoColors.white,
           ),
         ),
-        backgroundColor: CupertinoColors.white,
+        backgroundColor: CupertinoColors.black,
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
-        color: CupertinoColors.white,
+        color: CupertinoColors.black,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +91,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
             const Text(
               "Selected:",
               style: TextStyle(
-                color: CupertinoColors.black,
+                color: CupertinoColors.white,
               ),
             ),
             CupertinoButton(
@@ -111,14 +113,14 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                     });
                   },
                   children:
-                      List<Widget>.generate(alreadyReviwedList!.length, (int index) {
-                    return Center(child: Text(alreadyReviwedList[index].name!));
+                      List<Widget>.generate(alreadyReviwedList.length, (int index) {
+                    return Center(child: Text(alreadyReviwedList[index].name));
                   }),
                 ),
               ),
               // This displays the selected restaurant name.
               child: Text(
-                alreadyReviwedList![_selectedRestaurant].name!,
+                alreadyReviwedList[_selectedRestaurant].name,
                 style: const TextStyle(
                   fontSize: 22.0,
                 ),
@@ -128,19 +130,18 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               "Choose your rating:",
               style: TextStyle(
                 fontSize: 30,
-                color: CupertinoColors.black,
+                color: CupertinoColors.white,
               ),
             ),
             const SizedBox(height: 20.0),
             IconTheme(
               data: const IconThemeData(
-                color: CupertinoColors.black,
+                color: CupertinoColors.white,
                 size: 40.0
               ), 
               child: StarWidget(
                 initialRating: _rating,
                 onRatingChanged: (rating) {
-                  print("Changing rating in create reivew view $rating");
                   setState(() {
                     _rating = rating;
                   });
@@ -152,7 +153,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               "Describe your experience:",
               style: TextStyle(
                 fontSize: 30,
-                color: CupertinoColors.black,
+                color: CupertinoColors.white,
               ),
             ),
             const SizedBox(height: 10.0),
@@ -166,7 +167,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
               child: Column(
                 children: <Widget>[
                   CupertinoButton(
-                    color: CupertinoColors.black,
+                    color: indulgePrimary,
                     onPressed: () {
                       final review = Review.withParams(
                         restaurantId: alreadyReviwedList[_selectedRestaurant].id,
@@ -178,10 +179,11 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       reviewsViewModel.submitReview(review);
                       Restaurant restaurant = alreadyReviwedList[_selectedRestaurant];
                       restaurant.reviewed = 1;
+                      final userVM = Provider.of<UserViewModel>(context, listen: false);
+                      userVM.incrementReviewed(1);//hard-coded for our single user.
                       Provider.of<RestaurantViewModel>(context, listen: false).updateRestaurant(restaurant);
                       Provider.of<ReviewsViewModel>(context, listen: false).fetchReviews();
                       Navigator.of(context).pop();
-                      print("submitted review!");
                     },
                     child: const Text(
                       "Submit",
@@ -191,9 +193,8 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.0),
+                  const SizedBox(height: 10.0),
                   CupertinoButton(
-                    color: CupertinoColors.inactiveGray,
                     onPressed: () {
                       // go back to reviews page
                       Navigator.of(context).pop();
@@ -202,7 +203,7 @@ class _CreateReviewViewState extends State<CreateReviewView> {
                       "Cancel",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: CupertinoColors.white
+                        color: indulgePrimary
                       ),
                     ),
                   )

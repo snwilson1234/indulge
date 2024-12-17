@@ -2,40 +2,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/lists/viewmodels/list_view_model.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
-import 'package:indulge/restaurant/models/restaurant.dart';
 import 'package:indulge/restaurant/viewmodels/restaurant_view_model.dart';
 import 'package:provider/provider.dart';
 
 
-class ListDetailView extends StatelessWidget {
-  final int id;
-  final String name;
-  final List<Restaurant> listItems;
-  // TODO: remove these attr somehow
+class ListDetailView extends StatefulWidget {
+  const ListDetailView({super.key});
 
-  const ListDetailView({super.key, required this.name, required this.listItems, required this.id});
+  @override
+  _ListDetailViewState createState() => _ListDetailViewState();
+}
+
+class _ListDetailViewState extends State<ListDetailView> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool shouldShowButton = Provider.of<ListsViewModel>(context).shouldShowIndulgedButton(name);
+    final vm = Provider.of<ListViewModel>(context, listen: false);
+    bool shouldShowButton = vm.shouldShowIndulgedButton();
+    final listItems = vm.listItems;
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(
-          "$name Restaurants",
-          style: TextStyle(
-            color: CupertinoColors.black,
-          ),
+          "${vm.name} Restaurants",
         ),
-        backgroundColor: CupertinoColors.white,
+        // backgroundColor: CupertinoColors.black,
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-        color: CupertinoColors.white,
+        // color: CupertinoColors.black,
         child: ListView.separated(
-          itemCount: listItems.length,
+          itemCount: vm.listItems?.length ?? 0,
           itemBuilder: (context, index) {
 
-            final restaurant = listItems[index];
+            final restaurant = listItems![index];
 
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,24 +50,24 @@ class ListDetailView extends StatelessWidget {
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: CupertinoColors.black,
+                    color: CupertinoColors.white,
                   ),
                 ),
                 if (shouldShowButton && restaurant.indulged == 0)
                   Container(//only want to show this when name != "Been There"
                     alignment: Alignment.center,
                     child: CupertinoButton(
-                      color: CupertinoColors.black,
-                      child: Text(
+                      color: CupertinoColors.white,
+                      child: const Text(
                         "Indulged",
                         style: TextStyle(
-                          color: CupertinoColors.white
+                          color: CupertinoColors.black
                         ),
                       ), 
                       onPressed: () async {
-                        print('pressed indulged on ${restaurant.name}'); //TODO: remove this
                         await Provider.of<ListsViewModel>(context, listen: false).addRestaurantToList(1, restaurant.id!);
                         Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantIndulgedById(restaurant.id!, 1);
+                        Provider.of<ListsViewModel>(context, listen: false).fetchLists();
                         Navigator.of(context).pop();
                       }
                     ),

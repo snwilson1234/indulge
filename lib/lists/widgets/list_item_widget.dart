@@ -21,7 +21,7 @@ class ListItemWidget extends StatelessWidget {
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: CupertinoColors.black,
+              color: CupertinoColors.white,
             ),),
         ),
         Expanded(
@@ -30,14 +30,14 @@ class ListItemWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 '$size ',
-                style: TextStyle(
-                  color: CupertinoColors.black,
+                style: const TextStyle(
+                  color: CupertinoColors.white,
                 ),
               ),
               Text(
                 size == 1 ? 'entry' : 'entries',
-                style: TextStyle(
-                  color: CupertinoColors.black,
+                style: const TextStyle(
+                  color: CupertinoColors.white,
                 ),
               )
             ]

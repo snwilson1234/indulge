@@ -1,6 +1,5 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:indulge/common/list_separator.dart';
 import 'package:indulge/lists/viewmodels/lists_view_model.dart';
 import 'package:indulge/lists/widgets/user_list_widget.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +12,8 @@ class UserListsView extends StatefulWidget {
 }
 
 class _DefaultState extends State<UserListsView> {
+
+  final _textController = TextEditingController();
   
   @override
   void initState() {
@@ -24,8 +25,8 @@ class _DefaultState extends State<UserListsView> {
   Widget build(BuildContext context) {
     final vm = Provider.of<ListsViewModel>(context);
     return Container(
-      color: CupertinoColors.white,
-      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+      color: CupertinoColors.black,
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -33,16 +34,33 @@ class _DefaultState extends State<UserListsView> {
           const Text(
             "My Lists",
             style: TextStyle(
-              color: Color.fromARGB(255, 0, 0, 0),
               fontWeight: FontWeight.bold,
               fontSize: 30,
             ),
           ),
-          const ListSeparator(),
+          const SizedBox(
+            height: 10,
+          ),
           // TODO?: possibly add searchbar functionality
-          // const SearchBar(
-            
-          // ),
+          CupertinoSearchTextField(
+            controller: _textController,
+            onSubmitted: (value) {
+              // simple searching when typing term and hitting enter
+              if (value.isNotEmpty) {
+                vm.fetchKeywordLists(value);
+                _textController.clear();
+              }
+              else {
+                vm.fetchLists();
+              }
+            },
+            onTap: () {
+              vm.fetchLists();
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          ),
           Expanded(
             child: UserListWidget(
               lists: vm.lists

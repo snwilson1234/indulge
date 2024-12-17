@@ -32,14 +32,14 @@ class ProfileItemWidget extends StatelessWidget {
                 text,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: CupertinoColors.black,
+                  color: CupertinoColors.white,
                 ),
               ),
             ],
           ),
           const IconTheme(
             data: IconThemeData(
-              color: CupertinoColors.black
+              color: CupertinoColors.white
             ), 
             child: Icon(
               CupertinoIcons.right_chevron
