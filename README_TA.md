@@ -28,7 +28,7 @@ If you experience any issues with the database upon first load, please follow th
 flutter: DB PATH, changes with simulator restarts:
 /Users/snwilson/Library/Developer/CoreSimulator/Devices/203AAABA-A55E-46C7-8E35-7A8148048FD1/data/Containers/Data/Application/8592E8BF-F911-486C-A56D-24B9EEC9A06C/Documents/indulge.db
 ```
-2. Copy this path starting from /User/ and ending at /Documents/ (/User/.../Documents/)
+2. Copy this path ending at /Documents/ (.../Documents/)
 3. Open a terminal and cd to this Documents folder
 ```bash
 cd /Users/..FULL_PATH../Documents/
