@@ -23,7 +23,7 @@ these formats
 
 ### Working with the Database
 If you experience any issues with the database upon first load, please follow these instructions:
-1. Find the DB path being printed out in the terminal:
+1. After running the app with ```flutter run```, Find the DB path being printed out in the terminal:
 ```bash
 flutter: DB PATH, changes with simulator restarts:
 /Users/snwilson/Library/Developer/CoreSimulator/Devices/203AAABA-A55E-46C7-8E35-7A8148048FD1/data/Containers/Data/Application/8592E8BF-F911-486C-A56D-24B9EEC9A06C/Documents/indulge.db
