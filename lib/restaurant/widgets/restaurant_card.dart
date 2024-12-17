@@ -89,6 +89,7 @@ class _SwipeableRestaurantCardState extends State<SwipeableRestaurantCard> {
     final int restaurantId = widget.restaurant.id!;
     final restaurantVM = Provider.of<RestaurantViewModel>(context, listen: false);
     final allListsVM = Provider.of<ListsViewModel>(context, listen: false);
+    Provider.of<RestaurantViewModel>(context, listen: false).setRestuarantViewedById(restaurantId, 1);
     allListsVM.addRestaurantToList(1, restaurantId);
     restaurantVM.setRestuarantIndulgedById(restaurantId, 1);
     addToTypeListTemp();
